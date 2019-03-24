@@ -1,0 +1,10 @@
+extraParams.hxml
+--each
+
+-main examples.core.CoreBasicWindow
+-cpp build/examples/CoreBasicWindow
+--next
+
+-main examples.core.Core2DCamera
+-cpp build/examples/Core2DCamera
+--next

@@ -2,25 +2,57 @@ package raylib;
 
 import cpp.Char;
 import cpp.ConstCharStar;
-import cpp.UInt8;
 import cpp.Star;
+import cpp.UInt8;
 import cpp.VarArg;
 
 typedef ConstVoidStar = cpp.RawConstPointer<cpp.Void>;
 
 /** Vector2 type **/
+@:forward
+abstract Vector2 (Vector2Data)
+{
+	@:from static inline function fromAnonMixed1(a:{x:Int, y:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed2(a:{x:Float, y:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed3(a:{x:Int, y:Int}) return fromAnon(cast a);
+
+	@:from static inline function fromAnon(a:{x:Float, y:Float}):Vector2
+	{
+		return untyped __cpp__("Vector2{{ float({0}), float({1}) }}", a.x, a.y);
+	}
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Vector2")
 @:structAccess
-@:structInit
-extern class Vector2
+private extern class Vector2Data
 {
 	public var x:Float;
 	public var y:Float;
 }
 
 /** Vector3 type **/
+@:forward
+abstract Vector3 (Vector3Data)
+{
+	@:from static inline function fromAnonMixed1(a:{x:Int, y:Float, z:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed2(a:{x:Float, y:Int, z:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed3(a:{x:Float, y:Float, z:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed4(a:{x:Int, y:Int, z:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed5(a:{x:Int, y:Float, z:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed6(a:{x:Float, y:Int, z:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed7(a:{x:Int, y:Int, z:Int}) return fromAnon(cast a);
+
+	@:from static inline function fromAnon(a:{x:Float, y:Float, z:Float}):Vector3
+	{
+		return untyped __cpp__("Vector3{{ float({0}), float({1}), float({2}) }}", a.x, a.y, a.z);
+	}
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Vector3")
 @:structAccess
-@:structInit
-extern class Vector3
+private extern class Vector3Data
 {
 	public var x:Float;
 	public var y:Float;
@@ -28,9 +60,36 @@ extern class Vector3
 }
 
 /** Vector4 type **/
+@:forward
+abstract Vector4 (Vector4Data)
+{
+	@:from static inline function fromAnonMixed1(a:{x:Int, y:Float, z:Float, w:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed2(a:{x:Float, y:Int, z:Float, w:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed3(a:{x:Float, y:Float, z:Int, w:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed4(a:{x:Float, y:Float, z:Float, w:Int}) return fromAnon(cast a);
+
+	@:from static inline function fromAnonMixed5(a:{x:Int, y:Int, z:Float, w:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed6(a:{x:Int, y:Float, z:Int, w:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed7(a:{x:Int, y:Float, z:Float, w:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed8(a:{x:Float, y:Int, z:Int, w:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed9(a:{x:Float, y:Int, z:Float, w:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed10(a:{x:Float, y:Float, z:Int, w:Int}) return fromAnon(cast a);
+
+	@:from static inline function fromAnonMixed11(a:{x:Float, y:Int, z:Int, w:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed12(a:{x:Int, y:Float, z:Int, w:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed13(a:{x:Int, y:Int, z:Float, w:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed14(a:{x:Int, y:Int, z:Int, w:Float}) return fromAnon(cast a);
+
+	@:from static inline function fromAnon(a:{x:Float, y:Float, z:Float, w:Float}):Vector4
+	{
+		return untyped __cpp__("Vector4{{ float({0}), float({1}), float({2}), float({3}) }}", a.x, a.y, a.z, a.w);
+	}
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Vector4")
 @:structAccess
-@:structInit
-extern class Vector4
+private extern class Vector4Data
 {
 	public var x:Float;
 	public var y:Float;
@@ -42,6 +101,8 @@ extern class Vector4
 typedef Quaternion = Vector4;
 
 /** Matrix type (OpenGL style 4x4 - right handed, column major) **/
+@:include("./../lib/src/raylib.h")
+@:native("Matrix")
 @:structAccess
 extern class Matrix
 {
@@ -64,10 +125,21 @@ extern class Matrix
 }
 
 /** Color type, RGBA (32bit) **/
+@:forward
+abstract Color (ColorData)
+{
+	@:from static inline function fromAnonInt(a:{r:Int, g:Int, b:Int, a:Int}):Color return fromAnon(cast a);
+
+	@:from static inline function fromAnon(a:{r:UInt8, g:UInt8, b:UInt8, a:UInt8}):Color
+	{
+		return untyped __cpp__("Color{{ {0}, {1}, {2}, {3} }}", a.r, a.g, a.b, a.a);
+	}
+}
+
+@:include("./../lib/src/raylib.h")
 @:native("Color")
 @:structAccess
-@:structInit
-extern class Color
+private extern class ColorData
 {
 	public var r:UInt8;
 	public var g:UInt8;
@@ -76,9 +148,38 @@ extern class Color
 }
 
 /** Rectangle type **/
+@:forward
+abstract Rectangle (RectangleData)
+{
+	@:from static inline function fromAnonInt(a:{x:Int, y:Int, width:Int, height:Int}) return fromAnon(cast a);
+
+	@:from static inline function fromAnonMixed1(a:{x:Float, y:Int, width:Int, height:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed2(a:{x:Int, y:Float, width:Int, height:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed3(a:{x:Int, y:Int, width:Float, height:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed4(a:{x:Int, y:Int, width:Int, height:Float}) return fromAnon(cast a);
+
+	@:from static inline function fromAnonMixed5(a:{x:Float, y:Float, width:Int, height:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed6(a:{x:Float, y:Int, width:Float, height:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed7(a:{x:Float, y:Int, width:Int, height:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed8(a:{x:Int, y:Float, width:Float, height:Int}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed9(a:{x:Int, y:Float, width:Int, height:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed10(a:{x:Int, y:Int, width:Float, height:Float}) return fromAnon(cast a);
+
+	@:from static inline function fromAnonMixed11(a:{x:Int, y:Float, width:Float, height:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed12(a:{x:Float, y:Int, width:Float, height:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed13(a:{x:Float, y:Float, width:Int, height:Float}) return fromAnon(cast a);
+	@:from static inline function fromAnonMixed14(a:{x:Float, y:Float, width:Float, height:Int}) return fromAnon(cast a);
+
+	@:from static inline function fromAnon(a:{x:Float, y:Float, width:Float, height:Float}):Rectangle
+	{
+		return untyped __cpp__("Rectangle{{ float({0}), float({1}), float({2}), float({3}) }}", a.x, a.y, a.width, a.height);
+	}
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Rectangle")
 @:structAccess
-@:structInit
-extern class Rectangle
+private extern class RectangleData
 {
 	public var x:Float;
 	public var y:Float;
@@ -88,6 +189,8 @@ extern class Rectangle
 
 /** Image type, bpp always RGBA (32bit)
 NOTE: Data stored in CPU memory (RAM) **/
+@:include("./../lib/src/raylib.h")
+@:native("Image")
 @:structAccess
 extern class Image
 {
@@ -109,6 +212,8 @@ extern class Image
 
 /** Texture2D type
 NOTE: Data stored in GPU memory **/
+@:include("./../lib/src/raylib.h")
+@:native("Texture2D")
 @:structAccess
 extern class Texture2D
 {
@@ -135,6 +240,8 @@ typedef Texture = Texture2D;
 typedef TextureCubemap = Texture2D;
 
 /** RenderTexture2D type, for texture rendering **/
+@:include("./../lib/src/raylib.h")
+@:native("RenderTexture2D")
 @:structAccess
 extern class RenderTexture2D
 {
@@ -155,6 +262,8 @@ extern class RenderTexture2D
 typedef RenderTexture = RenderTexture2D;
 
 /** N-Patch layout info **/
+@:include("./../lib/src/raylib.h")
+@:native("NPatchInfo")
 @:structAccess
 extern class NPatchInfo
 {
@@ -178,6 +287,8 @@ extern class NPatchInfo
 }
 
 /** Font character info **/
+@:include("./../lib/src/raylib.h")
+@:native("CharInfo")
 @:structAccess
 extern class CharInfo
 {
@@ -201,6 +312,8 @@ extern class CharInfo
 }
 
 /** Font type, includes texture and charSet array data **/
+@:include("./../lib/src/raylib.h")
+@:native("Font")
 @:structAccess
 extern class Font
 {
@@ -221,8 +334,23 @@ extern class Font
 typedef SpriteFont = Font;
 
 /** Camera type, defines a camera position/orientation in 3d space **/
+@:forward
+abstract Camera3D (Camera3DData)
+{
+	@:from static inline function fromAnon(a:{position:Vector3, target:Vector3, up:Vector3, fovy:Float, type:CameraType}) return fromAnonInline(cast a);
+
+	//TODO the mixed cases
+
+	@:from static inline function fromAnonInline(a:{position:{x:Float, y:Float, z:Float}, target:{x:Float, y:Float, z:Float}, up:{x:Float, y:Float, z:Float}, fovy:Float, type:CameraType}):Camera3D
+	{
+		return untyped __cpp__("Camera3D{{ Vector3{{ float({0}), float({1}), float({2}) }}, Vector3{{ float({3}), float({4}), float({5}) }}, Vector3{{ float({6}), float({7}), float({8}) }}, float({9}), {10} }}", a.position.x, a.position.y, a.position.z, a.target.x, a.target.y, a.target.z, a.up.x, a.up.y, a.up.z, a.fovy, a.type);
+	}
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Camera3D")
 @:structAccess
-extern class Camera3D
+private extern class Camera3DData
 {
 	/** Camera position **/
 	public var position:Vector3;
@@ -237,15 +365,48 @@ extern class Camera3D
 	public var fovy:Float;
 
 	/** Camera type, defines projection type: CAMERA_PERSPECTIVE or CAMERA_ORTHOGRAPHIC **/
-	public var type:Int;
+	public var type:CameraType;
 }
 
 /** Camera type fallback, defaults to Camera3D **/
 typedef Camera = Camera3D;
 
 /** Camera2D type, defines a 2d camera **/
+@:forward
+abstract Camera2D (Camera2DData)
+{
+	@:from static inline function fromAnon(a:{offset:Vector2, target:Vector2, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+
+	@:from static inline function fromAnonInlineMixed1(a:{offset:{x:Int, y:Int}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static inline function fromAnonInlineMixed2(a:{offset:{x:Int, y:Int}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static inline function fromAnonInlineMixed3(a:{offset:{x:Int, y:Int}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static inline function fromAnonInlineMixed4(a:{offset:{x:Int, y:Int}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+
+	@:from static inline function fromAnonInlineMixed5(a:{offset:{x:Int, y:Float}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static inline function fromAnonInlineMixed6(a:{offset:{x:Int, y:Float}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static inline function fromAnonInlineMixed7(a:{offset:{x:Int, y:Float}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static inline function fromAnonInlineMixed8(a:{offset:{x:Int, y:Float}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+
+	@:from static inline function fromAnonInlineMixed9(a:{offset:{x:Float, y:Int}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static inline function fromAnonInlineMixed10(a:{offset:{x:Float, y:Int}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static inline function fromAnonInlineMixed11(a:{offset:{x:Float, y:Int}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static inline function fromAnonInlineMixed12(a:{offset:{x:Float, y:Int}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+
+	@:from static inline function fromAnonInlineMixed13(a:{offset:{x:Float, y:Float}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static inline function fromAnonInlineMixed14(a:{offset:{x:Float, y:Float}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static inline function fromAnonInlineMixed15(a:{offset:{x:Float, y:Float}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static inline function fromAnonInlineMixed16(a:{offset:{x:Float, y:Float}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+
+	@:from static inline function fromAnonInline(a:{offset:{x:Float, y:Float}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}):Camera2D
+	{
+		return untyped __cpp__("Camera2D{{ Vector2{{ float({0}), float({1}) }}, Vector2{{ float({2}), float({3}) }}, float({4}), float({5}) }}", a.offset.x, a.offset.y, a.target.x, a.target.y, a.rotation, a.zoom);
+	}
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Camera2D")
 @:structAccess
-extern class Camera2D
+private extern class Camera2DData
 {
 	/** Camera offset (displacement from target) **/
 	public var offset:Vector2;
@@ -261,6 +422,8 @@ extern class Camera2D
 }
 
 /** Bounding box type **/
+@:include("./../lib/src/raylib.h")
+@:native("BoundingBox")
 @:structAccess
 extern class BoundingBox
 {
@@ -273,6 +436,8 @@ extern class BoundingBox
 
 /** Vertex data definning a mesh
 NOTE: Data stored in CPU memory (and GPU) **/
+@:include("./../lib/src/raylib.h")
+@:native("Mesh")
 @:structAccess
 extern class Mesh
 {
@@ -323,6 +488,8 @@ extern class Mesh
 }
 
 /** Shader type (generic) **/
+@:include("./../lib/src/raylib.h")
+@:native("Shader")
 @:structAccess
 extern class Shader
 {
@@ -334,6 +501,8 @@ extern class Shader
 }
 
 /** Material texture map **/
+@:include("./../lib/src/raylib.h")
+@:native("MaterialMap")
 @:structAccess
 extern class MaterialMap
 {
@@ -348,6 +517,8 @@ extern class MaterialMap
 }
 
 /** Material type (generic) **/
+@:include("./../lib/src/raylib.h")
+@:native("Map")
 @:structAccess
 extern class Material
 {
@@ -362,6 +533,8 @@ extern class Material
 }
 
 /** Model type **/
+@:include("./../lib/src/raylib.h")
+@:native("Model")
 @:structAccess
 extern class Model
 {
@@ -376,6 +549,8 @@ extern class Model
 }
 
 /** Ray type (useful for raycast) **/
+@:include("./../lib/src/raylib.h")
+@:native("Ray")
 @:structAccess
 extern class Ray
 {
@@ -387,6 +562,8 @@ extern class Ray
 }
 
 /** Raycast hit information **/
+@:include("./../lib/src/raylib.h")
+@:native("RayHitInfo")
 @:structAccess
 extern class RayHitInfo
 {
@@ -404,6 +581,8 @@ extern class RayHitInfo
 }
 
 /** Wave type, defines audio wave data **/
+@:include("./../lib/src/raylib.h")
+@:native("Wave")
 @:structAccess
 extern class Wave
 {
@@ -424,6 +603,8 @@ extern class Wave
 }
 
 /** Sound source type **/
+@:include("./../lib/src/raylib.h")
+@:native("Sound")
 @:structAccess
 extern class Sound
 {
@@ -446,6 +627,8 @@ typedef Music = Dynamic; //Star<MusicData>; // TODO raudio
 
 /** Audio stream type
 NOTE: Useful to create custom audio streams not bound to a specific file **/
+@:include("./../lib/src/raylib.h")
+@:native("AudioStream")
 @:structAccess
 extern class AudioStream
 {
@@ -472,6 +655,8 @@ extern class AudioStream
 }
 
 /** Head-Mounted-Display device parameters **/
+@:include("./../lib/src/raylib.h")
+@:native("VrDeviceInfo")
 @:structAccess
 extern class VrDeviceInfo
 {
@@ -507,6 +692,8 @@ extern class VrDeviceInfo
 }
 
 /** VR Stereo rendering configuration for simulator **/
+@:include("./../lib/src/raylib.h")
+@:native("VrStereoConfig")
 @:structAccess
 extern class VrStereoConfig
 {
@@ -2072,27 +2259,27 @@ extern class Raylib
 
 	/** Detect if a key has been pressed once **/
 	@:native("IsKeyPressed")
-	public static extern function IsKeyPressed(key:Int):Bool;
+	public static extern function IsKeyPressed(key:KeyboardKey):Bool;
 
 	/** Detect if a key is being pressed **/
 	@:native("IsKeyDown")
-	public static extern function IsKeyDown(key:Int):Bool;
+	public static extern function IsKeyDown(key:KeyboardKey):Bool;
 
 	/** Detect if a key has been released once **/
 	@:native("IsKeyReleased")
-	public static extern function IsKeyReleased(key:Int):Bool;
+	public static extern function IsKeyReleased(key:KeyboardKey):Bool;
 
 	/** Detect if a key is NOT being pressed **/
 	@:native("IsKeyUp")
-	public static extern function IsKeyUp(key:Int):Bool;
+	public static extern function IsKeyUp(key:KeyboardKey):Bool;
 
 	/** Get latest key pressed **/
 	@:native("GetKeyPressed")
-	public static extern function GetKeyPressed():Int;
+	public static extern function GetKeyPressed():KeyboardKey;
 
 	/** Set a custom key to exit program (default is ESC) **/
 	@:native("SetExitKey")
-	public static extern function SetExitKey(key:Int):Void;
+	public static extern function SetExitKey(key:KeyboardKey):Void;
 
 	/** Detect if a gamepad is available **/
 	@:native("IsGamepadAvailable")

@@ -6,9 +6,11 @@ This requires a C++ compiler, cmake and make to build raylib during your first b
 
 Currently this only covers the `raylib.h` header.
 
+Run `haxe buildExamples.hxml` to compile all the examples, this may take a while.
+
 ## Usage
 
-Instead of doing `#include <raylib.h>` do `import raylib.Raylib.*;` and add `-lib raylib` to your hxml.
+Instead of doing `#include <raylib.h>` do `import raylib.Raylib; import raylib.Raylib.*;` and add `-lib raylib` to your hxml.
 
 ## License
 
