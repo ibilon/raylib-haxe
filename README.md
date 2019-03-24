@@ -1,5 +1,8 @@
 # raylib-haxe
 
+[![License](https://img.shields.io/badge/license-ZLIB-blue.svg)](http://opensource.org/licenses/ZLIB)
+[![Build Status](https://travis-ci.org/ibilon/raylib-haxe.svg?branch=master)](https://travis-ci.org/ibilon/raylib-haxe)
+
 Haxe externs for the [raylib library](https://github.com/raysan5/raylib).
 
 This requires a C++ compiler, cmake and make to build raylib during your first build.

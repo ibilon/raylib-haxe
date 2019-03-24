@@ -1,0 +1,27 @@
+language: haxe
+
+os:
+  - linux
+
+haxe:
+  - 4.0.0-rc.2
+
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - libasound2-dev
+      - libxcursor-dev
+      - libxinerama-dev
+      - mesa-common-dev
+      - libx11-dev
+      - libxrandr-dev
+      - libxrandr2
+      - libxi-dev
+      - libgl1-mesa-dev
+      - libglu1-mesa-dev
+
+script:
+  - haxelib install hxcpp
+  - haxe buildExamples.hxml
