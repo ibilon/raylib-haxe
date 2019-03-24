@@ -1,0 +1,11 @@
+{
+	"haxe.displayConfigurations": [
+		{
+			"label": "completion",
+			"args": [
+				"-cpp",
+				"dummy"
+			]
+		}
+	]
+}

@@ -1,0 +1,10 @@
+{
+	"name": "raylib",
+	"url": "https://github.com/ibilon/raylib-haxe",
+	"description": "Externs for the raylib library",
+	"license": "BSD",
+	"contributors": ["_ibilon"],
+	"tags": ["extern", "game", "cpp"],
+	"releasenote": "Initial release",
+	"version": "0.1.0"
+}
