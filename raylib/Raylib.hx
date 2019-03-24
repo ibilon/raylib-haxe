@@ -2415,7 +2415,7 @@ extern class Raylib
 
 	/** Set camera mode (multiple camera modes available) **/
 	@:native("SetCameraMode")
-	public static extern function SetCameraMode(camera:Camera, mode:Int):Void;
+	public static extern function SetCameraMode(camera:Camera, mode:CameraMode):Void;
 
 	/** Update camera position for selected mode **/
 	@:native("UpdateCamera")
@@ -2423,19 +2423,19 @@ extern class Raylib
 
 	/** Set camera pan key to combine with mouse movement (free camera) **/
 	@:native("SetCameraPanControl")
-	public static extern function SetCameraPanControl(panKey:Int):Void;
+	public static extern function SetCameraPanControl(panKey:KeyboardKey):Void;
 
 	/** Set camera alt key to combine with mouse movement (free camera) **/
 	@:native("SetCameraAltControl")
-	public static extern function SetCameraAltControl(altKey:Int):Void;
+	public static extern function SetCameraAltControl(altKey:KeyboardKey):Void;
 
 	/** Set camera smooth zoom key to combine with mouse (free camera) **/
 	@:native("SetCameraSmoothZoomControl")
-	public static extern function SetCameraSmoothZoomControl(szKey:Int):Void;
+	public static extern function SetCameraSmoothZoomControl(szKey:KeyboardKey):Void;
 
 	/** Set camera move controls (1st person and 3rd person cameras) **/
 	@:native("SetCameraMoveControls")
-	public static extern function SetCameraMoveControls(frontKey:Int, backKey:Int, rightKey:Int, leftKey:Int, upKey:Int, downKey:Int):Void;
+	public static extern function SetCameraMoveControls(frontKey:KeyboardKey, backKey:KeyboardKey, rightKey:KeyboardKey, leftKey:KeyboardKey, upKey:KeyboardKey, downKey:KeyboardKey):Void;
 
 	/** Draw a pixel **/
 	@:native("DrawPixel")

@@ -1,10 +1,22 @@
 extraParams.hxml
 --each
 
--main examples.core.CoreBasicWindow
--cpp build/examples/CoreBasicWindow
---next
-
 -main examples.core.Core2DCamera
 -cpp build/examples/Core2DCamera
+--next
+
+-main examples.core.Core3DCameraFirstPerson
+-cpp build/examples/Core3DCameraFirstPerson
+--next
+
+-main examples.core.Core3DCameraFree
+-cpp build/examples/Core3DCameraFree
+--next
+
+-main examples.core.Core3DMode
+-cpp build/examples/Core3DMode
+--next
+
+-main examples.core.CoreBasicWindow
+-cpp build/examples/CoreBasicWindow
 --next
