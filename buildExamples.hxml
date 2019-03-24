@@ -17,6 +17,62 @@ extraParams.hxml
 -cpp build/examples/Core3DMode
 --next
 
+-main examples.core.Core3DPicking
+-cpp build/examples/Core3DPicking
+--next
+
 -main examples.core.CoreBasicWindow
 -cpp build/examples/CoreBasicWindow
+--next
+
+-main examples.core.CoreColorSelect
+-cpp build/examples/CoreColorSelect
+--next
+
+-main examples.core.CoreCustomLogging
+-cpp build/examples/CoreCustomLogging
+--next
+
+-main examples.core.CoreDropFiles
+-cpp build/examples/CoreDropFiles
+--next
+
+-main examples.core.CoreGestureDetection
+-cpp build/examples/CoreGestureDetection
+--next
+
+-main examples.core.CoreInputGamepad
+-cpp build/examples/CoreInputGamepad
+--next
+
+-main examples.core.CoreInputKeys
+-cpp build/examples/CoreInputKeys
+--next
+
+-main examples.core.CoreInputMouse
+-cpp build/examples/CoreInputMouse
+--next
+
+-main examples.core.CoreMouseWheel
+-cpp build/examples/CoreMouseWheel
+--next
+
+-main examples.core.CoreMultiTouch
+-cpp build/examples/CoreMultiTouch
+--next
+
+-main examples.core.CoreRandomValues
+-cpp build/examples/CoreRandomValues
+--next
+
+-main examples.core.CoreStorageValues
+-cpp build/examples/CoreStorageValues
+--next
+
+-main examples.core.CoreVRSimulator
+-cpp build/examples/CoreVRSimulator
+--next
+
+-main examples.core.CoreWorldScreen
+-cpp build/examples/CoreWorldScreen
 --next

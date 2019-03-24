@@ -2,29 +2,36 @@ package raylib;
 
 import cpp.Char;
 import cpp.ConstCharStar;
+import cpp.Function;
+import cpp.Reference;
 import cpp.Star;
 import cpp.UInt8;
 import cpp.VarArg;
+import sys.FileSystem;
+
+using StringTools;
+using haxe.io.Path;
 
 typedef ConstVoidStar = cpp.RawConstPointer<cpp.Void>;
 
 /** Vector2 type **/
 @:forward
+@:unreflective
 abstract Vector2 (Vector2Data)
 {
-	@:from static inline function fromAnonMixed1(a:{x:Int, y:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed2(a:{x:Float, y:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed3(a:{x:Int, y:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed1(a:{x:Int, y:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed2(a:{x:Float, y:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed3(a:{x:Int, y:Int}) return fromAnon(cast a);
 
-	@:from static inline function fromAnon(a:{x:Float, y:Float}):Vector2
+	@:from static extern inline function fromAnon(a:{x:Float, y:Float}):Vector2
 	{
-		return untyped __cpp__("Vector2{{ float({0}), float({1}) }}", a.x, a.y);
+		return untyped __cpp__("cpp::Struct<Vector2>(Vector2{{ float({0}), float({1}) }})", a.x, a.y);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
-@:native("Vector2")
-@:structAccess
+@:native("cpp::Struct<Vector2>")
+@:unreflective
 private extern class Vector2Data
 {
 	public var x:Float;
@@ -33,25 +40,26 @@ private extern class Vector2Data
 
 /** Vector3 type **/
 @:forward
+@:unreflective
 abstract Vector3 (Vector3Data)
 {
-	@:from static inline function fromAnonMixed1(a:{x:Int, y:Float, z:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed2(a:{x:Float, y:Int, z:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed3(a:{x:Float, y:Float, z:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed4(a:{x:Int, y:Int, z:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed5(a:{x:Int, y:Float, z:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed6(a:{x:Float, y:Int, z:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed7(a:{x:Int, y:Int, z:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed1(a:{x:Int, y:Float, z:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed2(a:{x:Float, y:Int, z:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed3(a:{x:Float, y:Float, z:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed4(a:{x:Int, y:Int, z:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed5(a:{x:Int, y:Float, z:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed6(a:{x:Float, y:Int, z:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed7(a:{x:Int, y:Int, z:Int}) return fromAnon(cast a);
 
-	@:from static inline function fromAnon(a:{x:Float, y:Float, z:Float}):Vector3
+	@:from static extern inline function fromAnon(a:{x:Float, y:Float, z:Float}):Vector3
 	{
-		return untyped __cpp__("Vector3{{ float({0}), float({1}), float({2}) }}", a.x, a.y, a.z);
+		return untyped __cpp__("cpp::Struct<Vector3>(Vector3{{ float({0}), float({1}), float({2}) }})", a.x, a.y, a.z);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
-@:native("Vector3")
-@:structAccess
+@:native("cpp::Struct<Vector3>")
+@:unreflective
 private extern class Vector3Data
 {
 	public var x:Float;
@@ -61,34 +69,35 @@ private extern class Vector3Data
 
 /** Vector4 type **/
 @:forward
+@:unreflective
 abstract Vector4 (Vector4Data)
 {
-	@:from static inline function fromAnonMixed1(a:{x:Int, y:Float, z:Float, w:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed2(a:{x:Float, y:Int, z:Float, w:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed3(a:{x:Float, y:Float, z:Int, w:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed4(a:{x:Float, y:Float, z:Float, w:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed1(a:{x:Int, y:Float, z:Float, w:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed2(a:{x:Float, y:Int, z:Float, w:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed3(a:{x:Float, y:Float, z:Int, w:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed4(a:{x:Float, y:Float, z:Float, w:Int}) return fromAnon(cast a);
 
-	@:from static inline function fromAnonMixed5(a:{x:Int, y:Int, z:Float, w:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed6(a:{x:Int, y:Float, z:Int, w:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed7(a:{x:Int, y:Float, z:Float, w:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed8(a:{x:Float, y:Int, z:Int, w:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed9(a:{x:Float, y:Int, z:Float, w:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed10(a:{x:Float, y:Float, z:Int, w:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed5(a:{x:Int, y:Int, z:Float, w:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed6(a:{x:Int, y:Float, z:Int, w:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed7(a:{x:Int, y:Float, z:Float, w:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed8(a:{x:Float, y:Int, z:Int, w:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed9(a:{x:Float, y:Int, z:Float, w:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed10(a:{x:Float, y:Float, z:Int, w:Int}) return fromAnon(cast a);
 
-	@:from static inline function fromAnonMixed11(a:{x:Float, y:Int, z:Int, w:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed12(a:{x:Int, y:Float, z:Int, w:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed13(a:{x:Int, y:Int, z:Float, w:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed14(a:{x:Int, y:Int, z:Int, w:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed11(a:{x:Float, y:Int, z:Int, w:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed12(a:{x:Int, y:Float, z:Int, w:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed13(a:{x:Int, y:Int, z:Float, w:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed14(a:{x:Int, y:Int, z:Int, w:Float}) return fromAnon(cast a);
 
-	@:from static inline function fromAnon(a:{x:Float, y:Float, z:Float, w:Float}):Vector4
+	@:from static extern inline function fromAnon(a:{x:Float, y:Float, z:Float, w:Float}):Vector4
 	{
-		return untyped __cpp__("Vector4{{ float({0}), float({1}), float({2}), float({3}) }}", a.x, a.y, a.z, a.w);
+		return untyped __cpp__("cpp::Struct<Vector4>(Vector4{{ float({0}), float({1}), float({2}), float({3}) }})", a.x, a.y, a.z, a.w);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
-@:native("Vector4")
-@:structAccess
+@:native("cpp::Struct<Vector4>")
+@:unreflective
 private extern class Vector4Data
 {
 	public var x:Float;
@@ -102,8 +111,8 @@ typedef Quaternion = Vector4;
 
 /** Matrix type (OpenGL style 4x4 - right handed, column major) **/
 @:include("./../lib/src/raylib.h")
-@:native("Matrix")
-@:structAccess
+@:native("cpp::Struct<Matrix>")
+@:unreflective
 extern class Matrix
 {
 	public var m0:Float;
@@ -126,19 +135,20 @@ extern class Matrix
 
 /** Color type, RGBA (32bit) **/
 @:forward
+@:unreflective
 abstract Color (ColorData)
 {
-	@:from static inline function fromAnonInt(a:{r:Int, g:Int, b:Int, a:Int}):Color return fromAnon(cast a);
+	@:from static extern inline function fromAnonInt(a:{r:Int, g:Int, b:Int, a:Int}):Color return fromAnon(cast a);
 
-	@:from static inline function fromAnon(a:{r:UInt8, g:UInt8, b:UInt8, a:UInt8}):Color
+	@:from static extern inline function fromAnon(a:{r:UInt8, g:UInt8, b:UInt8, a:UInt8}):Color
 	{
-		return untyped __cpp__("Color{{ {0}, {1}, {2}, {3} }}", a.r, a.g, a.b, a.a);
+		return untyped __cpp__("cpp::Struct<Color>(Color{{ {0}, {1}, {2}, {3} }})", a.r, a.g, a.b, a.a);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
-@:native("Color")
-@:structAccess
+@:native("cpp::Struct<Color>")
+@:unreflective
 private extern class ColorData
 {
 	public var r:UInt8;
@@ -149,36 +159,37 @@ private extern class ColorData
 
 /** Rectangle type **/
 @:forward
+@:unreflective
 abstract Rectangle (RectangleData)
 {
-	@:from static inline function fromAnonInt(a:{x:Int, y:Int, width:Int, height:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonInt(a:{x:Int, y:Int, width:Int, height:Int}) return fromAnon(cast a);
 
-	@:from static inline function fromAnonMixed1(a:{x:Float, y:Int, width:Int, height:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed2(a:{x:Int, y:Float, width:Int, height:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed3(a:{x:Int, y:Int, width:Float, height:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed4(a:{x:Int, y:Int, width:Int, height:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed1(a:{x:Float, y:Int, width:Int, height:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed2(a:{x:Int, y:Float, width:Int, height:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed3(a:{x:Int, y:Int, width:Float, height:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed4(a:{x:Int, y:Int, width:Int, height:Float}) return fromAnon(cast a);
 
-	@:from static inline function fromAnonMixed5(a:{x:Float, y:Float, width:Int, height:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed6(a:{x:Float, y:Int, width:Float, height:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed7(a:{x:Float, y:Int, width:Int, height:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed8(a:{x:Int, y:Float, width:Float, height:Int}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed9(a:{x:Int, y:Float, width:Int, height:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed10(a:{x:Int, y:Int, width:Float, height:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed5(a:{x:Float, y:Float, width:Int, height:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed6(a:{x:Float, y:Int, width:Float, height:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed7(a:{x:Float, y:Int, width:Int, height:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed8(a:{x:Int, y:Float, width:Float, height:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed9(a:{x:Int, y:Float, width:Int, height:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed10(a:{x:Int, y:Int, width:Float, height:Float}) return fromAnon(cast a);
 
-	@:from static inline function fromAnonMixed11(a:{x:Int, y:Float, width:Float, height:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed12(a:{x:Float, y:Int, width:Float, height:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed13(a:{x:Float, y:Float, width:Int, height:Float}) return fromAnon(cast a);
-	@:from static inline function fromAnonMixed14(a:{x:Float, y:Float, width:Float, height:Int}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed11(a:{x:Int, y:Float, width:Float, height:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed12(a:{x:Float, y:Int, width:Float, height:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed13(a:{x:Float, y:Float, width:Int, height:Float}) return fromAnon(cast a);
+	@:from static extern inline function fromAnonMixed14(a:{x:Float, y:Float, width:Float, height:Int}) return fromAnon(cast a);
 
-	@:from static inline function fromAnon(a:{x:Float, y:Float, width:Float, height:Float}):Rectangle
+	@:from static extern inline function fromAnon(a:{x:Float, y:Float, width:Float, height:Float}):Rectangle
 	{
-		return untyped __cpp__("Rectangle{{ float({0}), float({1}), float({2}), float({3}) }}", a.x, a.y, a.width, a.height);
+		return untyped __cpp__("cpp::Struct<Rectangle>(Rectangle{{ float({0}), float({1}), float({2}), float({3}) }})", a.x, a.y, a.width, a.height);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
-@:native("Rectangle")
-@:structAccess
+@:native("cpp::Struct<Rectangle>")
+@:unreflective
 private extern class RectangleData
 {
 	public var x:Float;
@@ -190,8 +201,8 @@ private extern class RectangleData
 /** Image type, bpp always RGBA (32bit)
 NOTE: Data stored in CPU memory (RAM) **/
 @:include("./../lib/src/raylib.h")
-@:native("Image")
-@:structAccess
+@:native("cpp::Struct<Image>")
+@:unreflective
 extern class Image
 {
 	/** Image raw data **/
@@ -213,8 +224,8 @@ extern class Image
 /** Texture2D type
 NOTE: Data stored in GPU memory **/
 @:include("./../lib/src/raylib.h")
-@:native("Texture2D")
-@:structAccess
+@:native("cpp::Struct<Texture2D>")
+@:unreflective
 extern class Texture2D
 {
 	/** OpenGL texture id **/
@@ -241,8 +252,8 @@ typedef TextureCubemap = Texture2D;
 
 /** RenderTexture2D type, for texture rendering **/
 @:include("./../lib/src/raylib.h")
-@:native("RenderTexture2D")
-@:structAccess
+@:native("cpp::Struct<RenderTexture2D>")
+@:unreflective
 extern class RenderTexture2D
 {
 	/** OpenGL Framebuffer Object (FBO) id **/
@@ -263,8 +274,8 @@ typedef RenderTexture = RenderTexture2D;
 
 /** N-Patch layout info **/
 @:include("./../lib/src/raylib.h")
-@:native("NPatchInfo")
-@:structAccess
+@:native("cpp::Struct<NPatchInfo>")
+@:unreflective
 extern class NPatchInfo
 {
 	/** Region in the texture **/
@@ -288,8 +299,8 @@ extern class NPatchInfo
 
 /** Font character info **/
 @:include("./../lib/src/raylib.h")
-@:native("CharInfo")
-@:structAccess
+@:native("cpp::Struct<CharInfo>")
+@:unreflective
 extern class CharInfo
 {
 	/** Character value (Unicode) **/
@@ -313,8 +324,8 @@ extern class CharInfo
 
 /** Font type, includes texture and charSet array data **/
 @:include("./../lib/src/raylib.h")
-@:native("Font")
-@:structAccess
+@:native("cpp::Struct<Font>")
+@:unreflective
 extern class Font
 {
 	/** Font texture **/
@@ -335,21 +346,22 @@ typedef SpriteFont = Font;
 
 /** Camera type, defines a camera position/orientation in 3d space **/
 @:forward
+@:unreflective
 abstract Camera3D (Camera3DData)
 {
-	@:from static inline function fromAnon(a:{position:Vector3, target:Vector3, up:Vector3, fovy:Float, type:CameraType}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnon(a:{position:Vector3, target:Vector3, up:Vector3, fovy:Float, type:CameraType}) return fromAnonInline(cast a);
 
 	//TODO the mixed cases
 
-	@:from static inline function fromAnonInline(a:{position:{x:Float, y:Float, z:Float}, target:{x:Float, y:Float, z:Float}, up:{x:Float, y:Float, z:Float}, fovy:Float, type:CameraType}):Camera3D
+	@:from static extern inline function fromAnonInline(a:{position:{x:Float, y:Float, z:Float}, target:{x:Float, y:Float, z:Float}, up:{x:Float, y:Float, z:Float}, fovy:Float, type:CameraType}):Camera3D
 	{
-		return untyped __cpp__("Camera3D{{ Vector3{{ float({0}), float({1}), float({2}) }}, Vector3{{ float({3}), float({4}), float({5}) }}, Vector3{{ float({6}), float({7}), float({8}) }}, float({9}), {10} }}", a.position.x, a.position.y, a.position.z, a.target.x, a.target.y, a.target.z, a.up.x, a.up.y, a.up.z, a.fovy, a.type);
+		return untyped __cpp__("cpp::Struct<Camera3D>(Camera3D{{ Vector3{{ float({0}), float({1}), float({2}) }}, Vector3{{ float({3}), float({4}), float({5}) }}, Vector3{{ float({6}), float({7}), float({8}) }}, float({9}), {10} }})", a.position.x, a.position.y, a.position.z, a.target.x, a.target.y, a.target.z, a.up.x, a.up.y, a.up.z, a.fovy, a.type);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
-@:native("Camera3D")
-@:structAccess
+@:native("cpp::Struct<Camera3D>")
+@:unreflective
 private extern class Camera3DData
 {
 	/** Camera position **/
@@ -373,39 +385,40 @@ typedef Camera = Camera3D;
 
 /** Camera2D type, defines a 2d camera **/
 @:forward
+@:unreflective
 abstract Camera2D (Camera2DData)
 {
-	@:from static inline function fromAnon(a:{offset:Vector2, target:Vector2, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnon(a:{offset:Vector2, target:Vector2, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
 
-	@:from static inline function fromAnonInlineMixed1(a:{offset:{x:Int, y:Int}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static inline function fromAnonInlineMixed2(a:{offset:{x:Int, y:Int}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static inline function fromAnonInlineMixed3(a:{offset:{x:Int, y:Int}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static inline function fromAnonInlineMixed4(a:{offset:{x:Int, y:Int}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed1(a:{offset:{x:Int, y:Int}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed2(a:{offset:{x:Int, y:Int}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed3(a:{offset:{x:Int, y:Int}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed4(a:{offset:{x:Int, y:Int}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
 
-	@:from static inline function fromAnonInlineMixed5(a:{offset:{x:Int, y:Float}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static inline function fromAnonInlineMixed6(a:{offset:{x:Int, y:Float}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static inline function fromAnonInlineMixed7(a:{offset:{x:Int, y:Float}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static inline function fromAnonInlineMixed8(a:{offset:{x:Int, y:Float}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed5(a:{offset:{x:Int, y:Float}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed6(a:{offset:{x:Int, y:Float}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed7(a:{offset:{x:Int, y:Float}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed8(a:{offset:{x:Int, y:Float}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
 
-	@:from static inline function fromAnonInlineMixed9(a:{offset:{x:Float, y:Int}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static inline function fromAnonInlineMixed10(a:{offset:{x:Float, y:Int}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static inline function fromAnonInlineMixed11(a:{offset:{x:Float, y:Int}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static inline function fromAnonInlineMixed12(a:{offset:{x:Float, y:Int}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed9(a:{offset:{x:Float, y:Int}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed10(a:{offset:{x:Float, y:Int}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed11(a:{offset:{x:Float, y:Int}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed12(a:{offset:{x:Float, y:Int}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
 
-	@:from static inline function fromAnonInlineMixed13(a:{offset:{x:Float, y:Float}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static inline function fromAnonInlineMixed14(a:{offset:{x:Float, y:Float}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static inline function fromAnonInlineMixed15(a:{offset:{x:Float, y:Float}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static inline function fromAnonInlineMixed16(a:{offset:{x:Float, y:Float}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed13(a:{offset:{x:Float, y:Float}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed14(a:{offset:{x:Float, y:Float}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed15(a:{offset:{x:Float, y:Float}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
+	@:from static extern inline function fromAnonInlineMixed16(a:{offset:{x:Float, y:Float}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
 
-	@:from static inline function fromAnonInline(a:{offset:{x:Float, y:Float}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}):Camera2D
+	@:from static extern inline function fromAnonInline(a:{offset:{x:Float, y:Float}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}):Camera2D
 	{
-		return untyped __cpp__("Camera2D{{ Vector2{{ float({0}), float({1}) }}, Vector2{{ float({2}), float({3}) }}, float({4}), float({5}) }}", a.offset.x, a.offset.y, a.target.x, a.target.y, a.rotation, a.zoom);
+		return untyped __cpp__("cpp::Struct<Camera2D>(Camera2D{{ Vector2{{ float({0}), float({1}) }}, Vector2{{ float({2}), float({3}) }}, float({4}), float({5}) }})", a.offset.x, a.offset.y, a.target.x, a.target.y, a.rotation, a.zoom);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
-@:native("Camera2D")
-@:structAccess
+@:native("cpp::Struct<Camera2D>")
+@:unreflective
 private extern class Camera2DData
 {
 	/** Camera offset (displacement from target) **/
@@ -422,10 +435,20 @@ private extern class Camera2DData
 }
 
 /** Bounding box type **/
+@:forward
+@:unreflective
+abstract BoundingBox (BoundingBoxData)
+{
+	@:from static extern inline function fromAnon(a:{min:{x:Float, y:Float, z:Float}, max:{x:Float, y:Float, z:Float}}):BoundingBox
+	{
+		return untyped __cpp__("cpp::Struct<BoundingBox>(BoundingBox{{ Vector3{{ float({0}), float({1}), float({2}) }}, Vector3{{ float({3}), float({4}), float({5}) }} }})", a.min.x, a.min.y, a.min.z, a.max.x, a.max.y, a.max.z);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
-@:native("BoundingBox")
-@:structAccess
-extern class BoundingBox
+@:native("cpp::Struct<BoundingBox>")
+@:unreflective
+private extern class BoundingBoxData
 {
 	/** Minimum vertex box-corner **/
 	public var min:Vector3;
@@ -437,8 +460,8 @@ extern class BoundingBox
 /** Vertex data definning a mesh
 NOTE: Data stored in CPU memory (and GPU) **/
 @:include("./../lib/src/raylib.h")
-@:native("Mesh")
-@:structAccess
+@:native("cpp::Struct<Mesh>")
+@:unreflective
 extern class Mesh
 {
 	/** Number of vertices stored in arrays **/
@@ -489,8 +512,8 @@ extern class Mesh
 
 /** Shader type (generic) **/
 @:include("./../lib/src/raylib.h")
-@:native("Shader")
-@:structAccess
+@:native("cpp::Struct<Shader>")
+@:unreflective
 extern class Shader
 {
 	/** Shader program id **/
@@ -502,8 +525,8 @@ extern class Shader
 
 /** Material texture map **/
 @:include("./../lib/src/raylib.h")
-@:native("MaterialMap")
-@:structAccess
+@:native("cpp::Struct<MaterialMap>")
+@:unreflective
 extern class MaterialMap
 {
 	/** Material map texture **/
@@ -518,8 +541,8 @@ extern class MaterialMap
 
 /** Material type (generic) **/
 @:include("./../lib/src/raylib.h")
-@:native("Map")
-@:structAccess
+@:native("cpp::Struct<Map>")
+@:unreflective
 extern class Material
 {
 	/** Material shader **/
@@ -534,8 +557,8 @@ extern class Material
 
 /** Model type **/
 @:include("./../lib/src/raylib.h")
-@:native("Model")
-@:structAccess
+@:native("cpp::Struct<Model>")
+@:unreflective
 extern class Model
 {
 	/** Vertex data buffers (RAM and VRAM) **/
@@ -549,10 +572,20 @@ extern class Model
 }
 
 /** Ray type (useful for raycast) **/
+@:forward
+@:unreflective
+abstract Ray (RayData)
+{
+	@:from static extern inline function fromAnon(a:{position:{x:Float, y:Float, z:Float}, direction:{x:Float, y:Float, z:Float}}):Ray
+	{
+		return untyped __cpp__("cpp::Struct<Ray>(Ray{{ Vector3{{ float({0}), float({1}), float({2}) }}, Vector3{{ float({3}), float({4}), float({5}) }} }})", a.position.x, a.position.y, a.position.z, a.direction.x, a.direction.y, a.direction.z);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
-@:native("Ray")
-@:structAccess
-extern class Ray
+@:native("cpp::Struct<Ray>")
+@:unreflective
+private extern class RayData
 {
 	/** Ray position (origin) **/
 	public var position:Vector3;
@@ -563,8 +596,8 @@ extern class Ray
 
 /** Raycast hit information **/
 @:include("./../lib/src/raylib.h")
-@:native("RayHitInfo")
-@:structAccess
+@:native("cpp::Struct<RayHitInfo>")
+@:unreflective
 extern class RayHitInfo
 {
 	/** Did the ray hit something? **/
@@ -582,8 +615,8 @@ extern class RayHitInfo
 
 /** Wave type, defines audio wave data **/
 @:include("./../lib/src/raylib.h")
-@:native("Wave")
-@:structAccess
+@:native("cpp::Struct<Wave>")
+@:unreflective
 extern class Wave
 {
 	/** Number of samples **/
@@ -604,8 +637,8 @@ extern class Wave
 
 /** Sound source type **/
 @:include("./../lib/src/raylib.h")
-@:native("Sound")
-@:structAccess
+@:native("cpp::Struct<Sound>")
+@:unreflective
 extern class Sound
 {
 	/** Pointer to internal data used by the audio system **/
@@ -628,8 +661,8 @@ typedef Music = Dynamic; //Star<MusicData>; // TODO raudio
 /** Audio stream type
 NOTE: Useful to create custom audio streams not bound to a specific file **/
 @:include("./../lib/src/raylib.h")
-@:native("AudioStream")
-@:structAccess
+@:native("cpp::Struct<AudioStream>")
+@:unreflective
 extern class AudioStream
 {
 	/** Frequency (samples per second) **/
@@ -656,8 +689,8 @@ extern class AudioStream
 
 /** Head-Mounted-Display device parameters **/
 @:include("./../lib/src/raylib.h")
-@:native("VrDeviceInfo")
-@:structAccess
+@:native("cpp::Struct<VrDeviceInfo>")
+@:unreflective
 extern class VrDeviceInfo
 {
 	/** HMD horizontal resolution in pixels **/
@@ -693,8 +726,8 @@ extern class VrDeviceInfo
 
 /** VR Stereo rendering configuration for simulator **/
 @:include("./../lib/src/raylib.h")
-@:native("VrStereoConfig")
-@:structAccess
+@:native("cpp::Struct<VrStereoConfig>")
+@:unreflective
 extern class VrStereoConfig
 {
 	/** VR stereo rendering framebuffer **/
@@ -1147,10 +1180,20 @@ extern enum abstract GamepadNumber (UInt)
 	var GAMEPAD_PLAYER4;
 }
 
+/** Root type for GamepadPS3Button and GamepadXbox360Button. **/
+extern enum abstract GamepadButton (UInt)
+{
+}
+
+/** Root type for GamepadPS3Axis and GamepadXbox360Axis. **/
+extern enum abstract GamepadAxis (UInt)
+{
+}
+
 /** PS3 USB Controller Buttons
 TODO: Provide a generic way to list gamepad controls schemes,
 defining specific controls schemes is not a good option **/
-extern enum abstract GamepadPS3Button (UInt)
+extern enum abstract GamepadPS3Button (GamepadButton) to GamepadButton
 {
 	@:native("GAMEPAD_PS3_BUTTON_TRIANGLE")
 	var GAMEPAD_PS3_BUTTON_TRIANGLE;
@@ -1199,7 +1242,7 @@ extern enum abstract GamepadPS3Button (UInt)
 }
 
 /** PS3 USB Controller Axis **/
-extern enum abstract GamepadPS3Axis (UInt)
+extern enum abstract GamepadPS3Axis (GamepadAxis) to GamepadAxis
 {
 	@:native("GAMEPAD_PS3_AXIS_LEFT_X")
 	var GAMEPAD_PS3_AXIS_LEFT_X;
@@ -1223,7 +1266,7 @@ extern enum abstract GamepadPS3Axis (UInt)
 }
 
 /** Xbox360 USB Controller Buttons **/
-extern enum abstract GamepadXbox360Button (UInt)
+extern enum abstract GamepadXbox360Button (GamepadButton) to GamepadButton
 {
 	@:native("GAMEPAD_XBOX_BUTTON_A")
 	var GAMEPAD_XBOX_BUTTON_A;
@@ -1267,7 +1310,7 @@ extern enum abstract GamepadXbox360Button (UInt)
 
 /** Xbox360 USB Controller Axis,
 NOTE: For Raspberry Pi, axis must be reconfigured **/
-extern enum abstract GamepadXbox360Axis (UInt)
+extern enum abstract GamepadXbox360Axis (GamepadAxis) to GamepadAxis
 {
 	/** [-1..1] (left->right) **/
 	@:native("GAMEPAD_XBOX_AXIS_LEFT_X")
@@ -1802,12 +1845,110 @@ extern enum abstract NPatchType (UInt)
 }
 
 /** Callbacks to be implemented by users **/
-typedef TraceLogCallback = (logType:Int, text:ConstCharStar, args:VarArg)->Void;
+typedef TraceLogCallback = (logType:TraceLogType, text:String)->Void;
+
+@:native("va_list")
+private extern class VaList
+{
+}
 
 @:include("./../lib/src/raylib.h")
 @:build(raylib.LinkMacro.build())
-extern class Raylib
+class Raylib
 {
+	@:noCompletion
+	static var haxeTraceLogCallback:TraceLogCallback;
+
+	@:noCompletion
+	static function handle(logType:Int, text:ConstCharStar, args:VaList)
+	{
+		untyped __cpp__("
+			FILE* pFile = tmpfile();
+			vfprintf(pFile, {2}, args);
+			rewind(pFile);
+			char* buffer = NULL;
+			size_t len;
+			ssize_t bytes_read = getdelim(&buffer, &len, '\\0', pFile);
+			{0}({1}, ::String(buffer));
+			free(buffer);
+			fclose(pFile);
+		", haxeTraceLogCallback, logType, text);
+	}
+
+	//TODO find a way to get defines?
+
+	public static var PLATFORM_DESKTOP(get, never):Bool;
+
+	@:noCompletion
+	static inline function get_PLATFORM_DESKTOP()
+	{
+		return true;
+	}
+
+	public static var PLATFORM_WEB(get, never):Bool;
+
+	@:noCompletion
+	static inline function get_PLATFORM_WEB()
+	{
+		return false;
+	}
+
+	public static var PLATFORM_ANDROID(get, never):Bool;
+
+	@:noCompletion
+	static inline function get_PLATFORM_ANDROID()
+	{
+		return false;
+	}
+
+	public static var PLATFORM_RPI(get, never):Bool;
+
+	@:noCompletion
+	static inline function get_PLATFORM_RPI()
+	{
+		return false;
+	}
+
+	public static var PLATFORM_UWP(get, never):Bool;
+
+	@:noCompletion
+	static inline function get_PLATFORM_UWP()
+	{
+		return false;
+	}
+
+	public static var GRAPHICS_API_OPENGL_33(get, never):Bool;
+
+	@:noCompletion
+	static inline function get_GRAPHICS_API_OPENGL_33()
+	{
+		return true;
+	}
+
+	public static var GRAPHICS_API_OPENGL_ES2(get, never):Bool;
+
+	@:noCompletion
+	static inline function get_GRAPHICS_API_OPENGL_ES2()
+	{
+		return false;
+	}
+
+	public static var GRAPHICS_API_OPENGL_11(get, never):Bool;
+
+	@:noCompletion
+	static inline function get_GRAPHICS_API_OPENGL_11()
+	{
+		return false;
+	}
+
+	public static var GRAPHICS_API_OPENGL_21(get, never):Bool;
+
+	@:noCompletion
+	static inline function get_GRAPHICS_API_OPENGL_21()
+	{
+		return false;
+	}
+
 	@:native("PI")
 	public static extern var PI:Float;
 
@@ -1830,107 +1971,107 @@ extern class Raylib
 	public static extern var MAX_MATERIAL_MAPS:Int;
 
 	/** Light Gray **/
-	@:native("LIGHTGRAY")
+	@:native("cpp::Struct<Color>(LIGHTGRAY)")
 	public static extern var LIGHTGRAY:Color;
 
 	/** Gray **/
-	@:native("GRAY")
+	@:native("cpp::Struct<Color>(GRAY)")
 	public static extern var GRAY:Color;
 
 	/** Dark Gray **/
-	@:native("DARKGRAY")
+	@:native("cpp::Struct<Color>(DARKGRAY)")
 	public static extern var DARKGRAY:Color;
 
 	/** Yellow **/
-	@:native("YELLOW")
+	@:native("cpp::Struct<Color>(YELLOW)")
 	public static extern var YELLOW:Color;
 
 	/** Gold **/
-	@:native("GOLD")
+	@:native("cpp::Struct<Color>(GOLD)")
 	public static extern var GOLD:Color;
 
 	/** Orange **/
-	@:native("ORANGE")
+	@:native("cpp::Struct<Color>(ORANGE)")
 	public static extern var ORANGE:Color;
 
 	/** Pink **/
-	@:native("PINK")
+	@:native("cpp::Struct<Color>(PINK)")
 	public static extern var PINK:Color;
 
 	/** Red **/
-	@:native("RED")
+	@:native("cpp::Struct<Color>(RED)")
 	public static extern var RED:Color;
 
 	/** Maroon **/
-	@:native("MAROON")
+	@:native("cpp::Struct<Color>(MAROON)")
 	public static extern var MAROON:Color;
 
 	/** Green **/
-	@:native("GREEN")
+	@:native("cpp::Struct<Color>(GREEN)")
 	public static extern var GREEN:Color;
 
 	/** Lime **/
-	@:native("LIME")
+	@:native("cpp::Struct<Color>(LIME)")
 	public static extern var LIME:Color;
 
 	/** Dark Green **/
-	@:native("DARKGREEN")
+	@:native("cpp::Struct<Color>(DARKGREEN)")
 	public static extern var DARKGREEN:Color;
 
 	/** Sky Blue **/
-	@:native("SKYBLUE")
+	@:native("cpp::Struct<Color>(SKYBLUE)")
 	public static extern var SKYBLUE:Color;
 
 	/** Blue **/
-	@:native("BLUE")
+	@:native("cpp::Struct<Color>(BLUE)")
 	public static extern var BLUE:Color;
 
 	/** Dark Blue **/
-	@:native("DARKBLUE")
+	@:native("cpp::Struct<Color>(DARKBLUE)")
 	public static extern var DARKBLUE:Color;
 
 	/** Purple **/
-	@:native("PURPLE")
+	@:native("cpp::Struct<Color>(PURPLE)")
 	public static extern var PURPLE:Color;
 
 	/** Violet **/
-	@:native("VIOLET")
+	@:native("cpp::Struct<Color>(VIOLET)")
 	public static extern var VIOLET:Color;
 
 	/** Dark Purple **/
-	@:native("DARKPURPLE")
+	@:native("cpp::Struct<Color>(DARKPURPLE)")
 	public static extern var DARKPURPLE:Color;
 
 	/** Beige **/
-	@:native("BEIGE")
+	@:native("cpp::Struct<Color>(BEIGE)")
 	public static extern var BEIGE:Color;
 
 	/** Brown **/
-	@:native("BROWN")
+	@:native("cpp::Struct<Color>(BROWN)")
 	public static extern var BROWN:Color;
 
 	/** Dark Brown **/
-	@:native("DARKBROWN")
+	@:native("cpp::Struct<Color>(DARKBROWN)")
 	public static extern var DARKBROWN:Color;
 
 	/** White **/
-	@:native("WHITE")
+	@:native("cpp::Struct<Color>(WHITE)")
 	public static extern var WHITE:Color;
 
 	/** Black **/
-	@:native("BLACK")
+	@:native("cpp::Struct<Color>(BLACK)")
 	public static extern var BLACK:Color;
 
 	/** Blank (Transparent) **/
-	@:native("BLANK")
+	@:native("cpp::Struct<Color>(BLANK)")
 	public static extern var BLANK:Color;
 
 	/** Magenta **/
-	@:native("MAGENTA")
+	@:native("cpp::Struct<Color>(MAGENTA)")
 	public static extern var MAGENTA:Color;
 
 	/** My own White (raylib logo) **/
-	@:native("RAYWHITE")
+	@:native("cpp::Struct<Color>(RAYWHITE)")
 	public static extern var RAYWHITE:Color;
 
 	@:native("LOC_MAP_DIFFUSE")
@@ -2163,7 +2304,7 @@ extern class Raylib
 
 	/** Setup window configuration flags (view FLAGS) **/
 	@:native("SetConfigFlags")
-	public static extern function SetConfigFlags(flags:UInt8):Void;
+	public static extern function SetConfigFlags(flags:ConfigFlag):Void;
 
 	/** Set the current threshold (minimum) log level **/
 	@:native("SetTraceLogLevel")
@@ -2174,8 +2315,11 @@ extern class Raylib
 	public static extern function SetTraceLogExit(logType:Int):Void;
 
 	/** Set a trace log callback to enable custom logging **/
-	@:native("SetTraceLogCallback")
-	public static extern function SetTraceLogCallback(callback:TraceLogCallback):Void;
+	public static extern inline function SetTraceLogCallback(callback:TraceLogCallback):Void
+	{
+		haxeTraceLogCallback = callback;
+		untyped __cpp__("SetTraceLogCallback({0})", Function.fromStaticFunction(handle));
+	}
 
 	/** Show trace log messages (LOG_DEBUG, LOG_INFO, LOG_WARNING, LOG_ERROR) **/
 	@:native("TraceLog")
@@ -2189,57 +2333,108 @@ extern class Raylib
 	@:native("GetRandomValue")
 	public static extern function GetRandomValue(min:Int, max:Int):Int;
 
-	/** Check if file exists **/
-	@:native("FileExists")
-	public static extern function FileExists(fileName:ConstCharStar):Bool;
+	/** Check if file exists
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function FileExists(fileName:String):Bool
+	{
+		return FileSystem.exists(fileName);
+	}
 
-	/** Check file extension **/
-	@:native("IsFileExtension")
-	public static extern function IsFileExtension(fileName:ConstCharStar, ext:ConstCharStar):Bool;
+	/** Check file extension
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function IsFileExtension(fileName:String, ext:String):Bool
+	{
+		return fileName.extension() == ext;
+	}
 
-	/** Get pointer to extension for a filename string **/
-	@:native("GetExtension")
-	public static extern function GetExtension(fileName:ConstCharStar):ConstCharStar ;
+	/** Get extension for a filename string
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function GetExtension(fileName:String):String
+	{
+		return fileName.extension();
+	}
 
-	/** Get pointer to filename for a path string **/
-	@:native("GetFileName")
-	public static extern function GetFileName(filePath:ConstCharStar):ConstCharStar ;
+	/** Get filename for a path string
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function GetFileName(filePath:String):String
+	{
+		return filePath.withoutDirectory();
+	}
 
-	/** Get filename string without extension (memory should be freed) **/
-	@:native("GetFileNameWithoutExt")
-	public static extern function GetFileNameWithoutExt(filePath:ConstCharStar):ConstCharStar ;
+	/** Get filename string without extension
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function GetFileNameWithoutExt(filePath:String):String
+	{
+		return filePath.withoutDirectory().withoutExtension();
+	}
 
-	/** Get full path for a given fileName (uses static string) **/
-	@:native("GetDirectoryPath")
-	public static extern function GetDirectoryPath(fileName:ConstCharStar):ConstCharStar ;
+	/** Get full path for a given fileName
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function GetDirectoryPath(fileName:String):String
+	{
+		return fileName.directory();
+	}
 
-	/** Get current working directory (uses static string) **/
-	@:native("GetWorkingDirectory")
-	public static extern function GetWorkingDirectory():ConstCharStar ;
+	/** Get current working directory
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function GetWorkingDirectory():String
+	{
+		return Sys.getCwd();
+	}
 
-	/** Get filenames in a directory path (memory should be freed) **/
-	@:native("GetDirectoryFiles")
-	public static extern function GetDirectoryFiles(dirPath:ConstCharStar, count:Star<Int>):Star<Star<Char>>;
+	/** Get filenames in a directory path
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function GetDirectoryFiles(dirPath:String):Array<String>
+	{
+		return FileSystem.readDirectory(dirPath);
+	}
 
-	/** Clear directory files paths buffers (free memory) **/
-	@:native("ClearDirectoryFiles")
-	public static extern function ClearDirectoryFiles():Void;
+	/** Do nothing, GetDirectoryFiles' strings don't need to be freed. **/
+	public static extern inline function ClearDirectoryFiles():Void
+	{
+	}
 
-	/** Change working directory, returns true if success **/
-	@:native("ChangeDirectory")
-	public static extern function ChangeDirectory(dir:ConstCharStar):Bool;
+	/** Change working directory, returns true if success
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function ChangeDirectory(dir:String):Bool
+	{
+		try
+		{
+			Sys.setCwd(dir);
+			return true;
+		}
+		catch (_:Any)
+		{
+			return false;
+		}
+	}
 
 	/** Check if a file has been dropped into window **/
 	@:native("IsFileDropped")
 	public static extern function IsFileDropped():Bool;
 
-	/** Get dropped files names (memory should be freed) **/
-	@:native("GetDroppedFiles")
-	public static extern function GetDroppedFiles(count:Star<Int>):Star<Star<Char>>;
+	/** Get dropped files names **/
+	public static extern inline function GetDroppedFiles():Array<String>
+	{
+		var a = [];
 
-	/** Clear dropped files paths buffer (free memory) **/
-	@:native("ClearDroppedFiles")
-	public static extern function ClearDroppedFiles():Void;
+		untyped __cpp__("
+			int count;
+			char** files = GetDroppedFiles(&count);
+
+			for (int i = 0; i < count; ++i)
+			{
+				a->push(::String(files[i]));
+			}
+		", a);
+
+		return a;
+	}
+
+	/** Do nothing, GetDropFiles' string don't need to be freed. **/
+	public static extern inline function ClearDroppedFiles():Void
+	{
+	}
 
 	/** Get file modification time (last write time) **/
 	@:native("GetFileModTime")
@@ -2283,31 +2478,31 @@ extern class Raylib
 
 	/** Detect if a gamepad is available **/
 	@:native("IsGamepadAvailable")
-	public static extern function IsGamepadAvailable(gamepad:Int):Bool;
+	public static extern function IsGamepadAvailable(gamepad:GamepadNumber):Bool;
 
 	/** Check gamepad name (if available) **/
 	@:native("IsGamepadName")
-	public static extern function IsGamepadName(gamepad:Int, name:ConstCharStar):Bool;
+	public static extern function IsGamepadName(gamepad:GamepadNumber, name:ConstCharStar):Bool;
 
 	/** Return gamepad internal name id **/
 	@:native("GetGamepadName")
-	public static extern function GetGamepadName(gamepad:Int):ConstCharStar ;
+	public static extern function GetGamepadName(gamepad:GamepadNumber):ConstCharStar ;
 
 	/** Detect if a gamepad button has been pressed once **/
 	@:native("IsGamepadButtonPressed")
-	public static extern function IsGamepadButtonPressed(gamepad:Int, button:Int):Bool;
+	public static extern function IsGamepadButtonPressed(gamepad:GamepadNumber, button:GamepadButton):Bool;
 
 	/** Detect if a gamepad button is being pressed **/
 	@:native("IsGamepadButtonDown")
-	public static extern function IsGamepadButtonDown(gamepad:Int, button:Int):Bool;
+	public static extern function IsGamepadButtonDown(gamepad:GamepadNumber, button:GamepadButton):Bool;
 
 	/** Detect if a gamepad button has been released once **/
 	@:native("IsGamepadButtonReleased")
-	public static extern function IsGamepadButtonReleased(gamepad:Int, button:Int):Bool;
+	public static extern function IsGamepadButtonReleased(gamepad:GamepadNumber, button:GamepadButton):Bool;
 
 	/** Detect if a gamepad button is NOT being pressed **/
 	@:native("IsGamepadButtonUp")
-	public static extern function IsGamepadButtonUp(gamepad:Int, button:Int):Bool;
+	public static extern function IsGamepadButtonUp(gamepad:GamepadNumber, button:GamepadButton):Bool;
 
 	/** Get the last gamepad button pressed **/
 	@:native("GetGamepadButtonPressed")
@@ -2315,27 +2510,27 @@ extern class Raylib
 
 	/** Return gamepad axis count for a gamepad **/
 	@:native("GetGamepadAxisCount")
-	public static extern function GetGamepadAxisCount(gamepad:Int):Int;
+	public static extern function GetGamepadAxisCount(gamepad:GamepadNumber):Int;
 
 	/** Return axis movement value for a gamepad axis **/
 	@:native("GetGamepadAxisMovement")
-	public static extern function GetGamepadAxisMovement(gamepad:Int, axis:Int):Float;
+	public static extern function GetGamepadAxisMovement(gamepad:GamepadNumber, axis:GamepadAxis):Float;
 
 	/** Detect if a mouse button has been pressed once **/
 	@:native("IsMouseButtonPressed")
-	public static extern function IsMouseButtonPressed(button:Int):Bool;
+	public static extern function IsMouseButtonPressed(button:MouseButton):Bool;
 
 	/** Detect if a mouse button is being pressed **/
 	@:native("IsMouseButtonDown")
-	public static extern function IsMouseButtonDown(button:Int):Bool;
+	public static extern function IsMouseButtonDown(button:MouseButton):Bool;
 
 	/** Detect if a mouse button has been released once **/
 	@:native("IsMouseButtonReleased")
-	public static extern function IsMouseButtonReleased(button:Int):Bool;
+	public static extern function IsMouseButtonReleased(button:MouseButton):Bool;
 
 	/** Detect if a mouse button is NOT being pressed **/
 	@:native("IsMouseButtonUp")
-	public static extern function IsMouseButtonUp(button:Int):Bool;
+	public static extern function IsMouseButtonUp(button:MouseButton):Bool;
 
 	/** Returns mouse position X **/
 	@:native("GetMouseX")
@@ -2387,7 +2582,7 @@ extern class Raylib
 
 	/** Get latest detected gesture **/
 	@:native("GetGestureDetected")
-	public static extern function GetGestureDetected():Int;
+	public static extern function GetGestureDetected():GestureType;
 
 	/** Get touch points count **/
 	@:native("GetTouchPointsCount")
@@ -2418,8 +2613,10 @@ extern class Raylib
 	public static extern function SetCameraMode(camera:Camera, mode:CameraMode):Void;
 
 	/** Update camera position for selected mode **/
-	@:native("UpdateCamera")
-	public static extern function UpdateCamera(camera:Star<Camera>):Void;
+	public static extern inline function UpdateCamera(camera:Reference<Camera>):Void
+	{
+		untyped __cpp__("UpdateCamera(&({0}.value))", camera);
+	}
 
 	/** Set camera pan key to combine with mouse movement (free camera) **/
 	@:native("SetCameraPanControl")
@@ -2531,11 +2728,11 @@ extern class Raylib
 
 	/** Draw a closed polygon defined by points **/
 	@:native("DrawPolyEx")
-	public static extern function DrawPolyEx(points:Star<Vector2>, numPoints:Int, color:Color):Void;
+	public static extern function DrawPolyEx(points:Star<Vector2>, numPoints:Int, color:Color):Void; // TODO to Array
 
 	/** Draw polygon lines **/
 	@:native("DrawPolyExLines")
-	public static extern function DrawPolyExLines(points:Star<Vector2>, numPoints:Int, color:Color):Void;
+	public static extern function DrawPolyExLines(points:Star<Vector2>, numPoints:Int, color:Color):Void; // TODO to Array
 
 	/** Define default texture used to draw shapes **/
 	@:native("SetShapesTexture")
@@ -2575,11 +2772,11 @@ extern class Raylib
 
 	/** Load image from Color array data (RGBA - 32bit) **/
 	@:native("LoadImageEx")
-	public static extern function LoadImageEx(pixels:Star<Color>, width:Int, height:Int):Image;
+	public static extern function LoadImageEx(pixels:Star<Color>, width:Int, height:Int):Image; // TODO to Array
 
 	/** Load image from raw data with parameters **/
 	@:native("LoadImagePro")
-	public static extern function LoadImagePro(data:Star<cpp.Void>, width:Int, height:Int, format:Int):Image;
+	public static extern function LoadImagePro(data:Star<cpp.Void>, width:Int, height:Int, format:Int):Image; // TODO to Array
 
 	/** Load image from RAW file data **/
 	@:native("LoadImageRaw")
@@ -2623,11 +2820,11 @@ extern class Raylib
 
 	/** Get pixel data from image as a Color struct array **/
 	@:native("GetImageData")
-	public static extern function GetImageData(image:Image):Star<Color>;
+	public static extern function GetImageData(image:Image):Star<Color>; // TODO to Array
 
 	/** Get pixel data from image as Vector4 array (Float normalized) **/
 	@:native("GetImageDataNormalized")
-	public static extern function GetImageDataNormalized(image:Image):Star<Vector4>;
+	public static extern function GetImageDataNormalized(image:Image):Star<Vector4>; // TODO to Array
 
 	/** Get pixel data size in bytes (image or texture) **/
 	@:native("GetPixelDataSize")
@@ -2650,56 +2847,80 @@ extern class Raylib
 	public static extern function ImageCopy(image:Image):Image;
 
 	/** Convert image to POT (power-of-two) **/
-	@:native("ImageToPOT")
-	public static extern function ImageToPOT(image:Star<Image>, fillColor:Color):Void;
+	public static extern inline function ImageToPOT(image:Reference<Image>, fillColor:Color):Void
+	{
+		untyped __cpp__("ImageToPOT(&({0}.value), {1})", image, fillColor);
+	}
 
 	/** Convert image data to desired format **/
-	@:native("ImageFormat")
-	public static extern function ImageFormat(image:Star<Image>, newFormat:Int):Void;
+	public static extern inline function ImageFormat(image:Reference<Image>, newFormat:Int):Void
+	{
+		untyped __cpp__("ImageFormat(&({0}.value), {1})", image, newFormat);
+	}
 
 	/** Apply alpha mask to image **/
-	@:native("ImageAlphaMask")
-	public static extern function ImageAlphaMask(image:Star<Image>, alphaMask:Image):Void;
+	public static extern inline function ImageAlphaMask(image:Reference<Image>, alphaMask:Image):Void
+	{
+		untyped __cpp__("ImageAlphaMask(&({0}.value), {1})", image, alphaMask);
+	}
 
 	/** Clear alpha channel to desired color **/
-	@:native("ImageAlphaClear")
-	public static extern function ImageAlphaClear(image:Star<Image>, color:Color, threshold:Float):Void;
+	public static extern inline function ImageAlphaClear(image:Reference<Image>, color:Color, threshold:Float):Void
+	{
+		untyped __cpp__("ImageAlphaClear(&({0}.value), {1}, float({2}))", image, color, threshold);
+	}
 
 	/** Crop image depending on alpha value **/
-	@:native("ImageAlphaCrop")
-	public static extern function ImageAlphaCrop(image:Star<Image>, threshold:Float):Void;
+	public static extern inline function ImageAlphaCrop(image:Reference<Image>, threshold:Float):Void
+	{
+		untyped __cpp__("ImageAlphaCrop(&({0}.value), float({1}))", image, threshold);
+	}
 
 	/** Premultiply alpha channel **/
-	@:native("ImageAlphaPremultiply")
-	public static extern function ImageAlphaPremultiply(image:Star<Image>):Void;
+	public static extern inline function ImageAlphaPremultiply(image:Reference<Image>):Void
+	{
+		untyped __cpp__("ImageAlphaPremultiply(&({0}.value))", image);
+	}
 
 	/** Crop an image to a defined rectangle **/
-	@:native("ImageCrop")
-	public static extern function ImageCrop(image:Star<Image>, crop:Rectangle):Void;
+	public static extern inline function ImageCrop(image:Reference<Image>, crop:Rectangle):Void
+	{
+		untyped __cpp__("ImageCrop(&({0}.value), {1})", image, crop);
+	}
 
 	/** Resize image (Bicubic scaling algorithm) **/
-	@:native("ImageResize")
-	public static extern function ImageResize(image:Star<Image>, newWidth:Int, newHeight:Int):Void;
+	public static extern inline function ImageResize(image:Reference<Image>, newWidth:Int, newHeight:Int):Void
+	{
+		untyped __cpp__("ImageResize(&({0}.value), {1}, {2})", image, newWidth, newHeight);
+	}
 
 	/** Resize image (Nearest-Neighbor scaling algorithm) **/
-	@:native("ImageResizeNN")
-	public static extern function ImageResizeNN(image:Star<Image>, newWidth:Int, newHeight:Int):Void;
+	public static extern inline function ImageResizeNN(image:Reference<Image>, newWidth:Int, newHeight:Int):Void
+	{
+		untyped __cpp__("ImageResizeNN(&({0}.value), {1}, {2})", image, newWidth, newHeight);
+	}
 
 	/** Resize canvas and fill with color **/
-	@:native("ImageResizeCanvas")
-	public static extern function ImageResizeCanvas(image:Star<Image>, newWidth:Int, newHeight:Int, offsetX:Int, offsetY:Int, color:Color):Void;
+	public static extern inline function ImageResizeCanvas(image:Reference<Image>, newWidth:Int, newHeight:Int, offsetX:Int, offsetY:Int, color:Color):Void
+	{
+		untyped __cpp__("ImageResizeCanvas(&({0}.value), {1}, {2}, {3}, {4}, {5})", image, newWidth, newHeight, offsetX, offsetY, color);
+	}
 
 	/** Generate all mipmap levels for a provided image **/
-	@:native("ImageMipmaps")
-	public static extern function ImageMipmaps(image:Star<Image>):Void;
+	public static extern inline function ImageMipmaps(image:Reference<Image>):Void
+	{
+		untyped __cpp__("ImageMipmaps(&({0}.value))", image);
+	}
 
 	/** Dither image data to 16bpp or lower (Floyd-Steinberg dithering) **/
-	@:native("ImageDither")
-	public static extern function ImageDither(image:Star<Image>, rBpp:Int, gBpp:Int, bBpp:Int, aBpp:Int):Void;
+	public static extern inline function ImageDither(image:Reference<Image>, rBpp:Int, gBpp:Int, bBpp:Int, aBpp:Int):Void
+	{
+		untyped __cpp__("ImageDither(&({0}.value), {1}, {2}, {3}, {4})", image, rBpp, gBpp, bBpp, aBpp);
+	}
 
 	/** Extract color palette from image to maximum size (memory should be freed) **/
 	@:native("ImageExtractPalette")
-	public static extern function ImageExtractPalette(image:Int, maxPaletteSize:Int, extractCount:Star<Int>):Star<Color>;
+	public static extern function ImageExtractPalette(image:Int, maxPaletteSize:Int, extractCount:Star<Int>):Star<Color>; // TODO to Array
 
 	/** Create an image from text (default font) **/
 	@:native("ImageText")
@@ -2710,64 +2931,94 @@ extern class Raylib
 	public static extern function ImageTextEx(font:Font, text:ConstCharStar, fontSize:Float, spacing:Float, tint:Color):Image;
 
 	/** Draw a source image within a destination image **/
-	@:native("ImageDraw")
-	public static extern function ImageDraw(dst:Star<Image>, src:Image, srcRec:Rectangle, dstRec:Rectangle):Void;
+	public static extern inline function ImageDraw(dst:Reference<Image>, src:Image, srcRec:Rectangle, dstRec:Rectangle):Void
+	{
+		untyped __cpp__("ImageDraw(&({0}.value), {1}, {2}, {3})", dst, src, srcRec, dstRec);
+	}
 
 	/** Draw rectangle within an image **/
-	@:native("ImageDrawRectangle")
-	public static extern function ImageDrawRectangle(dst:Star<Image>, rec:Rectangle, color:Color):Void;
+	public static extern inline function ImageDrawRectangle(dst:Reference<Image>, rec:Rectangle, color:Color):Void
+	{
+		untyped __cpp__("ImageDrawRectangle(&({0}.value), {1}, {2})", dst, rec, color);
+	}
 
 	/** Draw rectangle lines within an image **/
-	@:native("ImageDrawRectangleLines")
-	public static extern function ImageDrawRectangleLines(dst:Star<Image>, rec:Rectangle, thick:Int, color:Color):Void;
+	public static extern inline function ImageDrawRectangleLines(dst:Reference<Image>, rec:Rectangle, thick:Int, color:Color):Void
+	{
+		untyped __cpp__("ImageDrawRectangleLines(&({0}.value), {1}, {2}, {3})", dst, rec, thick, color);
+	}
 
 	/** Draw text (default font) within an image (destination) **/
-	@:native("ImageDrawText")
-	public static extern function ImageDrawText(dst:Star<Image>, position:Vector2, text:ConstCharStar, fontSize:Int, color:Color):Void;
+	public static extern inline function ImageDrawText(dst:Reference<Image>, position:Vector2, text:ConstCharStar, fontSize:Int, color:Color):Void
+	{
+		untyped __cpp__("ImageDrawText(&({0}.value), {1}, {2}, {3}, {4})", dst, position, text, fontSize, color);
+	}
 
 	/** Draw text (custom sprite font) within an image (destination) **/
-	@:native("ImageDrawTextEx")
-	public static extern function ImageDrawTextEx(dst:Star<Image>, position:Vector2, font:Font, text:ConstCharStar, fontSize:Float, spacing:Float, color:Color):Void;
+	public static extern inline function ImageDrawTextEx(dst:Reference<Image>, position:Vector2, font:Font, text:ConstCharStar, fontSize:Float, spacing:Float, color:Color):Void
+	{
+		untyped __cpp__("ImageDrawTextEx(&({0}.value), {1}, {2}, {3}, float({4}), float({5}), {6})", dst, position, font, text, fontSize, spacing, color);
+	}
 
 	/** Flip image vertically **/
-	@:native("ImageFlipVertical")
-	public static extern function ImageFlipVertical(image:Star<Image>):Void;
+	public static extern inline function ImageFlipVertical(image:Reference<Image>):Void
+	{
+		untyped __cpp__("ImageFlipVertical(&({0}.value))", image);
+	}
 
 	/** Flip image horizontally **/
-	@:native("ImageFlipHorizontal")
-	public static extern function ImageFlipHorizontal(image:Star<Image>):Void;
+	public static extern inline function ImageFlipHorizontal(image:Reference<Image>):Void
+	{
+		untyped __cpp__("ImageFlipHorizontal(&({0}.value))", image);
+	}
 
 	/** Rotate image clockwise 90deg **/
-	@:native("ImageRotateCW")
-	public static extern function ImageRotateCW(image:Star<Image>):Void;
+	public static extern inline function ImageRotateCW(image:Reference<Image>):Void
+	{
+		untyped __cpp__("ImageRotateCW(&({0}.value))", image);
+	}
 
 	/** Rotate image counter-clockwise 90deg **/
-	@:native("ImageRotateCCW")
-	public static extern function ImageRotateCCW(image:Star<Image>):Void;
+	public static extern inline function ImageRotateCCW(image:Reference<Image>):Void
+	{
+		untyped __cpp__("ImageRotateCCW(&({0}.value))", image);
+	}
 
 	/** Modify image color: tint **/
-	@:native("ImageColorTint")
-	public static extern function ImageColorTint(image:Star<Image>, color:Color):Void;
+	public static extern inline function ImageColorTint(image:Reference<Image>, color:Color):Void
+	{
+		untyped __cpp__("ImageColorTint(&({0}.value), {1})", image, color);
+	}
 
 	/** Modify image color: invert **/
-	@:native("ImageColorInvert")
-	public static extern function ImageColorInvert(image:Star<Image>):Void;
+	public static extern inline function ImageColorInvert(image:Reference<Image>):Void
+	{
+		untyped __cpp__("ImageColorInvert(&({0}.value))", image);
+	}
 
 	/** Modify image color: grayscale **/
-	@:native("ImageColorGrayscale")
-	public static extern function ImageColorGrayscale(image:Star<Image>):Void;
+	public static extern inline function ImageColorGrayscale(image:Reference<Image>):Void
+	{
+		untyped __cpp__("ImageColorGrayscale(&({0}.value))", image);
+	}
 
 	/** Modify image color: contrast (-100 to 100) **/
-	@:native("ImageColorContrast")
-	public static extern function ImageColorContrast(image:Star<Image>, contrast:Float):Void;
+	public static extern inline function ImageColorContrast(image:Reference<Image>, contrast:Float):Void
+	{
+		untyped __cpp__("ImageColorContrast(&({0}.value), float({1}))", image, constrast);
+	}
 
 	/** Modify image color: brightness (-255 to 255) **/
-	@:native("ImageColorBrightness")
-	public static extern function ImageColorBrightness(image:Star<Image>, brightness:Int):Void;
+	public static extern inline function ImageColorBrightness(image:Reference<Image>, brightness:Int):Void
+	{
+		untyped __cpp__("ImageColorBrightness(&({0}.value), {1})", image, brightness);
+	}
 
 	/** Modify image color: replace color **/
-	@:native("ImageColorReplace")
-	public static extern function ImageColorReplace(image:Star<Image>, color:Color, replace:Color):Void;
+	public static extern inline function ImageColorReplace(image:Reference<Image>, color:Color, replace:Color):Void
+	{
+		untyped __cpp__("ImageColorReplace(&({0}.value), {1}, {2})", image, color, replace);
+	}
 
 	/** Generate image: plain color **/
 	@:native("GenImageColor")
@@ -2802,8 +3053,10 @@ extern class Raylib
 	public static extern function GenImageCellular(width:Int, height:Int, tileSize:Int):Image;
 
 	/** Generate GPU mipmaps for a texture **/
-	@:native("GenTextureMipmaps")
-	public static extern function GenTextureMipmaps(texture:Star<Texture2D>):Void;
+	public static extern inline function GenTextureMipmaps(texture:Reference<Texture2D>):Void
+	{
+		untyped __cpp__("GenTextureMipmaps(&({0}.value))", texture);
+	}
 
 	/** Set texture scaling filter mode **/
 	@:native("SetTextureFilter")
@@ -2851,7 +3104,7 @@ extern class Raylib
 
 	/** Load font from file with extended parameters **/
 	@:native("LoadFontEx")
-	public static extern function LoadFontEx(fileName:ConstCharStar, fontSize:Int, fontChars:Star<Int>, charsCount:Int):Font;
+	public static extern function LoadFontEx(fileName:ConstCharStar, fontSize:Int, fontChars:Star<Int>, charsCount:Int):Font; // TODO to Array
 
 	/** Load font from Image (XNA style) **/
 	@:native("LoadFontFromImage")
@@ -2859,11 +3112,13 @@ extern class Raylib
 
 	/** Load font data for further use **/
 	@:native("LoadFontData")
-	public static extern function LoadFontData(fileName:ConstCharStar, fontSize:Int, fontChars:Star<Int>, charsCount:Int, type:Int):Star<CharInfo>;
+	public static extern function LoadFontData(fileName:ConstCharStar, fontSize:Int, fontChars:Star<Int>, charsCount:Int, type:Int):Star<CharInfo>; // TODO to Array
 
 	/** Generate image font atlas using chars info **/
-	@:native("GenImageFontAtlas")
-	public static extern function GenImageFontAtlas(chars:Star<CharInfo>, charsCount:Int, fontSize:Int, padding:Int, packMethod:Int):Image;
+	public static extern inline function GenImageFontAtlas(chars:Reference<CharInfo>, charsCount:Int, fontSize:Int, padding:Int, packMethod:Int):Image
+	{
+		return untyped __cpp__("GenImageFontAtlas(&({0}.value), {1}, {2}, {3}, {4})", chars, charsCount, fontSize, padding, packMethod);
+	}
 
 	/** Unload Font from GPU memory (VRAM) **/
 	@:native("UnloadFont")
@@ -2901,61 +3156,103 @@ extern class Raylib
 	@:native("GetGlyphIndex")
 	public static extern function GetGlyphIndex(font:Font, character:Int):Int;
 
-	/** Check if two text string are equal **/
-	@:native("TextIsEqual")
-	public static extern function TextIsEqual(text1:ConstCharStar, text2:ConstCharStar):Bool;
+	/** Check if two text string are equal
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function TextIsEqual(text1:String, text2:String):Bool
+	{
+		return text1 == text2;
+	}
 
-	/** Get text length, checks for '\0' ending **/
-	@:native("TextLength")
-	public static extern function TextLength(text:ConstCharStar):UInt;
+	/** Get text length, checks for '\0' ending
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function TextLength(text:String):UInt
+	{
+		var l:UInt = 0;
+
+		for (i in 0...text.length)
+		{
+			if (text.charCodeAt(i) == 0)
+			{
+				return i;
+			}
+		}
+
+		return text.length;
+	}
 
 	/** Text formatting with variables (sprintf style) **/
 	@:native("TextFormat")
-	public static extern function TextFormat(text:ConstCharStar, rest:VarArg):ConstCharStar;
+	public static extern function TextFormat(text:ConstCharStar, rest:VarArg):ConstCharStar; //TODO
 
-	/** Get a piece of a text string **/
-	@:native("TextSubtext")
-	public static extern function TextSubtext(text:ConstCharStar, position:Int, length:Int):ConstCharStar ;
+	/** Get a piece of a text string
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function TextSubtext(text:String, position:Int, length:Int):String
+	{
+		return text.substr(position, length);
+	}
 
-	/** Replace text string (memory should be freed!) **/
-	@:native("TextReplace")
-	public static extern function TextReplace(text:Star<cpp.Char>, replace:ConstCharStar, by:ConstCharStar):ConstCharStar ;
+	/** Replace text string
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function TextReplace(text:String, replace:String, by:String):String
+	{
+		return text.replace(replace, by);
+	}
 
-	/** Insert text in a position (memory should be freed!) **/
-	@:native("TextInsert")
-	public static extern function TextInsert(text:ConstCharStar, insert:ConstCharStar, position:Int):ConstCharStar ;
+	/** Insert text in a position
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function TextInsert(text:String, insert:String, position:Int):String
+	{
+		return text.substr(0, position) + insert + text.substr(position);
+	}
 
-	/** Join text strings with delimiter **/
-	@:native("TextJoin")
-	public static extern function TextJoin(textList:Star<ConstCharStar>, count:Int, delimiter:ConstCharStar):ConstCharStar ;
+	/** Join text strings with delimiter
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function TextJoin(textList:Array<String>, delimiter:String):String
+	{
+		return textList.join(delimiter);
+	}
 
-	/** Split text into multiple strings **/
-	@:native("TextSplit")
-	public static extern function TextSplit(text:ConstCharStar, delimiter:cpp.Char, count:Star<Int>):Star<ConstCharStar>;
+	/** Split text into multiple strings
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function TextSplit(text:String, delimiter:String):Array<String>
+	{
+		return text.split(delimiter);
+	}
 
 	/** Append text at specific position and move cursor! **/
-	@:native("TextAppend")
-	public static extern function TextAppend(text:Star<cpp.Char>, append:ConstCharStar, position:Star<Int>):Void;
+	public static extern function TextAppend(text:Star<Char>, append:ConstCharStar, position:Star<Int>):Void; // TODO
 
-	/** Find first text occurrence within a string **/
-	@:native("TextFindIndex")
-	public static extern function TextFindIndex(text:ConstCharStar, find:ConstCharStar):Int;
+	/** Find first text occurrence within a string
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function TextFindIndex(text:String, find:String):Int
+	{
+		return text.indexOf(find);
+	}
 
-	/** Get upper case version of provided string **/
-	@:native("TextToUpper")
-	public static extern function TextToUpper(text:ConstCharStar):ConstCharStar ;
+	/** Get upper case version of provided string
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function TextToUpper(text:String):String
+	{
+		return text.toUpperCase();
+	}
 
-	/** Get lower case version of provided string **/
-	@:native("TextToLower")
-	public static extern function TextToLower(text:ConstCharStar):ConstCharStar ;
+	/** Get lower case version of provided string
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function TextToLower(text:String):String
+	{
+		return text.toLowerCase();
+	}
 
 	/** Get Pascal case notation version of provided string **/
 	@:native("TextToPascal")
-	public static extern function TextToPascal(text:ConstCharStar):ConstCharStar ;
+	public static extern function TextToPascal(text:ConstCharStar):ConstCharStar; // TODO
 
-	/** Get integer value from text (negative values not supported) **/
-	@:native("TextToInteger")
-	public static extern function TextToInteger(text:ConstCharStar):Int;
+	/** Get integer value from text.
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function TextToInteger(text:String):Int
+	{
+		return Std.parseInt(text);
+	}
 
 	/** Draw a line in 3D world space **/
 	@:native("DrawLine3D")
@@ -3038,8 +3335,10 @@ extern class Raylib
 	public static extern function LoadMesh(fileName:ConstCharStar):Mesh;
 
 	/** Unload mesh from memory (RAM and/or VRAM) **/
-	@:native("UnloadMesh")
-	public static extern function UnloadMesh(mesh:Star<Mesh>):Void;
+	public static extern inline function UnloadMesh(mesh:Reference<Mesh>):Void
+	{
+		untyped __cpp__("UnloadMesh(&({0}.value))", mesh);
+	}
 
 	/** Export mesh data to file **/
 	@:native("ExportMesh")
@@ -3050,12 +3349,16 @@ extern class Raylib
 	public static extern function MeshBoundingBox(mesh:Mesh):BoundingBox;
 
 	/** Compute mesh tangents **/
-	@:native("MeshTangents")
-	public static extern function MeshTangents(mesh:Star<Mesh>):Void;
+	public static extern inline function MeshTangents(mesh:Reference<Mesh>):Void
+	{
+		untyped __cpp__("MeshTangents(&({0}.value))", mesh);
+	}
 
 	/** Compute mesh binormals **/
-	@:native("MeshBinormals")
-	public static extern function MeshBinormals(mesh:Star<Mesh>):Void;
+	public static extern inline function MeshBinormals(mesh:Reference<Mesh>):Void
+	{
+		untyped __cpp__("MeshBinormals(&({0}.value))", mesh);
+	}
 
 	/** Generate polygonal mesh **/
 	@:native("GenMeshPoly")
@@ -3154,16 +3457,20 @@ extern class Raylib
 	public static extern function CheckCollisionRaySphere(ray:Ray, spherePosition:Vector3, sphereRadius:Float):Bool;
 
 	/** Detect collision between ray and sphere, returns collision point **/
-	@:native("CheckCollisionRaySphereEx")
-	public static extern function CheckCollisionRaySphereEx(ray:Ray, spherePosition:Vector3, sphereRadius:Float, collisionPoint:Star<Vector3>):Bool;
+	public static extern inline function CheckCollisionRaySphereEx(ray:Ray, spherePosition:Vector3, sphereRadius:Float, collisionPoint:Reference<Vector3>):Bool
+	{
+		return untyped __cpp__("CheckCollisionRaySphereEx({0}, {1}, float({2}), &({3}.value))", ray, spherePosition, sphereRadius, collisionPoint);
+	}
 
 	/** Detect collision between ray and box **/
 	@:native("CheckCollisionRayBox")
 	public static extern function CheckCollisionRayBox(ray:Ray, box:BoundingBox):Bool;
 
 	/** Get collision info between ray and model **/
-	@:native("GetCollisionRayModel")
-	public static extern function GetCollisionRayModel(ray:Ray, model:Star<Model>):RayHitInfo;
+	public static extern inline function GetCollisionRayModel(ray:Ray, model:Reference<Model>):RayHitInfo
+	{
+		return untyped __cpp__("GetCollisionRayModel({0}, &({1}.value))", ray, model);
+	}
 
 	/** Get collision info between ray and triangle **/
 	@:native("GetCollisionRayTriangle")
@@ -3175,7 +3482,7 @@ extern class Raylib
 
 	/** Load chars array from text file **/
 	@:native("LoadText")
-	public static extern function LoadText(fileName:ConstCharStar):Star<Char>;
+	public static extern function LoadText(fileName:ConstCharStar):Star<Char>; // TODO use File API
 
 	/** Load shader from files and bind default locations **/
 	@:native("LoadShader")
@@ -3267,15 +3574,17 @@ extern class Raylib
 
 	/** Get VR device information for some standard devices **/
 	@:native("GetVrDeviceInfo")
-	public static extern function GetVrDeviceInfo(vrDeviceType:Int):VrDeviceInfo;
+	public static extern function GetVrDeviceInfo(vrDeviceType:VrDeviceType):VrDeviceInfo;
 
 	/** Init VR simulator for selected device parameters **/
 	@:native("InitVrSimulator")
 	public static extern function InitVrSimulator(info:VrDeviceInfo):Void;
 
 	/** Update VR tracking (position and orientation) and camera **/
-	@:native("UpdateVrTracking")
-	public static extern function UpdateVrTracking(camera:Star<Camera>):Void;
+	public static extern inline function UpdateVrTracking(camera:Reference<Camera>):Void
+	{
+		untyped __cpp__("UpdateVrTracking(&({0}.value))", camera);
+	}
 
 	/** Close VR simulator for current device **/
 	@:native("CloseVrSimulator")
@@ -3319,7 +3628,7 @@ extern class Raylib
 
 	/** Load wave data from raw array data **/
 	@:native("LoadWaveEx")
-	public static extern function LoadWaveEx(data:Star<cpp.Void>, sampleCount:Int, sampleRate:Int, sampleSize:Int, channels:Int):Wave;
+	public static extern function LoadWaveEx(data:Star<cpp.Void>, sampleCount:Int, sampleRate:Int, sampleSize:Int, channels:Int):Wave; // TODO to Array
 
 	/** Load sound from file **/
 	@:native("LoadSound")
@@ -3378,20 +3687,24 @@ extern class Raylib
 	public static extern function SetSoundPitch(sound:Sound, pitch:Float):Void;
 
 	/** Convert wave data to desired format **/
-	@:native("WaveFormat")
-	public static extern function WaveFormat(wave:Star<Wave>, sampleRate:Int, sampleSize:Int, channels:Int):Void;
+	public static extern inline function WaveFormat(wave:Reference<Wave>, sampleRate:Int, sampleSize:Int, channels:Int):Void
+	{
+		untyped __cpp__("WaveFormat(&({0}.value), {1}, {2}, {3})", wave, sampleRate, sampleSize, channels);
+	}
 
 	/** Copy a wave to a new wave **/
 	@:native("WaveCopy")
 	public static extern function WaveCopy(wave:Wave):Wave;
 
 	/** Crop a wave to defined samples range **/
-	@:native("WaveCrop")
-	public static extern function WaveCrop(wave:Star<Wave>, initSample:Int, finalSample:Int):Void;
+	public static extern inline function WaveCrop(wave:Reference<Wave>, initSample:Int, finalSample:Int):Void
+	{
+		untyped __cpp__("WaveCrop(&({0}.value), {1}, {2})", wave, initSample, finalSample);
+	}
 
 	/** Get samples data from wave as a floats array **/
 	@:native("GetWaveData")
-	public static extern function GetWaveData(wave:Wave):Star<Float>;
+	public static extern function GetWaveData(wave:Wave):Star<Float>; // TODO to Array
 
 	/** Load music stream from file **/
 	@:native("LoadMusicStream")
