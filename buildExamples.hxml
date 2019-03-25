@@ -1,6 +1,22 @@
 extraParams.hxml
 --each
 
+-main examples.audio.AudioModulePlaying
+-cpp build/examples/AudioModulePlaying
+--next
+
+-main examples.audio.AudioMusicStream
+-cpp build/examples/AudioMusicStream
+--next
+
+#-main examples.audio.AudioRawStream
+#-cpp build/examples/AudioRawStream
+#--next
+
+-main examples.audio.AudioSoundLoading
+-cpp build/examples/AudioSoundLoading
+--next
+
 -main examples.core.Core2DCamera
 -cpp build/examples/Core2DCamera
 --next
@@ -76,3 +92,7 @@ extraParams.hxml
 -main examples.core.CoreWorldScreen
 -cpp build/examples/CoreWorldScreen
 --next
+
+#-main examples.models.ModelsMeshGeneration
+#-cpp build/examples/ModelsMeshGeneration
+#--next

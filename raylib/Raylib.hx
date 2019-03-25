@@ -30,11 +30,6 @@ abstract Vector2 (Vector2Struct)
 	public var y(get, set):Float;
 	inline function get_y() return untyped __cpp__("{0}.value.y", this);
 	inline function set_y(v:Float) return untyped __cpp__("{0}.value.y = {1}", this, v);
-
-	@:to inline function toRaw():_Vector2
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
 }
 
 @:include("./../lib/src/raylib.h")
@@ -72,11 +67,6 @@ abstract Vector3 (Vector3Struct)
 	public var z(get, set):Float;
 	inline function get_z() return untyped __cpp__("{0}.value.z", this);
 	inline function set_z(v:Float) return untyped __cpp__("{0}.value.z = {1}", this, v);
-
-	@:to inline function toRaw():_Vector3
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
 }
 
 @:include("./../lib/src/raylib.h")
@@ -119,11 +109,6 @@ abstract Vector4 (Vector4Struct)
 	public var w(get, set):Float;
 	inline function get_w() return untyped __cpp__("{0}.value.w", this);
 	inline function set_w(v:Float) return untyped __cpp__("{0}.value.w = {1}", this, v);
-
-	@:to inline function toRaw():_Vector4
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
 }
 
 @:include("./../lib/src/raylib.h")
@@ -150,10 +135,7 @@ typedef Quaternion = Vector4;
 /** Matrix type (OpenGL style 4x4 - right handed, column major) **/
 abstract Matrix (MatrixStruct)
 {
-	@:to inline function toRaw():_Matrix
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	// TODO give access to content
 }
 
 @:include("./../lib/src/raylib.h")
@@ -166,7 +148,7 @@ private extern class MatrixStruct
 @:native("Matrix")
 @:structAccess
 @:unreflective
-extern class _Matrix
+private extern class _Matrix
 {
 	public var m0:Float;
 	public var m1:Float;
@@ -209,11 +191,6 @@ abstract Color (ColorStruct)
 	public var a(get, set):UInt8;
 	inline function get_a() return untyped __cpp__("{0}.value.a", this);
 	inline function set_a(v:UInt8) return untyped __cpp__("{0}.value.a = {1}", this, v);
-
-	@:to inline function toRaw():_Color
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
 }
 
 @:include("./../lib/src/raylib.h")
@@ -257,11 +234,6 @@ abstract Rectangle (RectangleStruct)
 	public var height(get, set):Float;
 	inline function get_height() return untyped __cpp__("{0}.value.height", this);
 	inline function set_height(v:Float) return untyped __cpp__("{0}.value.height = {1}", this, v);
-
-	@:to inline function toRaw():_Rectangle
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
 }
 
 @:include("./../lib/src/raylib.h")
@@ -286,10 +258,27 @@ private extern class _Rectangle
 NOTE: Data stored in CPU memory (RAM) **/
 abstract Image (ImageStruct)
 {
-	@:to inline function toRaw():_Image
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	// TODO data
+
+	/** Image base width **/
+	public var width(get, set):Int;
+	inline function get_width() return untyped __cpp__("{0}.value.width", this);
+	inline function set_width(v:Int) return untyped __cpp__("{0}.value.width = {1}", this, v);
+
+	/** Image base height **/
+	public var height(get, set):Int;
+	inline function get_height() return untyped __cpp__("{0}.value.height", this);
+	inline function set_height(v:Int) return untyped __cpp__("{0}.value.height = {1}", this, v);
+
+	/** Mipmap levels, 1 by default **/
+	public var mipmaps(get, set):Int;
+	inline function get_mipmaps() return untyped __cpp__("{0}.value.mipmaps", this);
+	inline function set_mipmaps(v:Int) return untyped __cpp__("{0}.value.mipmaps = {1}", this, v);
+
+	/** Data format (PixelFormat type) **/
+	public var format(get, set):PixelFormat;
+	inline function get_format() return untyped __cpp__("{0}.value.format", this);
+	inline function set_format(v:PixelFormat) return untyped __cpp__("{0}.value.format = {1}", this, v);
 }
 
 @:include("./../lib/src/raylib.h")
@@ -302,21 +291,14 @@ private extern class ImageStruct
 @:native("Image")
 @:structAccess
 @:unreflective
-extern class _Image
+private extern class _Image
 {
 	/** Image raw data **/
 	public var data:Star<cpp.Void>;
 
-	/** Image base width **/
 	public var width:Int;
-
-	/** Image base height **/
 	public var height:Int;
-
-	/** Mipmap levels, 1 by default **/
 	public var mipmaps:Int;
-
-	/** Data format (PixelFormat type) **/
 	public var format:PixelFormat;
 }
 
@@ -324,10 +306,30 @@ extern class _Image
 NOTE: Data stored in GPU memory **/
 abstract Texture2D (Texture2DStruct)
 {
-	@:to inline function toRaw():_Texture2D
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** OpenGL texture id **/
+	public var id(get, set):UInt;
+	inline function get_id() return untyped __cpp__("{0}.value.id", this);
+	inline function set_id(v:UInt) return untyped __cpp__("{0}.value.id = {1}", this, v);
+
+	/** Texture base width **/
+	public var width(get, set):Int;
+	inline function get_width() return untyped __cpp__("{0}.value.width", this);
+	inline function set_width(v:Int) return untyped __cpp__("{0}.value.width = {1}", this, v);
+
+	/** Texture base height **/
+	public var height(get, set):Int;
+	inline function get_height() return untyped __cpp__("{0}.value.height", this);
+	inline function set_height(v:Int) return untyped __cpp__("{0}.value.height = {1}", this, v);
+
+	/** Mipmap levels, 1 by default **/
+	public var mipmaps(get, set):Int;
+	inline function get_mipmaps() return untyped __cpp__("{0}.value.mipmaps", this);
+	inline function set_mipmaps(v:Int) return untyped __cpp__("{0}.value.mipmaps = {1}", this, v);
+
+	/** Data format (PixelFormat type) **/
+	public var format(get, set):PixelFormat;
+	inline function get_format() return untyped __cpp__("{0}.value.format", this);
+	inline function set_format(v:PixelFormat) return untyped __cpp__("{0}.value.format = {1}", this, v);
 }
 
 @:include("./../lib/src/raylib.h")
@@ -340,21 +342,12 @@ private extern class Texture2DStruct
 @:native("Texture2D")
 @:structAccess
 @:unreflective
-extern class _Texture2D
+private extern class _Texture2D
 {
-	/** OpenGL texture id **/
 	public var id:UInt;
-
-	/** Texture base width **/
 	public var width:Int;
-
-	/** Texture base height **/
 	public var height:Int;
-
-	/** Mipmap levels, 1 by default **/
 	public var mipmaps:Int;
-
-	/** Data format (PixelFormat type) **/
 	public var format:PixelFormat;
 }
 
@@ -367,10 +360,25 @@ typedef TextureCubemap = Texture2D;
 /** RenderTexture2D type, for texture rendering **/
 abstract RenderTexture2D (RenderTexture2DStruct)
 {
-	@:to inline function toRaw():_RenderTexture2D
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** OpenGL Framebuffer Object (FBO) id **/
+	public var id(get, set):UInt;
+	inline function get_id() return untyped __cpp__("{0}.value.id", this);
+	inline function set_id(v:UInt) return untyped __cpp__("{0}.value.id = {1}", this, v);
+
+	/** Color buffer attachment texture **/
+	public var texture(get, set):Texture2D;
+	inline function get_texture() return untyped __cpp__("cpp::Struct<Texture2D>({0}.value.texture)", this);
+	inline function set_texture(v:Texture2D) return untyped __cpp__("cpp::Struct<Texture2D>({0}.value.texture = {1}.value)", this, v);
+
+	/** Depth buffer attachment texture **/
+	public var depth(get, set):Texture2D;
+	inline function get_depth() return untyped __cpp__("cpp::Struct<Texture2D>({0}.value.depth)", this);
+	inline function set_depth(v:Texture2D) return untyped __cpp__("cpp::Struct<Texture2D>({0}.value.depth = {1}.value)", this, v);
+
+	/** Track if depth attachment is a texture or renderbuffer **/
+	public var depthTexture(get, set):Bool;
+	inline function get_depthTexture() return untyped __cpp__("{0}.value.depthTexture", this);
+	inline function set_depthTexture(v:Bool) return untyped __cpp__("{0}.value.depthTexture = {1}", this, v);
 }
 
 @:include("./../lib/src/raylib.h")
@@ -383,18 +391,11 @@ private extern class RenderTexture2DStruct
 @:native("RenderTexture2D")
 @:structAccess
 @:unreflective
-extern class _RenderTexture2D
+private extern class _RenderTexture2D
 {
-	/** OpenGL Framebuffer Object (FBO) id **/
 	public var id:UInt;
-
-	/** Color buffer attachment texture **/
-	public var texture:Texture2D;
-
-	/** Depth buffer attachment texture **/
-	public var depth:Texture2D;
-
-	/** Track if depth attachment is a texture or renderbuffer **/
+	public var texture:_Texture2D;
+	public var depth:_Texture2D;
 	public var depthTexture:Bool;
 }
 
@@ -404,10 +405,35 @@ typedef RenderTexture = RenderTexture2D;
 /** N-Patch layout info **/
 abstract NPatchInfo (NPatchInfoStruct)
 {
-	@:to inline function toRaw():_NPatchInfo
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** Region in the texture **/
+	public var sourceRec(get, set):Rectangle;
+	inline function get_sourceRec() return untyped __cpp__("cpp::Struct<Rectangle>({0}.value.sourceRec)", this);
+	inline function set_sourceRec(v:Rectangle) return untyped __cpp__("cpp::Struct<Rectangle>({0}.value.sourceRec = {1}.value)", this, v);
+
+	/** left border offset **/
+	public var left(get, set):Int;
+	inline function get_left() return untyped __cpp__("{0}.value.left", this);
+	inline function set_left(v:Int) return untyped __cpp__("{0}.value.left = {1}", this, v);
+
+	/** top border offset **/
+	public var top(get, set):Int;
+	inline function get_top() return untyped __cpp__("{0}.value.top", this);
+	inline function set_top(v:Int) return untyped __cpp__("{0}.value.top = {1}", this, v);
+
+	/** right border offset **/
+	public var right(get, set):Int;
+	inline function get_right() return untyped __cpp__("{0}.value.right", this);
+	inline function set_right(v:Int) return untyped __cpp__("{0}.value.right = {1}", this, v);
+
+	/** bottom border offset **/
+	public var bottom(get, set):Int;
+	inline function get_bottom() return untyped __cpp__("{0}.value.bottom", this);
+	inline function set_bottom(v:Int) return untyped __cpp__("{0}.value.bottom = {1}", this, v);
+
+	/** layout of the n-patch: 3x3, 1x3 or 3x1 **/
+	public var type(get, set):NPatchType;
+	inline function get_type() return untyped __cpp__("{0}.value.type", this);
+	inline function set_type(v:NPatchType) return untyped __cpp__("{0}.value.type = {1}", this, v);
 }
 
 @:include("./../lib/src/raylib.h")
@@ -420,34 +446,45 @@ private extern class NPatchInfoStruct
 @:native("NPatchInfo")
 @:structAccess
 @:unreflective
-extern class _NPatchInfo
+private extern class _NPatchInfo
 {
-	/** Region in the texture **/
 	public var sourceRec:_Rectangle;
-
-	/** left border offset **/
 	public var left:Int;
-
-	/** top border offset **/
 	public var top:Int;
-
-	/** right border offset **/
 	public var right:Int;
-
-	/** bottom border offset **/
 	public var bottom:Int;
-
-	/** layout of the n-patch: 3x3, 1x3 or 3x1 **/
-	public var type:Int;
+	public var type:NPatchType;
 }
 
 /** Font character info **/
 abstract CharInfo (CharInfoStruct)
 {
-	@:to inline function toRaw():_CharInfo
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** Character value (Unicode) **/
+	public var value(get, set):Int;
+	inline function get_value() return untyped __cpp__("{0}.value.value", this);
+	inline function set_value(v:Int) return untyped __cpp__("{0}.value.value = {1}", this, v);
+
+	/** Character rectangle in sprite font **/
+	public var rec(get, set):Rectangle;
+	inline function get_rec() return untyped __cpp__("cpp::Struct<Rectangle>({0}.value.rec)", this);
+	inline function set_rec(v:Rectangle) return untyped __cpp__("cpp::Struct<Rectangle>({0}.value.rec = {1}.value)", this, v);
+
+	/** Character offset X when drawing **/
+	public var offsetX(get, set):Int;
+	inline function get_offsetX() return untyped __cpp__("{0}.value.offsetX", this);
+	inline function set_offsetX(v:Int) return untyped __cpp__("{0}.value.offsetX = {1}", this, v);
+
+	/** Character offset Y when drawing **/
+	public var offsetY(get, set):Int;
+	inline function get_offsetY() return untyped __cpp__("{0}.value.offsetY", this);
+	inline function set_offsetY(v:Int) return untyped __cpp__("{0}.value.offsetY = {1}", this, v);
+
+	/** Character advance position X **/
+	public var advanceX(get, set):Int;
+	inline function get_advanceX() return untyped __cpp__("{0}.value.advanceX", this);
+	inline function set_advanceX(v:Int) return untyped __cpp__("{0}.value.advanceX = {1}", this, v);
+
+	// TODO data
 }
 
 @:include("./../lib/src/raylib.h")
@@ -460,21 +497,12 @@ private extern class CharInfoStruct
 @:native("CharInfo")
 @:structAccess
 @:unreflective
-extern class _CharInfo
+private extern class _CharInfo
 {
-	/** Character value (Unicode) **/
 	public var value:Int;
-
-	/** Character rectangle in sprite font **/
 	public var rec:_Rectangle;
-
-	/** Character offset X when drawing **/
 	public var offsetX:Int;
-
-	/** Character offset Y when drawing **/
 	public var offsetY:Int;
-
-	/** Character advance position X **/
 	public var advanceX:Int;
 
 	/** Character pixel data (grayscale) **/
@@ -484,10 +512,22 @@ extern class _CharInfo
 /** Font type, includes texture and charSet array data **/
 abstract Font (FontStruct)
 {
-	@:to inline function toRaw():_Font
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** Font texture **/
+	public var texture(get, set):Texture2D;
+	inline function get_texture() return untyped __cpp__("cpp::Struct<Texture2D>({0}.value.texture)", this);
+	inline function set_texture(v:Texture2D) return untyped __cpp__("cpp::Struct<Texture2D>({0}.value.texture = {1}.value)", this, v);
+
+	/** Base size (default chars height) **/
+	public var baseSize(get, set):Int;
+	inline function get_baseSize() return untyped __cpp__("{0}.value.baseSize", this);
+	inline function set_baseSize(v:Int) return untyped __cpp__("{0}.value.baseSize = {1}", this, v);
+
+	/** Number of characters **/
+	public var charsCount(get, set):Int;
+	inline function get_charsCount() return untyped __cpp__("{0}.value.charsCount", this);
+	inline function set_charsCount(v:Int) return untyped __cpp__("{0}.value.charsCount = {1}", this, v);
+
+	// TPDP chars
 }
 
 @:include("./../lib/src/raylib.h")
@@ -500,15 +540,10 @@ private extern class FontStruct
 @:native("Font")
 @:structAccess
 @:unreflective
-extern class _Font
+private extern class _Font
 {
-	/** Font texture **/
 	public var texture:_Texture2D;
-
-	/** Base size (default chars height) **/
 	public var baseSize:Int;
-
-	/** Number of characters **/
 	public var charsCount:Int;
 
 	/** Characters info data **/
@@ -526,30 +561,30 @@ abstract Camera3D (Camera3DStruct)
 		this = untyped __cpp__("cpp::Struct<Camera3D>(Camera3D{{ {0}, {1}, {2}, float({3}), {4} }})", position, target, up, fovy, type);
 	}
 
+	/** Camera position **/
 	public var position(get, set):Vector3;
 	inline function get_position() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.position)", this);
 	inline function set_position(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.position = {1}.value)", this, v);
 
+	/** Camera target it looks-at **/
 	public var target(get, set):Vector3;
 	inline function get_target() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.target)", this);
 	inline function set_target(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.target = {1}.value)", this, v);
 
+	/** Camera up vector (rotation over its axis) **/
 	public var up(get, set):Vector3;
 	inline function get_up() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.up)", this);
 	inline function set_up(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.up = {1}.value)", this, v);
 
+	/** Camera field-of-view apperture in Y (degrees) in perspective, used as near plane width in orthographic **/
 	public var fovy(get, set):Float;
 	inline function get_fovy() return untyped __cpp__("{0}.value.fovy", this);
 	inline function set_fovy(v:Float) return untyped __cpp__("{0}.value.fovy = {1}", this, v);
 
+	/** Camera type, defines projection type: CAMERA_PERSPECTIVE or CAMERA_ORTHOGRAPHIC **/
 	public var type(get, set):CameraType;
 	inline function get_type() return untyped __cpp__("{0}.value.type", this);
 	inline function set_type(v:CameraType) return untyped __cpp__("{0}.value.type = {1}", this, v);
-
-	@:to inline function toRaw():_Camera3D
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
 }
 
 @:include("./../lib/src/raylib.h")
@@ -564,19 +599,10 @@ private extern class Camera3DStruct
 @:unreflective
 private extern class _Camera3D
 {
-	/** Camera position **/
 	public var position:_Vector3;
-
-	/** Camera target it looks-at **/
 	public var target:_Vector3;
-
-	/** Camera up vector (rotation over its axis) **/
 	public var up:_Vector3;
-
-	/** Camera field-of-view apperture in Y (degrees) in perspective, used as near plane width in orthographic **/
 	public var fovy:Float;
-
-	/** Camera type, defines projection type: CAMERA_PERSPECTIVE or CAMERA_ORTHOGRAPHIC **/
 	public var type:CameraType;
 }
 
@@ -591,26 +617,25 @@ abstract Camera2D (Camera2DStruct)
 		this = untyped __cpp__("cpp::Struct<Camera2D>(Camera2D{{ {0}, {1}, float({2}), float({3}) }})", offset, target, rotation, zoom);
 	}
 
+	/** Camera offset (displacement from target) **/
 	public var offset(get, set):Vector2;
 	inline function get_offset() return untyped __cpp__("cpp::Struct<Vector2>({0}.value.offset)", this);
 	inline function set_offset(v:Vector2) return untyped __cpp__("cpp::Struct<Vector2>({0}.value.offset = {1}.value)", this, v);
 
+	/** Camera target (rotation and zoom origin) **/
 	public var target(get, set):Vector2;
 	inline function get_target() return untyped __cpp__("cpp::Struct<Vector2>({0}.value.target)", this);
 	inline function set_target(v:Vector2) return untyped __cpp__("cpp::Struct<Vector2>({0}.value.target = {1}.value)", this, v);
 
+	/** Camera rotation in degrees **/
 	public var rotation(get, set):Float;
 	inline function get_rotation() return untyped __cpp__("{0}.value.rotation", this);
 	inline function set_rotation(v:Float) return untyped __cpp__("{0}.value.rotation = {1}", this, v);
 
+	/** Camera zoom (scaling), should be 1.0f by default **/
 	public var zoom(get, set):Float;
 	inline function get_zoom() return untyped __cpp__("{0}.value.zoom", this);
 	inline function set_zoom(v:Float) return untyped __cpp__("{0}.value.zoom = {1}", this, v);
-
-	@:to inline function toRaw():_Camera2D
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
 }
 
 @:include("./../lib/src/raylib.h")
@@ -625,16 +650,9 @@ private extern class Camera2DStruct
 @:unreflective
 private extern class _Camera2D
 {
-	/** Camera offset (displacement from target) **/
 	public var offset:_Vector2;
-
-	/** Camera target (rotation and zoom origin) **/
 	public var target:_Vector2;
-
-	/** Camera rotation in degrees **/
 	public var rotation:Float;
-
-	/** Camera zoom (scaling), should be 1.0f by default **/
 	public var zoom:Float;
 }
 
@@ -646,18 +664,15 @@ abstract BoundingBox (BoundingBoxStruct)
 		this = untyped __cpp__("cpp::Struct<BoundingBox>(BoundingBox{{ {0}, {1} }})", min, max);
 	}
 
+	/** Minimum vertex box-corner **/
 	public var min(get, set):Vector3;
 	inline function get_min() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.min)", this);
 	inline function set_min(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.min = {1}.value)", this, v);
 
+	/** Maximum vertex box-corner **/
 	public var max(get, set):Vector3;
 	inline function get_max() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.max)", this);
 	inline function set_max(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.max = {1}.value)", this, v);
-
-	@:to inline function toRaw():_BoundingBox
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
 }
 
 @:include("./../lib/src/raylib.h")
@@ -672,10 +687,7 @@ private extern class BoundingBoxStruct
 @:unreflective
 private extern class _BoundingBox
 {
-	/** Minimum vertex box-corner **/
 	public var min:_Vector3;
-
-	/** Maximum vertex box-corner **/
 	public var max:_Vector3;
 }
 
@@ -683,10 +695,7 @@ private extern class _BoundingBox
 NOTE: Data stored in CPU memory (and GPU) **/
 abstract Mesh (MeshStruct)
 {
-	@:to inline function toRaw():_Mesh
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	// TODO
 }
 
 @:include("./../lib/src/raylib.h")
@@ -699,7 +708,7 @@ private extern class MeshStruct
 @:native("Mesh")
 @:structAccess
 @:unreflective
-extern class _Mesh
+private extern class _Mesh
 {
 	/** Number of vertices stored in arrays **/
 	public var vertexCount:Int;
@@ -744,16 +753,18 @@ extern class _Mesh
 	public var vaoId:UInt;
 
 	/** OpenGL Vertex Buffer Objects id (default vertex data) **/
-	public var vboId:Array<UInt>;
+	public var vboId:Star<UInt>;
 }
 
 /** Shader type (generic) **/
 abstract Shader (ShaderStruct)
 {
-	@:to inline function toRaw():_Shader
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** Shader program id **/
+	public var id(get, set):UInt;
+	inline function get_id() return untyped __cpp__("{0}.value.id", this);
+	inline function set_id(v:UInt) return untyped __cpp__("{0}.value.id = {1}", this, v);
+
+	// TODO locs
 }
 
 @:include("./../lib/src/raylib.h")
@@ -766,22 +777,31 @@ private extern class ShaderStruct
 @:native("Shader")
 @:structAccess
 @:unreflective
-extern class _Shader
+private extern class _Shader
 {
-	/** Shader program id **/
 	public var id:UInt;
 
 	/** Shader locations array **/
-	public var locs:Array<Int>;
+	public var locs:Star<Int>;
 }
 
 /** Material texture map **/
 abstract MaterialMap (MaterialMapStruct)
 {
-	@:to inline function toRaw():_MaterialMap
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** Material map texture **/
+	public var texture(get, set):Texture2D;
+	inline function get_texture() return untyped __cpp__("cpp::Struct<Texture2D>({0}.value.texture)", this);
+	inline function set_texture(v:Texture2D) return untyped __cpp__("cpp::Struct<Texture2D>({0}.value.texture = {1}.value)", this, v);
+
+	/** Material map color **/
+	public var color(get, set):Color;
+	inline function get_color() return untyped __cpp__("cpp::Struct<Color>({0}.value.color)", this);
+	inline function set_color(v:Color) return untyped __cpp__("cpp::Struct<Color>({0}.value.color = {1}.value)", this, v);
+
+	/** Material map value **/
+	public var value(get, set):Float;
+	inline function get_value() return untyped __cpp__("{0}.value.value", this);
+	inline function set_value(v:Float) return untyped __cpp__("{0}.value.value = float({1})", this, v);
 }
 
 @:include("./../lib/src/raylib.h")
@@ -794,25 +814,24 @@ private extern class MaterialMapStruct
 @:native("MaterialMap")
 @:structAccess
 @:unreflective
-extern class _MaterialMap
+private extern class _MaterialMap
 {
-	/** Material map texture **/
 	public var texture:_Texture2D;
-
-	/** Material map color **/
 	public var color:_Color;
-
-	/** Material map value **/
 	public var value:Float;
 }
 
 /** Material type (generic) **/
 abstract Material (MaterialStruct)
 {
-	@:to inline function toRaw():_Material
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** Material shader **/
+	public var shader(get, set):Shader;
+	inline function get_shader() return untyped __cpp__("cpp::Struct<Shader>({0}.value.shader)", this);
+	inline function set_shader(v:Shader) return untyped __cpp__("cpp::Struct<Shader>({0}.value.shader = {1}.value)", this, v);
+
+	// TODO maps
+
+	// TODO params
 }
 
 @:include("./../lib/src/raylib.h")
@@ -825,13 +844,12 @@ private extern class MaterialStruct
 @:native("Material")
 @:structAccess
 @:unreflective
-extern class _Material
+private extern class _Material
 {
-	/** Material shader **/
 	public var shader:_Shader;
 
 	/** Material maps **/
-	public var maps:Array<_MaterialMap>;
+	public var maps:Star<_MaterialMap>;
 
 	/** Material generic parameters (if required) **/
 	public var params:Star<Float>;
@@ -840,10 +858,20 @@ extern class _Material
 /** Model type **/
 abstract Model (ModelStruct)
 {
-	@:to inline function toRaw():_Model
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** Vertex data buffers (RAM and VRAM) **/
+	public var mesh(get, set):Mesh;
+	inline function get_mesh() return untyped __cpp__("cpp::Struct<Mesh>({0}.value.mesh)", this);
+	inline function set_mesh(v:Mesh) return untyped __cpp__("cpp::Struct<Mesh>({0}.value.mesh = {1}.value)", this, v);
+
+	/** Local transform matrix **/
+	public var transform(get, set):Matrix;
+	inline function get_transform() return untyped __cpp__("cpp::Struct<Matrix>({0}.value.transform)", this);
+	inline function set_transform(v:Matrix) return untyped __cpp__("cpp::Struct<Matrix>({0}.value.transform = {1}.value)", this, v);
+
+	/** Shader and textures data **/
+	public var material(get, set):Material;
+	inline function get_material() return untyped __cpp__("cpp::Struct<Material>({0}.value.material)", this);
+	inline function set_material(v:Material) return untyped __cpp__("cpp::Struct<Material>({0}.value.material = {1}.value)", this, v);
 }
 
 @:include("./../lib/src/raylib.h")
@@ -856,15 +884,10 @@ private extern class ModelStruct
 @:native("Model")
 @:structAccess
 @:unreflective
-extern class _Model
+private extern class _Model
 {
-	/** Vertex data buffers (RAM and VRAM) **/
 	public var mesh:_Mesh;
-
-	/** Local transform matrix **/
 	public var transform:_Matrix;
-
-	/** Shader and textures data **/
 	public var material:_Material;
 }
 
@@ -876,18 +899,15 @@ abstract Ray (RayStruct)
 		this = untyped __cpp__("cpp::Struct<Ray>(Ray{{ {0}, {1} }})", position, direction);
 	}
 
+	/** Ray position (origin) **/
 	public var position(get, set):Vector3;
 	inline function get_position() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.position)", this);
 	inline function set_position(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.position = {1}.value)", this, v);
 
+	/** Ray direction **/
 	public var direction(get, set):Vector3;
 	inline function get_direction() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.direction)", this);
 	inline function set_direction(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.direction = {1}.value)", this, v);
-
-	@:to inline function toRaw():_Ray
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
 }
 
 @:include("./../lib/src/raylib.h")
@@ -902,20 +922,32 @@ private extern class RayStruct
 @:unreflective
 private extern class _Ray
 {
-	/** Ray position (origin) **/
 	public var position:_Vector3;
-
-	/** Ray direction **/
 	public var direction:_Vector3;
 }
 
 /** Raycast hit information **/
 abstract RayHitInfo (RayHitInfoStruct)
 {
-	@:to inline function toRaw():_RayHitInfo
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** Did the ray hit something? **/
+	public var hit(get, set):Bool;
+	inline function get_hit() return untyped __cpp__("{0}.value.hit", this);
+	inline function set_hit(v:Bool) return untyped __cpp__("{0}.value.hit = {1}", this, v);
+
+	/** Distance to nearest hit **/
+	public var distance(get, set):Float;
+	inline function get_distance() return untyped __cpp__("{0}.value.distance", this);
+	inline function set_distance(v:Float) return untyped __cpp__("{0}.value.distance = float({1})", this, v);
+
+	/** Position of nearest hit **/
+	public var position(get, set):Vector3;
+	inline function get_position() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.position)", this);
+	inline function set_position(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.position = {1}.value)", this, v);
+
+	/** Surface normal of hit **/
+	public var normal(get, set):Vector3;
+	inline function get_normal() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.normal)", this);
+	inline function set_normal(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.normal = {1}.value)", this, v);
 }
 
 @:include("./../lib/src/raylib.h")
@@ -928,28 +960,38 @@ private extern class RayHitInfoStruct
 @:native("RayHitInfo")
 @:structAccess
 @:unreflective
-extern class _RayHitInfo
+private extern class _RayHitInfo
 {
-	/** Did the ray hit something? **/
 	public var hit:Bool;
-
-	/** Distance to nearest hit **/
 	public var distance:Float;
-
-	/** Position of nearest hit **/
 	public var position:_Vector3;
-
-	/** Surface normal of hit **/
 	public var normal:_Vector3;
 }
 
 /** Wave type, defines audio wave data **/
 abstract Wave (WaveStruct)
 {
-	@:to inline function toRaw():_Wave
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** Number of samples **/
+	public var sampleCount(get, set):UInt;
+	inline function get_sampleCount() return untyped __cpp__("{0}.value.sampleCount", this);
+	inline function set_sampleCount(v:UInt) return untyped __cpp__("{0}.value.sampleCount = {1}", this, v);
+
+	/** Frequency (samples per second) **/
+	public var sampleRate(get, set):UInt;
+	inline function get_sampleRate() return untyped __cpp__("{0}.value.sampleRate", this);
+	inline function set_sampleRate(v:UInt) return untyped __cpp__("{0}.value.sampleRate = {1}", this, v);
+
+	/** Bit depth (bits per sample): 8, 16, 32 (24 not supported) **/
+	public var sampleSize(get, set):UInt;
+	inline function get_sampleSize() return untyped __cpp__("{0}.value.sampleSize", this);
+	inline function set_sampleSize(v:UInt) return untyped __cpp__("{0}.value.sampleSize = {1}", this, v);
+
+	/** Number of channels (1-mono, 2-stereo) **/
+	public var channels(get, set):UInt;
+	inline function get_channels() return untyped __cpp__("{0}.value.channels", this);
+	inline function set_channels(v:UInt) return untyped __cpp__("{0}.value.channels = {1}", this, v);
+
+	// TODO data
 }
 
 @:include("./../lib/src/raylib.h")
@@ -962,18 +1004,11 @@ private extern class WaveStruct
 @:native("Wave")
 @:structAccess
 @:unreflective
-extern class _Wave
+private extern class _Wave
 {
-	/** Number of samples **/
 	public var sampleCount:UInt;
-
-	/** Frequency (samples per second) **/
 	public var sampleRate:UInt;
-
-	/** Bit depth (bits per sample): 8, 16, 32 (24 not supported) **/
 	public var sampleSize:UInt;
-
-	/** Number of channels (1-mono, 2-stereo) **/
 	public var channels:UInt;
 
 	/** Buffer data pointer **/
@@ -983,10 +1018,22 @@ extern class _Wave
 /** Sound source type **/
 abstract Sound (SoundStruct)
 {
-	@:to inline function toRaw():_Sound
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	// TODO audioBuffer
+
+	/** Audio source id **/
+	public var source(get, set):UInt;
+	inline function get_source() return untyped __cpp__("{0}.value.source", this);
+	inline function set_source(v:UInt) return untyped __cpp__("{0}.value.source = {1}", this, v);
+
+	/** Audio buffer id **/
+	public var buffer(get, set):UInt;
+	inline function get_buffer() return untyped __cpp__("{0}.value.buffer", this);
+	inline function set_buffer(v:UInt) return untyped __cpp__("{0}.value.buffer = {1}", this, v);
+
+	/** Audio format specifier **/
+	public var format(get, set):Int;
+	inline function get_format() return untyped __cpp__("{0}.value.format", this);
+	inline function set_format(v:Int) return untyped __cpp__("{0}.value.format = {1}", this, v);
 }
 
 @:include("./../lib/src/raylib.h")
@@ -999,33 +1046,55 @@ private extern class SoundStruct
 @:native("Sound")
 @:structAccess
 @:unreflective
-extern class _Sound
+private extern class _Sound
 {
 	/** Pointer to internal data used by the audio system **/
 	public var audioBuffer:Star<cpp.Void>;
 
-	/** Audio source id **/
 	public var source:UInt;
-
-	/** Audio buffer id **/
 	public var buffer:UInt;
-
-	/** Audio format specifier **/
 	public var format:Int;
 }
 
 /** Music type (file streaming from memory)
 NOTE: Anything longer than ~10 seconds should be streamed **/
-typedef Music = Dynamic; //Star<MusicData>; // TODO raudio
+@:native("Music")
+extern class Music
+{
+}
 
 /** Audio stream type
 NOTE: Useful to create custom audio streams not bound to a specific file **/
 abstract AudioStream (AudioStreamStruct)
 {
-	@:to inline function toRaw():_AudioStream
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** Frequency (samples per second) **/
+	public var sampleRate(get, set):UInt;
+	inline function get_sampleRate() return untyped __cpp__("{0}.value.sampleRate", this);
+	inline function set_sampleRate(v:UInt) return untyped __cpp__("{0}.value.sampleRate = {1}", this, v);
+
+	/** Bit depth (bits per sample): 8, 16, 32 (24 not supported) **/
+	public var sampleSize(get, set):UInt;
+	inline function get_sampleSize() return untyped __cpp__("{0}.value.sampleSize", this);
+	inline function set_sampleSize(v:UInt) return untyped __cpp__("{0}.value.sampleSize = {1}", this, v);
+
+	/** Number of channels (1-mono, 2-stereo) **/
+	public var channels(get, set):UInt;
+	inline function get_channels() return untyped __cpp__("{0}.value.channels", this);
+	inline function set_channels(v:UInt) return untyped __cpp__("{0}.value.channels = {1}", this, v);
+
+	// TODO audioBuffer
+
+	/** Audio format specifier **/
+	public var format(get, set):Int;
+	inline function get_format() return untyped __cpp__("{0}.value.format", this);
+	inline function set_format(v:Int) return untyped __cpp__("{0}.value.format = {1}", this, v);
+
+	/** Audio source id **/
+	public var source(get, set):UInt;
+	inline function get_source() return untyped __cpp__("{0}.value.source", this);
+	inline function set_source(v:UInt) return untyped __cpp__("{0}.value.source = {1}", this, v);
+
+	// TODO buffers
 }
 
 @:include("./../lib/src/raylib.h")
@@ -1038,37 +1107,68 @@ private extern class AudioStreamStruct
 @:native("AudioStream")
 @:structAccess
 @:unreflective
-extern class _AudioStream
+private extern class _AudioStream
 {
-	/** Frequency (samples per second) **/
 	public var sampleRate:UInt;
-
-	/** Bit depth (bits per sample): 8, 16, 32 (24 not supported) **/
 	public var sampleSize:UInt;
-
-	/** Number of channels (1-mono, 2-stereo) **/
 	public var channels:UInt;
 
 	/** Pointer to internal data used by the audio system. **/
 	public var audioBuffer:Star<cpp.Void>;
 
-	/** Audio format specifier **/
 	public var format:Int;
-
-	/** Audio source id **/
 	public var source:UInt;
 
 	/** Audio buffers (double buffering) **/
-	public var buffers:Array<UInt>;
+	public var buffers:Star<UInt>;
 }
 
 /** Head-Mounted-Display device parameters **/
 abstract VrDeviceInfo (VrDeviceInfoStruct)
 {
-	@:to inline function toRaw():_VrDeviceInfo
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** HMD horizontal resolution in pixels **/
+	public var hResolution(get, set):Int;
+	inline function get_hResolution() return untyped __cpp__("{0}.value.hResolution", this);
+	inline function set_hResolution(v:Int) return untyped __cpp__("{0}.value.hResolution = {1}", this, v);
+
+	/** HMD vertical resolution in pixels **/
+	public var vResolution(get, set):Int;
+	inline function get_vResolution() return untyped __cpp__("{0}.value.vResolution", this);
+	inline function set_vResolution(v:Int) return untyped __cpp__("{0}.value.vResolution = {1}", this, v);
+
+	/** HMD horizontal size in meters **/
+	public var hScreenSize(get, set):Float;
+	inline function get_hScreenSize() return untyped __cpp__("{0}.value.hScreenSize", this);
+	inline function set_hScreenSize(v:Float) return untyped __cpp__("{0}.value.hScreenSize = float({1})", this, v);
+
+	/** HMD vertical size in meters **/
+	public var vScreenSize(get, set):Float;
+	inline function get_vScreenSize() return untyped __cpp__("{0}.value.vScreenSize", this);
+	inline function set_vScreenSize(v:Float) return untyped __cpp__("{0}.value.vScreenSize = float({1})", this, v);
+
+	/** HMD screen center in meters **/
+	public var vScreenCenter(get, set):Float;
+	inline function get_vScreenCenter() return untyped __cpp__("{0}.value.vScreenCenter", this);
+	inline function set_vScreenCenter(v:Float) return untyped __cpp__("{0}.value.vScreenCenter = float({1})", this, v);
+
+	/** HMD distance between eye and display in meters **/
+	public var eyeToScreenDistance(get, set):Float;
+	inline function get_eyeToScreenDistance() return untyped __cpp__("{0}.value.eyeToScreenDistance", this);
+	inline function set_eyeToScreenDistance(v:Float) return untyped __cpp__("{0}.value.eyeToScreenDistance = float({1})", this, v);
+
+	/** HMD lens separation distance in meters **/
+	public var lensSeparationDistance(get, set):Float;
+	inline function get_lensSeparationDistance() return untyped __cpp__("{0}.value.lensSeparationDistance", this);
+	inline function set_lensSeparationDistance(v:Float) return untyped __cpp__("{0}.value.lensSeparationDistance = float({1})", this, v);
+
+	/** HMD IPD (distance between pupils) in meters **/
+	public var interpupillaryDistance(get, set):Float;
+	inline function get_interpupillaryDistance() return untyped __cpp__("{0}.value.interpupillaryDistance", this);
+	inline function set_interpupillaryDistance(v:Float) return untyped __cpp__("{0}.value.interpupillaryDistance = float({1})", this, v);
+
+	// TODO lensDistortionValues
+
+	// TODO chromaAbCorrection
 }
 
 @:include("./../lib/src/raylib.h")
@@ -1081,46 +1181,44 @@ private extern class VrDeviceInfoStruct
 @:native("VrDeviceInfo")
 @:structAccess
 @:unreflective
-extern class _VrDeviceInfo
+private extern class _VrDeviceInfo
 {
-	/** HMD horizontal resolution in pixels **/
 	public var hResolution:Int;
-
-	/** HMD vertical resolution in pixels **/
 	public var vResolution:Int;
-
-	/** HMD horizontal size in meters **/
 	public var hScreenSize:Float;
-
-	/** HMD vertical size in meters **/
 	public var vScreenSize:Float;
-
-	/** HMD screen center in meters **/
 	public var vScreenCenter:Float;
-
-	/** HMD distance between eye and display in meters **/
 	public var eyeToScreenDistance:Float;
-
-	/** HMD lens separation distance in meters **/
 	public var lensSeparationDistance:Float;
-
-	/** HMD IPD (distance between pupils) in meters **/
 	public var interpupillaryDistance:Float;
 
 	/** HMD lens distortion constant parameters **/
-	public var lensDistortionValues:Array<Float>;
+	public var lensDistortionValues:Star<Float>;
 
 	/** HMD chromatic aberration correction parameters **/
-	public var chromaAbCorrection:Array<Float>;
+	public var chromaAbCorrection:Star<Float>;
 }
 
 /** VR Stereo rendering configuration for simulator **/
 abstract VrStereoConfig (VrStereoConfigStruct)
 {
-	@:to inline function toRaw():_VrStereoConfig
-	{
-		return untyped __cpp__("{0}.value", this);
-	}
+	/** VR stereo rendering framebuffer **/
+	public var stereoFbo(get, set):RenderTexture2D;
+	inline function get_stereoFbo() return untyped __cpp__("cpp::Struct<RenderTexture2D>({0}.value.stereoFbo)", this);
+	inline function set_stereoFbo(v:RenderTexture2D) return untyped __cpp__("cpp::Struct<RenderTexture2D>({0}.value.stereoFbo = {1}.value)", this, v);
+
+	/** VR stereo rendering distortion shader **/
+	public var distortionShader(get, set):Shader;
+	inline function get_distortionShader() return untyped __cpp__("cpp::Struct<Shader>({0}.value.distortionShader)", this);
+	inline function set_distortionShader(v:Shader) return untyped __cpp__("cpp::Struct<Shader>({0}.value.distortionShader = {1}.value)", this, v);
+
+	// TODO eyesProjection
+
+	// TODO eyesViewOffset
+
+	// TODO eyeViewportRight
+
+	// TODO eyeViewportLeft
 }
 
 @:include("./../lib/src/raylib.h")
@@ -1133,25 +1231,22 @@ private extern class VrStereoConfigStruct
 @:native("VrStereoConfig")
 @:structAccess
 @:unreflective
-extern class _VrStereoConfig
+private extern class _VrStereoConfig
 {
-	/** VR stereo rendering framebuffer **/
 	public var stereoFbo:_RenderTexture2D;
-
-	/** VR stereo rendering distortion shader **/
 	public var distortionShader:_Shader;
 
 	/** VR stereo rendering eyes projection matrices **/
-	public var eyesProjection:Array<_Matrix>;
+	public var eyesProjection:Star<_Matrix>;
 
 	/** VR stereo rendering eyes view offset matrices **/
-	public var eyesViewOffset:Array<_Matrix>;
+	public var eyesViewOffset:Star<_Matrix>;
 
 	/** VR stereo rendering right eye viewport [x, y, w, h] **/
-	public var eyeViewportRight:Array<Int>;
+	public var eyeViewportRight:Star<Int>;
 
 	/** VR stereo rendering left eye viewport [x, y, w, h] **/
-	public var eyeViewportLeft:Array<Int>;
+	public var eyeViewportLeft:Star<Int>;
 }
 
 /** System config flags
@@ -4489,80 +4584,56 @@ class Raylib
 	/** Load music stream from file **/
 	public static extern inline function LoadMusicStream(fileName:String):Music
 	{
-		return untyped __cpp__("cpp::Struct<Music>(LoadMusicStream({0}.__s))", fileName);
+		return untyped __cpp__("LoadMusicStream({0}.__s)", fileName);
 	}
 
 	/** Unload music stream **/
-	public static extern inline function UnloadMusicStream(music:Music):Void
-	{
-		untyped __cpp__("UnloadMusicStream({0}.value)", music);
-	}
+	@:native("UnloadMusicStream")
+	public static extern function UnloadMusicStream(music:Music):Void;
 
 	/** Start music playing **/
-	public static extern inline function PlayMusicStream(music:Music):Void
-	{
-		untyped __cpp__("PlayMusicStream({0}.value)", music);
-	}
+	@:native("PlayMusicStream")
+	public static extern function PlayMusicStream(music:Music):Void;
 
 	/** Updates buffers for music streaming **/
-	public static extern inline function UpdateMusicStream(music:Music):Void
-	{
-		untyped __cpp__("UpdateMusicStream({0}.value)", music);
-	}
+	@:native("UpdateMusicStream")
+	public static extern function UpdateMusicStream(music:Music):Void;
 
 	/** Stop music playing **/
-	public static extern inline function StopMusicStream(music:Music):Void
-	{
-		untyped __cpp__("StopMusicStream({0}.value)", music);
-	}
+	@:native("StopMusicStream")
+	public static extern function StopMusicStream(music:Music):Void;
 
 	/** Pause music playing **/
-	public static extern inline function PauseMusicStream(music:Music):Void
-	{
-		untyped __cpp__("PauseMusicStream({0}.value)", music);
-	}
+	@:native("PauseMusicStream")
+	public static extern function PauseMusicStream(music:Music):Void;
 
 	/** Resume playing paused music **/
-	public static extern inline function ResumeMusicStream(music:Music):Void
-	{
-		untyped __cpp__("ResumeMusicStream({0}.value)", music);
-	}
+	@:native("ResumeMusicStream")
+	public static extern function ResumeMusicStream(music:Music):Void;
 
 	/** Check if music is playing **/
-	public static extern inline function IsMusicPlaying(music:Music):Bool
-	{
-		return untyped __cpp__("IsMusicPlaying({0}.value)", music);
-	}
+	@:native("IsMusicPlaying")
+	public static extern function IsMusicPlaying(music:Music):Bool;
 
 	/** Set volume for music (1.0 is max level) **/
-	public static extern inline function SetMusicVolume(music:Music, volume:Float):Void
-	{
-		untyped __cpp__("SetMusicVolume({0}.value, float({1}))", music, volume);
-	}
+	@:native("SetMusicVolume")
+	public static extern function SetMusicVolume(music:Music, volume:Float):Void;
 
 	/** Set pitch for a music (1.0 is base level) **/
-	public static extern inline function SetMusicPitch(music:Music, pitch:Float):Void
-	{
-		untyped __cpp__("SetMusicPitch({0}.value, float({1}))", music, pitch);
-	}
+	@:native("SetMusicPitch")
+	public static extern function SetMusicPitch(music:Music, pitch:Float):Void;
 
 	/** Set music loop count (loop repeats) **/
-	public static extern inline function SetMusicLoopCount(music:Music, count:Int):Void
-	{
-		untyped __cpp__("SetMusicLoopCount({0}.value, {1})", music, count);
-	}
+	@:native("SetMusicLoopCount")
+	public static extern function SetMusicLoopCount(music:Music, count:Int):Void;
 
 	/** Get music time length (in seconds) **/
-	public static extern inline function GetMusicTimeLength(music:Music):Float
-	{
-		return untyped __cpp__("GetMusicTimeLength({0}.value)", music);
-	}
+	@:native("GetMusicTimeLength")
+	public static extern function GetMusicTimeLength(music:Music):Float;
 
 	/** Get current music time played (in seconds) **/
-	public static extern inline function GetMusicTimePlayed(music:Music):Float
-	{
-		return untyped __cpp__("GetMusicTimePlayed({0}.value)", music);
-	}
+	@:native("GetMusicTimePlayed")
+	public static extern function GetMusicTimePlayed(music:Music):Float;
 
 	/** Init audio stream (to stream raw audio pcm data) **/
 	public static extern inline function InitAudioStream(sampleRate:UInt, sampleSize:UInt, channels:UInt):AudioStream
