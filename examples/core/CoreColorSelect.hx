@@ -29,17 +29,17 @@ class CoreColorSelect
 							GRAY, RED, GOLD, LIME, BLUE, VIOLET, BROWN, LIGHTGRAY, PINK, YELLOW,
 							GREEN, SKYBLUE, PURPLE, BEIGE ];
 
-		var colorsRecs:Array<Rectangle> = [];             // Rectangles array
+		var colorsRecs = [];             // Rectangles array
 
 		// Fills colorsRecs data (for every rectangle)
 		for (i in 0...21)
 		{
-			colorsRecs.push({
-				x: 20 + 100*(i%7) + 10*(i%7),
-				y: 60 + 100*(i/7) + 10*(i/7),
-				width: 100,
-				height: 100
-			});
+			colorsRecs.push(new Rectangle(
+				20 + 100*(i%7) + 10*(i%7),
+				60 + 100*(i/7) + 10*(i/7),
+				100,
+				100
+			));
 		}
 
 		var selected = [for (i in 0...21) false];  // Selected rectangles indicator
@@ -60,11 +60,18 @@ class CoreColorSelect
 			{
 				if (CheckCollisionPointRec(mousePoint, colorsRecs[i]))
 				{
-					colors[i].a = 120;
+					var c = colors[i];
+					c.a = 120;
+					colors[i] = c;
 
 					if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) selected[i] = !selected[i];
 				}
-				else colors[i].a = 255;
+				else
+				{
+					var c = colors[i];
+					c.a = 255;
+					colors[i] = c;
+				}
 			}
 			//----------------------------------------------------------------------------------
 

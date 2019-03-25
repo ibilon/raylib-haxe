@@ -25,7 +25,7 @@ class CoreInputMouse
 
 		InitWindow(screenWidth, screenHeight, "raylib [core] example - mouse input");
 
-		var ballPosition:Vector2 = { x: -100.0, y: -100.0 };
+		var ballPosition = new Vector2(-100.0, -100.0);
 		var ballColor = DARKBLUE;
 
 		SetTargetFPS(60);

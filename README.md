@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/license-ZLIB-blue.svg)](http://opensource.org/licenses/ZLIB)
 [![Build Status](https://travis-ci.org/ibilon/raylib-haxe.svg?branch=master)](https://travis-ci.org/ibilon/raylib-haxe)
 
-Haxe externs for the [raylib library](https://github.com/raysan5/raylib).
+Haxe externs for the [raylib library](https://github.com/raysan5/raylib), version 2.4.
 
 This requires a C++ compiler, cmake and make to build raylib during your first build.
 
@@ -23,7 +23,7 @@ raylib is a simple and easy-to-use library to enjoy videogames programming.
 
 raylib is highly inspired by Borland BGI graphics lib and by XNA framework.
 
-raylib could be useful for prototyping, tools development, graphic applications, embedded systems and education.
+raylib is especially well suited for prototyping, tooling, graphical applications, embedded systems and education.
 
 NOTE for ADVENTURERS: raylib is a programming library to enjoy videogames programming; no fancy interface, no visual helpers, no auto-debugging... just coding in the most pure spartan-programmers way.
 

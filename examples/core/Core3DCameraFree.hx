@@ -26,15 +26,15 @@ class Core3DCameraFree
 		InitWindow(screenWidth, screenHeight, "raylib [core] example - 3d camera free");
 
 		// Define the camera to look into our 3d world
-		var camera:Camera3D = {
-			position: { x: 10.0, y: 10.0, z: 10.0 }, // Camera position
-			target: { x: 0.0, y: 0.0, z: 0.0 },      // Camera looking at point
-			up: { x: 0.0, y: 1.0, z: 0.0 },          // Camera up vector (rotation towards target)
-			fovy: 45.0,                                // Camera field-of-view Y
-			type: CAMERA_PERSPECTIVE,                   // Camera mode type
-		}
+		var camera = new Camera3D(
+			new Vector3(10.0, 10.0, 10.0),
+			new Vector3(0.0, 0.0, 0.0),
+			new Vector3(0.0, 1.0, 0.0),
+			45.0,
+			CAMERA_PERSPECTIVE
+		);
 
-		var cubePosition = { x: 0.0, y: 0.0, z: 0.0 };
+		var cubePosition = new Vector3(0.0, 0.0, 0.0);
 
 		SetCameraMode(camera, CAMERA_FREE); // Set a free camera mode
 
@@ -48,7 +48,7 @@ class Core3DCameraFree
 			//----------------------------------------------------------------------------------
 			UpdateCamera(camera);          // Update camera
 
-			if (IsKeyDown(KEY_Z)) camera.target = { x: 0.0, y: 0.0, z: 0.0 };
+			if (IsKeyDown(KEY_Z)) camera.target = new Vector3(0.0, 0.0, 0.0);
 			//----------------------------------------------------------------------------------
 
 			// Draw

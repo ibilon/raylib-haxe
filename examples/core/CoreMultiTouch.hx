@@ -26,7 +26,7 @@ class CoreMultiTouch
 
 		InitWindow(screenWidth, screenHeight, "raylib [core] example - multitouch input");
 
-		var ballPosition:Vector2 = { x: -100.0, y: -100.0 };
+		var ballPosition = new Vector2(-100.0, -100.0);
 		var ballColor;
 		var PressedCounter = 0;
 		var TouchPos;

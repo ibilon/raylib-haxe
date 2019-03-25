@@ -27,8 +27,8 @@ class CoreGestureDetection
 
 		InitWindow(screenWidth, screenHeight, "raylib [core] example - gestures detection");
 
-		var touchPosition:Vector2 = { x: 0, y: 0 };
-		var touchArea = { x: 220, y: 10, width: screenWidth - 230, height: screenHeight - 20 };
+		var touchPosition = new Vector2(0, 0);
+		var touchArea = new Rectangle(220, 10, screenWidth - 230, screenHeight - 20);
 
 		var gesturesCount = 0;
 		var gestureStrings = [for (i in 0...MAX_GESTURE_STRINGS) ""];

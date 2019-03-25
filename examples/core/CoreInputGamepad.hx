@@ -37,8 +37,8 @@ class CoreInputGamepad
 
 		InitWindow(screenWidth, screenHeight, "raylib [core] example - gamepad input");
 
-		var texPs3Pad = LoadTexture("resources/ps3.png");
-		var texXboxPad = LoadTexture("resources/xbox.png");
+		var texPs3Pad = LoadTexture("lib/examples/core/resources/ps3.png");
+		var texXboxPad = LoadTexture("lib/examples/core/resources/xbox.png");
 
 		SetTargetFPS(60);
 		//--------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ class CoreInputGamepad
 
 						// Draw buttons: basic
 						if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_PS3_BUTTON_SELECT)) DrawRectangle(328, 170, 32, 13, RED);
-						if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_PS3_BUTTON_START)) DrawTriangle({ x: 436, y: 168 }, { x: 436, y: 185 }, { x: 464, y: 177 }, RED);
+						if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_PS3_BUTTON_START)) DrawTriangle(new Vector2(436, 168), new Vector2(436, 185), new Vector2(464, 177), RED);
 						if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_PS3_BUTTON_TRIANGLE)) DrawCircle(557, 144, 13, LIME);
 						if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_PS3_BUTTON_CIRCLE)) DrawCircle(586, 173, 13, RED);
 						if (IsGamepadButtonDown(GAMEPAD_PLAYER1, GAMEPAD_PS3_BUTTON_CROSS)) DrawCircle(557, 203, 13, VIOLET);

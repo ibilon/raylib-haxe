@@ -26,21 +26,22 @@ class Core3DPicking
 		InitWindow(screenWidth, screenHeight, "raylib [core] example - 3d picking");
 
 		// Define the camera to look into our 3d world
-		var camera:Camera3D = {
-			position: { x: 10.0, y: 10.0, z: 10.0 },  // Camera position
-			target: { x: 0.0, y: 0.0, z: 0.0 },      // Camera looking at point
-			up: { x: 0.0, y: 1.0, z: 0.0 },          // Camera up vector (rotation towards target)
-			fovy: 45.0,                                // Camera field-of-view Y
-			type: CAMERA_PERSPECTIVE                   // Camera mode type
-		};
+		var camera = new Camera3D(
+			new Vector3(10.0, 10.0, 10.0),
+			new Vector3(0.0, 0.0, 0.0),
+			new Vector3(0.0, 1.0, 0.0),
+			45.0,
+			CAMERA_PERSPECTIVE
+		);
 
-		var cubePosition = { x: 0.0, y: 1.0, z: 0.0 };
-		var cubeSize = { x: 2.0, y: 2.0, z: 2.0 };
+		var cubePosition = new Vector3(0.0, 1.0, 0.0);
+		var cubeSize = new Vector3(2.0, 2.0, 2.0);
 
-		var ray:Ray = { // Picking line ray
-			position: { x: 0.0, y: 0.0, z: 0.0 },
-			direction: { x: 0.0, y: 0.0, z: 0.0 }
-		};
+		// Picking line ray
+		var ray = new Ray(
+			new Vector3(0.0, 0.0, 0.0),
+			new Vector3(0.0, 0.0, 0.0)
+		);
 
 		var collision = false;
 
@@ -61,10 +62,10 @@ class Core3DPicking
 				ray = GetMouseRay(GetMousePosition(), camera);
 
 				// Check collision between ray and box
-				collision = CheckCollisionRayBox(ray, {
-					min: { x: cubePosition.x - cubeSize.x/2, y: cubePosition.y - cubeSize.y/2, z: cubePosition.z - cubeSize.z/2 },
-					max: { x: cubePosition.x + cubeSize.x/2, y: cubePosition.y + cubeSize.y/2, z: cubePosition.z + cubeSize.z/2 }
-				});
+				collision = CheckCollisionRayBox(ray, new BoundingBox(
+					new Vector3(cubePosition.x - cubeSize.x/2, cubePosition.y - cubeSize.y/2, cubePosition.z - cubeSize.z/2),
+					new Vector3(cubePosition.x + cubeSize.x/2, cubePosition.y + cubeSize.y/2, cubePosition.z + cubeSize.z/2)
+				));
 			}
 			//----------------------------------------------------------------------------------
 

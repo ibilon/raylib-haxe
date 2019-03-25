@@ -28,13 +28,13 @@ class Core3DCameraFirstPerson
 		InitWindow(screenWidth, screenHeight, "raylib [core] example - 3d camera first person");
 
 		// Define the camera to look into our 3d world (position, target, up vector)
-		var camera:Camera3D = {
-			position: { x: 4.0, y: 2.0, z: 4.0 },
-			target: { x: 0.0, y: 1.8, z: 0.0 },
-			up: { x: 0.0, y: 1.0, z: 0.0 },
-			fovy: 60.0,
-			type: CAMERA_PERSPECTIVE
-		};
+		var camera = new Camera3D(
+			new Vector3(4.0, 2.0, 4.0),
+			new Vector3(0.0, 1.8, 0.0),
+			new Vector3(0.0, 1.0, 0.0),
+			60.0,
+			CAMERA_PERSPECTIVE
+		);
 
 		// Generates some random columns
 		var heights = [];
@@ -44,8 +44,8 @@ class Core3DCameraFirstPerson
 		for (i in 0...MAX_COLUMNS)
 		{
 			heights[i] = GetRandomValue(1, 12);
-			positions[i] = { x: GetRandomValue(-15, 15), y: heights[i]/2, z: GetRandomValue(-15, 15) };
-			colors[i] = { r: GetRandomValue(20, 255), g: GetRandomValue(10, 55), b: 30, a: 255 };
+			positions[i] = new Vector3(GetRandomValue(-15, 15), heights[i]/2, GetRandomValue(-15, 15));
+			colors[i] = new Color(GetRandomValue(20, 255), GetRandomValue(10, 55), 30, 255);
 		}
 
 		SetCameraMode(camera, CAMERA_FIRST_PERSON); // Set a first person camera mode
@@ -69,10 +69,10 @@ class Core3DCameraFirstPerson
 
 				BeginMode3D(camera);
 
-					DrawPlane({ x: 0.0, y: 0.0, z: 0.0 }, { x: 32.0, y: 32.0 }, LIGHTGRAY); // Draw ground
-					DrawCube({ x: -16.0, y: 2.5, z: 0.0 }, 1.0, 5.0, 32.0, BLUE);     // Draw a blue wall
-					DrawCube({ x: 16.0, y: 2.5, z: 0.0 }, 1.0, 5.0, 32.0, LIME);      // Draw a green wall
-					DrawCube({ x: 0.0, y: 2.5, z: 16.0 }, 32.0, 5.0, 1.0, GOLD);      // Draw a yellow wall
+					DrawPlane(new Vector3(0.0, 0.0, 0.0), new Vector2(32.0, 32.0), LIGHTGRAY); // Draw ground
+					DrawCube(new Vector3(-16.0, 2.5, 0.0), 1.0, 5.0, 32.0, BLUE);     // Draw a blue wall
+					DrawCube(new Vector3(16.0, 2.5, 0.0), 1.0, 5.0, 32.0, LIME);      // Draw a green wall
+					DrawCube(new Vector3(0.0, 2.5, 16.0), 32.0, 5.0, 1.0, GOLD);      // Draw a yellow wall
 
 					// Draw some cubes around
 					for (i in 0...MAX_COLUMNS)

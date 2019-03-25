@@ -8,6 +8,7 @@ import cpp.Star;
 import cpp.UInt8;
 import cpp.VarArg;
 import sys.FileSystem;
+import sys.io.File;
 
 using StringTools;
 using haxe.io.Path;
@@ -15,52 +16,80 @@ using haxe.io.Path;
 typedef ConstVoidStar = cpp.RawConstPointer<cpp.Void>;
 
 /** Vector2 type **/
-@:forward
-@:unreflective
-abstract Vector2 (Vector2Data)
+abstract Vector2 (Vector2Struct)
 {
-	@:from static extern inline function fromAnonMixed1(a:{x:Int, y:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed2(a:{x:Float, y:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed3(a:{x:Int, y:Int}) return fromAnon(cast a);
-
-	@:from static extern inline function fromAnon(a:{x:Float, y:Float}):Vector2
+	public inline function new(x:Float, y:Float)
 	{
-		return untyped __cpp__("cpp::Struct<Vector2>(Vector2{{ float({0}), float({1}) }})", a.x, a.y);
+		this = untyped __cpp__("cpp::Struct<Vector2>(Vector2{{ float({0}), float({1}) }})", x, y);
+	}
+
+	public var x(get, set):Float;
+	inline function get_x() return untyped __cpp__("{0}.value.x", this);
+	inline function set_x(v:Float) return untyped __cpp__("{0}.value.x = {1}", this, v);
+
+	public var y(get, set):Float;
+	inline function get_y() return untyped __cpp__("{0}.value.y", this);
+	inline function set_y(v:Float) return untyped __cpp__("{0}.value.y = {1}", this, v);
+
+	@:to inline function toRaw():_Vector2
+	{
+		return untyped __cpp__("{0}.value", this);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Vector2>")
+private extern class Vector2Struct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Vector2")
+@:structAccess
 @:unreflective
-private extern class Vector2Data
+private extern class _Vector2
 {
 	public var x:Float;
 	public var y:Float;
 }
 
 /** Vector3 type **/
-@:forward
-@:unreflective
-abstract Vector3 (Vector3Data)
+abstract Vector3 (Vector3Struct)
 {
-	@:from static extern inline function fromAnonMixed1(a:{x:Int, y:Float, z:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed2(a:{x:Float, y:Int, z:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed3(a:{x:Float, y:Float, z:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed4(a:{x:Int, y:Int, z:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed5(a:{x:Int, y:Float, z:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed6(a:{x:Float, y:Int, z:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed7(a:{x:Int, y:Int, z:Int}) return fromAnon(cast a);
-
-	@:from static extern inline function fromAnon(a:{x:Float, y:Float, z:Float}):Vector3
+	public inline function new(x:Float, y:Float, z:Float)
 	{
-		return untyped __cpp__("cpp::Struct<Vector3>(Vector3{{ float({0}), float({1}), float({2}) }})", a.x, a.y, a.z);
+		this = untyped __cpp__("cpp::Struct<Vector3>(Vector3{{ float({0}), float({1}), float({2}) }})", x, y, z);
+	}
+
+	public var x(get, set):Float;
+	inline function get_x() return untyped __cpp__("{0}.value.x", this);
+	inline function set_x(v:Float) return untyped __cpp__("{0}.value.x = {1}", this, v);
+
+	public var y(get, set):Float;
+	inline function get_y() return untyped __cpp__("{0}.value.y", this);
+	inline function set_y(v:Float) return untyped __cpp__("{0}.value.y = {1}", this, v);
+
+	public var z(get, set):Float;
+	inline function get_z() return untyped __cpp__("{0}.value.z", this);
+	inline function set_z(v:Float) return untyped __cpp__("{0}.value.z = {1}", this, v);
+
+	@:to inline function toRaw():_Vector3
+	{
+		return untyped __cpp__("{0}.value", this);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Vector3>")
+private extern class Vector3Struct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Vector3")
+@:structAccess
 @:unreflective
-private extern class Vector3Data
+private extern class _Vector3
 {
 	public var x:Float;
 	public var y:Float;
@@ -68,37 +97,46 @@ private extern class Vector3Data
 }
 
 /** Vector4 type **/
-@:forward
-@:unreflective
-abstract Vector4 (Vector4Data)
+abstract Vector4 (Vector4Struct)
 {
-	@:from static extern inline function fromAnonMixed1(a:{x:Int, y:Float, z:Float, w:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed2(a:{x:Float, y:Int, z:Float, w:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed3(a:{x:Float, y:Float, z:Int, w:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed4(a:{x:Float, y:Float, z:Float, w:Int}) return fromAnon(cast a);
-
-	@:from static extern inline function fromAnonMixed5(a:{x:Int, y:Int, z:Float, w:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed6(a:{x:Int, y:Float, z:Int, w:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed7(a:{x:Int, y:Float, z:Float, w:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed8(a:{x:Float, y:Int, z:Int, w:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed9(a:{x:Float, y:Int, z:Float, w:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed10(a:{x:Float, y:Float, z:Int, w:Int}) return fromAnon(cast a);
-
-	@:from static extern inline function fromAnonMixed11(a:{x:Float, y:Int, z:Int, w:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed12(a:{x:Int, y:Float, z:Int, w:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed13(a:{x:Int, y:Int, z:Float, w:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed14(a:{x:Int, y:Int, z:Int, w:Float}) return fromAnon(cast a);
-
-	@:from static extern inline function fromAnon(a:{x:Float, y:Float, z:Float, w:Float}):Vector4
+	public inline function new(x:Float, y:Float, z:Float, w:Float)
 	{
-		return untyped __cpp__("cpp::Struct<Vector4>(Vector4{{ float({0}), float({1}), float({2}), float({3}) }})", a.x, a.y, a.z, a.w);
+		this = untyped __cpp__("cpp::Struct<Vector4>(Vector4{{ float({0}), float({1}), float({2}), float({3}) }})", x, y, z, w);
+	}
+
+	public var x(get, set):Float;
+	inline function get_x() return untyped __cpp__("{0}.value.x", this);
+	inline function set_x(v:Float) return untyped __cpp__("{0}.value.x = {1}", this, v);
+
+	public var y(get, set):Float;
+	inline function get_y() return untyped __cpp__("{0}.value.y", this);
+	inline function set_y(v:Float) return untyped __cpp__("{0}.value.y = {1}", this, v);
+
+	public var z(get, set):Float;
+	inline function get_z() return untyped __cpp__("{0}.value.z", this);
+	inline function set_z(v:Float) return untyped __cpp__("{0}.value.z = {1}", this, v);
+
+	public var w(get, set):Float;
+	inline function get_w() return untyped __cpp__("{0}.value.w", this);
+	inline function set_w(v:Float) return untyped __cpp__("{0}.value.w = {1}", this, v);
+
+	@:to inline function toRaw():_Vector4
+	{
+		return untyped __cpp__("{0}.value", this);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Vector4>")
+private extern class Vector4Struct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Vector4")
+@:structAccess
 @:unreflective
-private extern class Vector4Data
+private extern class _Vector4
 {
 	public var x:Float;
 	public var y:Float;
@@ -110,10 +148,25 @@ private extern class Vector4Data
 typedef Quaternion = Vector4;
 
 /** Matrix type (OpenGL style 4x4 - right handed, column major) **/
+abstract Matrix (MatrixStruct)
+{
+	@:to inline function toRaw():_Matrix
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Matrix>")
+private extern class MatrixStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Matrix")
+@:structAccess
 @:unreflective
-extern class Matrix
+extern class _Matrix
 {
 	public var m0:Float;
 	public var m1:Float;
@@ -134,22 +187,46 @@ extern class Matrix
 }
 
 /** Color type, RGBA (32bit) **/
-@:forward
-@:unreflective
-abstract Color (ColorData)
+abstract Color (ColorStruct)
 {
-	@:from static extern inline function fromAnonInt(a:{r:Int, g:Int, b:Int, a:Int}):Color return fromAnon(cast a);
-
-	@:from static extern inline function fromAnon(a:{r:UInt8, g:UInt8, b:UInt8, a:UInt8}):Color
+	public inline function new(r:UInt8, g:UInt8, b:UInt8, a:UInt8)
 	{
-		return untyped __cpp__("cpp::Struct<Color>(Color{{ {0}, {1}, {2}, {3} }})", a.r, a.g, a.b, a.a);
+		this = untyped __cpp__("cpp::Struct<Color>(Color{{ {0}, {1}, {2}, {3} }})", r, g, b, a);
+	}
+
+	public var r(get, set):UInt8;
+	inline function get_r() return untyped __cpp__("{0}.value.r", this);
+	inline function set_r(v:UInt8) return untyped __cpp__("{0}.value.r = {1}", this, v);
+
+	public var g(get, set):UInt8;
+	inline function get_g() return untyped __cpp__("{0}.value.g", this);
+	inline function set_g(v:UInt8) return untyped __cpp__("{0}.value.g = {1}", this, v);
+
+	public var b(get, set):UInt8;
+	inline function get_b() return untyped __cpp__("{0}.value.b", this);
+	inline function set_b(v:UInt8) return untyped __cpp__("{0}.value.b = {1}", this, v);
+
+	public var a(get, set):UInt8;
+	inline function get_a() return untyped __cpp__("{0}.value.a", this);
+	inline function set_a(v:UInt8) return untyped __cpp__("{0}.value.a = {1}", this, v);
+
+	@:to inline function toRaw():_Color
+	{
+		return untyped __cpp__("{0}.value", this);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Color>")
+private extern class ColorStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Color")
+@:structAccess
 @:unreflective
-private extern class ColorData
+private extern class _Color
 {
 	public var r:UInt8;
 	public var g:UInt8;
@@ -158,39 +235,46 @@ private extern class ColorData
 }
 
 /** Rectangle type **/
-@:forward
-@:unreflective
-abstract Rectangle (RectangleData)
+abstract Rectangle (RectangleStruct)
 {
-	@:from static extern inline function fromAnonInt(a:{x:Int, y:Int, width:Int, height:Int}) return fromAnon(cast a);
-
-	@:from static extern inline function fromAnonMixed1(a:{x:Float, y:Int, width:Int, height:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed2(a:{x:Int, y:Float, width:Int, height:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed3(a:{x:Int, y:Int, width:Float, height:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed4(a:{x:Int, y:Int, width:Int, height:Float}) return fromAnon(cast a);
-
-	@:from static extern inline function fromAnonMixed5(a:{x:Float, y:Float, width:Int, height:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed6(a:{x:Float, y:Int, width:Float, height:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed7(a:{x:Float, y:Int, width:Int, height:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed8(a:{x:Int, y:Float, width:Float, height:Int}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed9(a:{x:Int, y:Float, width:Int, height:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed10(a:{x:Int, y:Int, width:Float, height:Float}) return fromAnon(cast a);
-
-	@:from static extern inline function fromAnonMixed11(a:{x:Int, y:Float, width:Float, height:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed12(a:{x:Float, y:Int, width:Float, height:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed13(a:{x:Float, y:Float, width:Int, height:Float}) return fromAnon(cast a);
-	@:from static extern inline function fromAnonMixed14(a:{x:Float, y:Float, width:Float, height:Int}) return fromAnon(cast a);
-
-	@:from static extern inline function fromAnon(a:{x:Float, y:Float, width:Float, height:Float}):Rectangle
+	public inline function new(x:Float, y:Float, width:Float, height:Float):Rectangle
 	{
-		return untyped __cpp__("cpp::Struct<Rectangle>(Rectangle{{ float({0}), float({1}), float({2}), float({3}) }})", a.x, a.y, a.width, a.height);
+		this = untyped __cpp__("cpp::Struct<Rectangle>(Rectangle{{ float({0}), float({1}), float({2}), float({3}) }})", x, y, width, height);
+	}
+
+	public var x(get, set):Float;
+	inline function get_x() return untyped __cpp__("{0}.value.x", this);
+	inline function set_x(v:Float) return untyped __cpp__("{0}.value.x = {1}", this, v);
+
+	public var y(get, set):Float;
+	inline function get_y() return untyped __cpp__("{0}.value.y", this);
+	inline function set_y(v:Float) return untyped __cpp__("{0}.value.y = {1}", this, v);
+
+	public var width(get, set):Float;
+	inline function get_width() return untyped __cpp__("{0}.value.width", this);
+	inline function set_width(v:Float) return untyped __cpp__("{0}.value.width = {1}", this, v);
+
+	public var height(get, set):Float;
+	inline function get_height() return untyped __cpp__("{0}.value.height", this);
+	inline function set_height(v:Float) return untyped __cpp__("{0}.value.height = {1}", this, v);
+
+	@:to inline function toRaw():_Rectangle
+	{
+		return untyped __cpp__("{0}.value", this);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Rectangle>")
+private extern class RectangleStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Rectangle")
+@:structAccess
 @:unreflective
-private extern class RectangleData
+private extern class _Rectangle
 {
 	public var x:Float;
 	public var y:Float;
@@ -200,10 +284,25 @@ private extern class RectangleData
 
 /** Image type, bpp always RGBA (32bit)
 NOTE: Data stored in CPU memory (RAM) **/
+abstract Image (ImageStruct)
+{
+	@:to inline function toRaw():_Image
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Image>")
+private extern class ImageStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Image")
+@:structAccess
 @:unreflective
-extern class Image
+extern class _Image
 {
 	/** Image raw data **/
 	public var data:Star<cpp.Void>;
@@ -218,15 +317,30 @@ extern class Image
 	public var mipmaps:Int;
 
 	/** Data format (PixelFormat type) **/
-	public var format:Int;
+	public var format:PixelFormat;
 }
 
 /** Texture2D type
 NOTE: Data stored in GPU memory **/
+abstract Texture2D (Texture2DStruct)
+{
+	@:to inline function toRaw():_Texture2D
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Texture2D>")
+private extern class Texture2DStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Texture2D")
+@:structAccess
 @:unreflective
-extern class Texture2D
+extern class _Texture2D
 {
 	/** OpenGL texture id **/
 	public var id:UInt;
@@ -241,7 +355,7 @@ extern class Texture2D
 	public var mipmaps:Int;
 
 	/** Data format (PixelFormat type) **/
-	public var format:Int;
+	public var format:PixelFormat;
 }
 
 /** Texture type, same as Texture2D **/
@@ -251,10 +365,25 @@ typedef Texture = Texture2D;
 typedef TextureCubemap = Texture2D;
 
 /** RenderTexture2D type, for texture rendering **/
+abstract RenderTexture2D (RenderTexture2DStruct)
+{
+	@:to inline function toRaw():_RenderTexture2D
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<RenderTexture2D>")
+private extern class RenderTexture2DStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("RenderTexture2D")
+@:structAccess
 @:unreflective
-extern class RenderTexture2D
+extern class _RenderTexture2D
 {
 	/** OpenGL Framebuffer Object (FBO) id **/
 	public var id:UInt;
@@ -273,13 +402,28 @@ extern class RenderTexture2D
 typedef RenderTexture = RenderTexture2D;
 
 /** N-Patch layout info **/
+abstract NPatchInfo (NPatchInfoStruct)
+{
+	@:to inline function toRaw():_NPatchInfo
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<NPatchInfo>")
+private extern class NPatchInfoStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("NPatchInfo")
+@:structAccess
 @:unreflective
-extern class NPatchInfo
+extern class _NPatchInfo
 {
 	/** Region in the texture **/
-	public var sourceRec:Rectangle;
+	public var sourceRec:_Rectangle;
 
 	/** left border offset **/
 	public var left:Int;
@@ -298,16 +442,31 @@ extern class NPatchInfo
 }
 
 /** Font character info **/
+abstract CharInfo (CharInfoStruct)
+{
+	@:to inline function toRaw():_CharInfo
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<CharInfo>")
+private extern class CharInfoStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("CharInfo")
+@:structAccess
 @:unreflective
-extern class CharInfo
+extern class _CharInfo
 {
 	/** Character value (Unicode) **/
 	public var value:Int;
 
 	/** Character rectangle in sprite font **/
-	public var rec:Rectangle;
+	public var rec:_Rectangle;
 
 	/** Character offset X when drawing **/
 	public var offsetX:Int;
@@ -323,13 +482,28 @@ extern class CharInfo
 }
 
 /** Font type, includes texture and charSet array data **/
+abstract Font (FontStruct)
+{
+	@:to inline function toRaw():_Font
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Font>")
+private extern class FontStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Font")
+@:structAccess
 @:unreflective
-extern class Font
+extern class _Font
 {
 	/** Font texture **/
-	public var texture:Texture2D;
+	public var texture:_Texture2D;
 
 	/** Base size (default chars height) **/
 	public var baseSize:Int;
@@ -338,40 +512,66 @@ extern class Font
 	public var charsCount:Int;
 
 	/** Characters info data **/
-	public var chars:Star<CharInfo>;
+	public var chars:Star<_CharInfo>;
 }
 
 /** SpriteFont type fallback, defaults to Font **/
 typedef SpriteFont = Font;
 
 /** Camera type, defines a camera position/orientation in 3d space **/
-@:forward
-@:unreflective
-abstract Camera3D (Camera3DData)
+abstract Camera3D (Camera3DStruct)
 {
-	@:from static extern inline function fromAnon(a:{position:Vector3, target:Vector3, up:Vector3, fovy:Float, type:CameraType}) return fromAnonInline(cast a);
-
-	//TODO the mixed cases
-
-	@:from static extern inline function fromAnonInline(a:{position:{x:Float, y:Float, z:Float}, target:{x:Float, y:Float, z:Float}, up:{x:Float, y:Float, z:Float}, fovy:Float, type:CameraType}):Camera3D
+	public inline function new(position:Vector3, target:Vector3, up:Vector3, fovy:Float, type:CameraType)
 	{
-		return untyped __cpp__("cpp::Struct<Camera3D>(Camera3D{{ Vector3{{ float({0}), float({1}), float({2}) }}, Vector3{{ float({3}), float({4}), float({5}) }}, Vector3{{ float({6}), float({7}), float({8}) }}, float({9}), {10} }})", a.position.x, a.position.y, a.position.z, a.target.x, a.target.y, a.target.z, a.up.x, a.up.y, a.up.z, a.fovy, a.type);
+		this = untyped __cpp__("cpp::Struct<Camera3D>(Camera3D{{ {0}, {1}, {2}, float({3}), {4} }})", position, target, up, fovy, type);
+	}
+
+	public var position(get, set):Vector3;
+	inline function get_position() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.position)", this);
+	inline function set_position(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.position = {1}.value)", this, v);
+
+	public var target(get, set):Vector3;
+	inline function get_target() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.target)", this);
+	inline function set_target(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.target = {1}.value)", this, v);
+
+	public var up(get, set):Vector3;
+	inline function get_up() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.up)", this);
+	inline function set_up(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.up = {1}.value)", this, v);
+
+	public var fovy(get, set):Float;
+	inline function get_fovy() return untyped __cpp__("{0}.value.fovy", this);
+	inline function set_fovy(v:Float) return untyped __cpp__("{0}.value.fovy = {1}", this, v);
+
+	public var type(get, set):CameraType;
+	inline function get_type() return untyped __cpp__("{0}.value.type", this);
+	inline function set_type(v:CameraType) return untyped __cpp__("{0}.value.type = {1}", this, v);
+
+	@:to inline function toRaw():_Camera3D
+	{
+		return untyped __cpp__("{0}.value", this);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Camera3D>")
+private extern class Camera3DStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Camera3D")
+@:structAccess
 @:unreflective
-private extern class Camera3DData
+private extern class _Camera3D
 {
 	/** Camera position **/
-	public var position:Vector3;
+	public var position:_Vector3;
 
 	/** Camera target it looks-at **/
-	public var target:Vector3;
+	public var target:_Vector3;
 
 	/** Camera up vector (rotation over its axis) **/
-	public var up:Vector3;
+	public var up:_Vector3;
 
 	/** Camera field-of-view apperture in Y (degrees) in perspective, used as near plane width in orthographic **/
 	public var fovy:Float;
@@ -384,48 +584,52 @@ private extern class Camera3DData
 typedef Camera = Camera3D;
 
 /** Camera2D type, defines a 2d camera **/
-@:forward
-@:unreflective
-abstract Camera2D (Camera2DData)
+abstract Camera2D (Camera2DStruct)
 {
-	@:from static extern inline function fromAnon(a:{offset:Vector2, target:Vector2, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-
-	@:from static extern inline function fromAnonInlineMixed1(a:{offset:{x:Int, y:Int}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static extern inline function fromAnonInlineMixed2(a:{offset:{x:Int, y:Int}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static extern inline function fromAnonInlineMixed3(a:{offset:{x:Int, y:Int}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static extern inline function fromAnonInlineMixed4(a:{offset:{x:Int, y:Int}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-
-	@:from static extern inline function fromAnonInlineMixed5(a:{offset:{x:Int, y:Float}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static extern inline function fromAnonInlineMixed6(a:{offset:{x:Int, y:Float}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static extern inline function fromAnonInlineMixed7(a:{offset:{x:Int, y:Float}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static extern inline function fromAnonInlineMixed8(a:{offset:{x:Int, y:Float}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-
-	@:from static extern inline function fromAnonInlineMixed9(a:{offset:{x:Float, y:Int}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static extern inline function fromAnonInlineMixed10(a:{offset:{x:Float, y:Int}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static extern inline function fromAnonInlineMixed11(a:{offset:{x:Float, y:Int}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static extern inline function fromAnonInlineMixed12(a:{offset:{x:Float, y:Int}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-
-	@:from static extern inline function fromAnonInlineMixed13(a:{offset:{x:Float, y:Float}, target:{x:Int, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static extern inline function fromAnonInlineMixed14(a:{offset:{x:Float, y:Float}, target:{x:Int, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static extern inline function fromAnonInlineMixed15(a:{offset:{x:Float, y:Float}, target:{x:Float, y:Int}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-	@:from static extern inline function fromAnonInlineMixed16(a:{offset:{x:Float, y:Float}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}) return fromAnonInline(cast a);
-
-	@:from static extern inline function fromAnonInline(a:{offset:{x:Float, y:Float}, target:{x:Float, y:Float}, rotation:Float, zoom:Float}):Camera2D
+	public inline function new(offset:Vector2, target:Vector2, rotation:Float, zoom:Float)
 	{
-		return untyped __cpp__("cpp::Struct<Camera2D>(Camera2D{{ Vector2{{ float({0}), float({1}) }}, Vector2{{ float({2}), float({3}) }}, float({4}), float({5}) }})", a.offset.x, a.offset.y, a.target.x, a.target.y, a.rotation, a.zoom);
+		this = untyped __cpp__("cpp::Struct<Camera2D>(Camera2D{{ {0}, {1}, float({2}), float({3}) }})", offset, target, rotation, zoom);
+	}
+
+	public var offset(get, set):Vector2;
+	inline function get_offset() return untyped __cpp__("cpp::Struct<Vector2>({0}.value.offset)", this);
+	inline function set_offset(v:Vector2) return untyped __cpp__("cpp::Struct<Vector2>({0}.value.offset = {1}.value)", this, v);
+
+	public var target(get, set):Vector2;
+	inline function get_target() return untyped __cpp__("cpp::Struct<Vector2>({0}.value.target)", this);
+	inline function set_target(v:Vector2) return untyped __cpp__("cpp::Struct<Vector2>({0}.value.target = {1}.value)", this, v);
+
+	public var rotation(get, set):Float;
+	inline function get_rotation() return untyped __cpp__("{0}.value.rotation", this);
+	inline function set_rotation(v:Float) return untyped __cpp__("{0}.value.rotation = {1}", this, v);
+
+	public var zoom(get, set):Float;
+	inline function get_zoom() return untyped __cpp__("{0}.value.zoom", this);
+	inline function set_zoom(v:Float) return untyped __cpp__("{0}.value.zoom = {1}", this, v);
+
+	@:to inline function toRaw():_Camera2D
+	{
+		return untyped __cpp__("{0}.value", this);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Camera2D>")
+private extern class Camera2DStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Camera2D")
+@:structAccess
 @:unreflective
-private extern class Camera2DData
+private extern class _Camera2D
 {
 	/** Camera offset (displacement from target) **/
-	public var offset:Vector2;
+	public var offset:_Vector2;
 
 	/** Camera target (rotation and zoom origin) **/
-	public var target:Vector2;
+	public var target:_Vector2;
 
 	/** Camera rotation in degrees **/
 	public var rotation:Float;
@@ -435,34 +639,67 @@ private extern class Camera2DData
 }
 
 /** Bounding box type **/
-@:forward
-@:unreflective
-abstract BoundingBox (BoundingBoxData)
+abstract BoundingBox (BoundingBoxStruct)
 {
-	@:from static extern inline function fromAnon(a:{min:{x:Float, y:Float, z:Float}, max:{x:Float, y:Float, z:Float}}):BoundingBox
+	public inline function new(min:Vector3, max:Vector3)
 	{
-		return untyped __cpp__("cpp::Struct<BoundingBox>(BoundingBox{{ Vector3{{ float({0}), float({1}), float({2}) }}, Vector3{{ float({3}), float({4}), float({5}) }} }})", a.min.x, a.min.y, a.min.z, a.max.x, a.max.y, a.max.z);
+		this = untyped __cpp__("cpp::Struct<BoundingBox>(BoundingBox{{ {0}, {1} }})", min, max);
+	}
+
+	public var min(get, set):Vector3;
+	inline function get_min() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.min)", this);
+	inline function set_min(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.min = {1}.value)", this, v);
+
+	public var max(get, set):Vector3;
+	inline function get_max() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.max)", this);
+	inline function set_max(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.max = {1}.value)", this, v);
+
+	@:to inline function toRaw():_BoundingBox
+	{
+		return untyped __cpp__("{0}.value", this);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<BoundingBox>")
+private extern class BoundingBoxStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("BoundingBox")
+@:structAccess
 @:unreflective
-private extern class BoundingBoxData
+private extern class _BoundingBox
 {
 	/** Minimum vertex box-corner **/
-	public var min:Vector3;
+	public var min:_Vector3;
 
 	/** Maximum vertex box-corner **/
-	public var max:Vector3;
+	public var max:_Vector3;
 }
 
 /** Vertex data definning a mesh
 NOTE: Data stored in CPU memory (and GPU) **/
+abstract Mesh (MeshStruct)
+{
+	@:to inline function toRaw():_Mesh
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Mesh>")
+private extern class MeshStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Mesh")
+@:structAccess
 @:unreflective
-extern class Mesh
+extern class _Mesh
 {
 	/** Number of vertices stored in arrays **/
 	public var vertexCount:Int;
@@ -511,10 +748,25 @@ extern class Mesh
 }
 
 /** Shader type (generic) **/
+abstract Shader (ShaderStruct)
+{
+	@:to inline function toRaw():_Shader
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Shader>")
+private extern class ShaderStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Shader")
+@:structAccess
 @:unreflective
-extern class Shader
+extern class _Shader
 {
 	/** Shader program id **/
 	public var id:UInt;
@@ -524,81 +776,159 @@ extern class Shader
 }
 
 /** Material texture map **/
+abstract MaterialMap (MaterialMapStruct)
+{
+	@:to inline function toRaw():_MaterialMap
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<MaterialMap>")
+private extern class MaterialMapStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("MaterialMap")
+@:structAccess
 @:unreflective
-extern class MaterialMap
+extern class _MaterialMap
 {
 	/** Material map texture **/
-	public var texture:Texture2D;
+	public var texture:_Texture2D;
 
 	/** Material map color **/
-	public var color:Color;
+	public var color:_Color;
 
 	/** Material map value **/
 	public var value:Float;
 }
 
 /** Material type (generic) **/
+abstract Material (MaterialStruct)
+{
+	@:to inline function toRaw():_Material
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
-@:native("cpp::Struct<Map>")
+@:native("cpp::Struct<Material>")
+private extern class MaterialStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Material")
+@:structAccess
 @:unreflective
-extern class Material
+extern class _Material
 {
 	/** Material shader **/
-	public var shader:Shader;
+	public var shader:_Shader;
 
 	/** Material maps **/
-	public var maps:Array<MaterialMap>;
+	public var maps:Array<_MaterialMap>;
 
 	/** Material generic parameters (if required) **/
 	public var params:Star<Float>;
 }
 
 /** Model type **/
+abstract Model (ModelStruct)
+{
+	@:to inline function toRaw():_Model
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Model>")
+private extern class ModelStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Model")
+@:structAccess
 @:unreflective
-extern class Model
+extern class _Model
 {
 	/** Vertex data buffers (RAM and VRAM) **/
-	public var mesh:Mesh;
+	public var mesh:_Mesh;
 
 	/** Local transform matrix **/
-	public var transform:Matrix;
+	public var transform:_Matrix;
 
 	/** Shader and textures data **/
-	public var material:Material;
+	public var material:_Material;
 }
 
 /** Ray type (useful for raycast) **/
-@:forward
-@:unreflective
-abstract Ray (RayData)
+abstract Ray (RayStruct)
 {
-	@:from static extern inline function fromAnon(a:{position:{x:Float, y:Float, z:Float}, direction:{x:Float, y:Float, z:Float}}):Ray
+	public inline function new(position:Vector3, direction:Vector3)
 	{
-		return untyped __cpp__("cpp::Struct<Ray>(Ray{{ Vector3{{ float({0}), float({1}), float({2}) }}, Vector3{{ float({3}), float({4}), float({5}) }} }})", a.position.x, a.position.y, a.position.z, a.direction.x, a.direction.y, a.direction.z);
+		this = untyped __cpp__("cpp::Struct<Ray>(Ray{{ {0}, {1} }})", position, direction);
+	}
+
+	public var position(get, set):Vector3;
+	inline function get_position() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.position)", this);
+	inline function set_position(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.position = {1}.value)", this, v);
+
+	public var direction(get, set):Vector3;
+	inline function get_direction() return untyped __cpp__("cpp::Struct<Vector3>({0}.value.direction)", this);
+	inline function set_direction(v:Vector3) return untyped __cpp__("cpp::Struct<Vector3>({0}.value.direction = {1}.value)", this, v);
+
+	@:to inline function toRaw():_Ray
+	{
+		return untyped __cpp__("{0}.value", this);
 	}
 }
 
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Ray>")
+private extern class RayStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Ray")
+@:structAccess
 @:unreflective
-private extern class RayData
+private extern class _Ray
 {
 	/** Ray position (origin) **/
-	public var position:Vector3;
+	public var position:_Vector3;
 
 	/** Ray direction **/
-	public var direction:Vector3;
+	public var direction:_Vector3;
 }
 
 /** Raycast hit information **/
+abstract RayHitInfo (RayHitInfoStruct)
+{
+	@:to inline function toRaw():_RayHitInfo
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<RayHitInfo>")
+private extern class RayHitInfoStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("RayHitInfo")
+@:structAccess
 @:unreflective
-extern class RayHitInfo
+extern class _RayHitInfo
 {
 	/** Did the ray hit something? **/
 	public var hit:Bool;
@@ -607,17 +937,32 @@ extern class RayHitInfo
 	public var distance:Float;
 
 	/** Position of nearest hit **/
-	public var position:Vector3;
+	public var position:_Vector3;
 
 	/** Surface normal of hit **/
-	public var normal:Vector3;
+	public var normal:_Vector3;
 }
 
 /** Wave type, defines audio wave data **/
+abstract Wave (WaveStruct)
+{
+	@:to inline function toRaw():_Wave
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Wave>")
+private extern class WaveStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Wave")
+@:structAccess
 @:unreflective
-extern class Wave
+extern class _Wave
 {
 	/** Number of samples **/
 	public var sampleCount:UInt;
@@ -636,10 +981,25 @@ extern class Wave
 }
 
 /** Sound source type **/
+abstract Sound (SoundStruct)
+{
+	@:to inline function toRaw():_Sound
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<Sound>")
+private extern class SoundStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("Sound")
+@:structAccess
 @:unreflective
-extern class Sound
+extern class _Sound
 {
 	/** Pointer to internal data used by the audio system **/
 	public var audioBuffer:Star<cpp.Void>;
@@ -660,10 +1020,25 @@ typedef Music = Dynamic; //Star<MusicData>; // TODO raudio
 
 /** Audio stream type
 NOTE: Useful to create custom audio streams not bound to a specific file **/
+abstract AudioStream (AudioStreamStruct)
+{
+	@:to inline function toRaw():_AudioStream
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<AudioStream>")
+private extern class AudioStreamStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("AudioStream")
+@:structAccess
 @:unreflective
-extern class AudioStream
+extern class _AudioStream
 {
 	/** Frequency (samples per second) **/
 	public var sampleRate:UInt;
@@ -688,10 +1063,25 @@ extern class AudioStream
 }
 
 /** Head-Mounted-Display device parameters **/
+abstract VrDeviceInfo (VrDeviceInfoStruct)
+{
+	@:to inline function toRaw():_VrDeviceInfo
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<VrDeviceInfo>")
+private extern class VrDeviceInfoStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("VrDeviceInfo")
+@:structAccess
 @:unreflective
-extern class VrDeviceInfo
+extern class _VrDeviceInfo
 {
 	/** HMD horizontal resolution in pixels **/
 	public var hResolution:Int;
@@ -725,22 +1115,37 @@ extern class VrDeviceInfo
 }
 
 /** VR Stereo rendering configuration for simulator **/
+abstract VrStereoConfig (VrStereoConfigStruct)
+{
+	@:to inline function toRaw():_VrStereoConfig
+	{
+		return untyped __cpp__("{0}.value", this);
+	}
+}
+
 @:include("./../lib/src/raylib.h")
 @:native("cpp::Struct<VrStereoConfig>")
+private extern class VrStereoConfigStruct
+{
+}
+
+@:include("./../lib/src/raylib.h")
+@:native("VrStereoConfig")
+@:structAccess
 @:unreflective
-extern class VrStereoConfig
+extern class _VrStereoConfig
 {
 	/** VR stereo rendering framebuffer **/
-	public var stereoFbo:RenderTexture2D;
+	public var stereoFbo:_RenderTexture2D;
 
 	/** VR stereo rendering distortion shader **/
-	public var distortionShader:Shader;
+	public var distortionShader:_Shader;
 
 	/** VR stereo rendering eyes projection matrices **/
-	public var eyesProjection:Array<Matrix>;
+	public var eyesProjection:Array<_Matrix>;
 
 	/** VR stereo rendering eyes view offset matrices **/
-	public var eyesViewOffset:Array<Matrix>;
+	public var eyesViewOffset:Array<_Matrix>;
 
 	/** VR stereo rendering right eye viewport [x, y, w, h] **/
 	public var eyeViewportRight:Array<Int>;
@@ -2087,8 +2492,10 @@ class Raylib
 	public static extern var MAP_SPECULAR:UInt;
 
 	/** Initialize window and OpenGL context **/
-	@:native("InitWindow")
-	public static extern function InitWindow(width:Int, height:Int, title:ConstCharStar):Void;
+	public static extern inline function InitWindow(width:Int, height:Int, title:String):Void
+	{
+		untyped __cpp__("InitWindow({0}, {1}, {2}.__s)", width, height, title);
+	}
 
 	/** Check if KEY_ESCAPE pressed or Close icon pressed **/
 	@:native("WindowShouldClose")
@@ -2127,12 +2534,16 @@ class Raylib
 	public static extern function HideWindow():Void;
 
 	/** Set icon for window (only PLATFORM_DESKTOP) **/
-	@:native("SetWindowIcon")
-	public static extern function SetWindowIcon(image:Image):Void;
+	public static extern inline function SetWindowIcon(image:Image):Void
+	{
+		untyped __cpp__("SetWindowIcon({0}.value)", image);
+	}
 
 	/** Set title for window (only PLATFORM_DESKTOP) **/
-	@:native("SetWindowTitle")
-	public static extern function SetWindowTitle(title:ConstCharStar):Void;
+	public static extern inline function SetWindowTitle(title:String):Void
+	{
+		untyped __cpp__("SetWindowTitle({0}.__s)", title);
+	}
 
 	/** Set window position on screen (only PLATFORM_DESKTOP) **/
 	@:native("SetWindowPosition")
@@ -2184,15 +2595,17 @@ class Raylib
 
 	/** Get the human-readable, UTF-8 encoded name of the primary monitor **/
 	@:native("GetMonitorName")
-	public static extern function GetMonitorName(monitor:Int):ConstCharStar ;
+	public static extern function GetMonitorName(monitor:Int):ConstCharStar; // TODO make string
 
 	/** Get clipboard text content **/
 	@:native("GetClipboardText")
-	public static extern function GetClipboardText():ConstCharStar ;
+	public static extern function GetClipboardText():ConstCharStar; // TODO make string
 
 	/** Set clipboard text content **/
-	@:native("SetClipboardText")
-	public static extern function SetClipboardText(text:ConstCharStar):Void;
+	public static extern inline function SetClipboardText(text:String):Void
+	{
+		untyped __cpp__("SetClipboardText({0}.__s)", text);
+	}
 
 	/** Shows cursor **/
 	@:native("ShowCursor")
@@ -2215,8 +2628,10 @@ class Raylib
 	public static extern function DisableCursor():Void;
 
 	/** Set background color (framebuffer clear color) **/
-	@:native("ClearBackground")
-	public static extern function ClearBackground(color:Color):Void;
+	public static extern inline function ClearBackground(color:Color):Void
+	{
+		untyped __cpp__("ClearBackground({0}.value)", color);
+	}
 
 	/** Setup canvas (framebuffer) to start drawing **/
 	@:native("BeginDrawing")
@@ -2227,40 +2642,52 @@ class Raylib
 	public static extern function EndDrawing():Void;
 
 	/** Initialize 2D mode with custom camera (2D) **/
-	@:native("BeginMode2D")
-	public static extern function BeginMode2D(camera:Camera2D):Void;
+	public static extern inline function BeginMode2D(camera:Camera2D):Void
+	{
+		untyped __cpp__("BeginMode2D({0}.value)", camera);
+	}
 
 	/** Ends 2D mode with custom camera **/
 	@:native("EndMode2D")
 	public static extern function EndMode2D():Void;
 
 	/** Initializes 3D mode with custom camera (3D) **/
-	@:native("BeginMode3D")
-	public static extern function BeginMode3D(camera:Camera3D):Void;
+	public static extern inline function BeginMode3D(camera:Camera3D):Void
+	{
+		untyped __cpp__("BeginMode3D({0}.value)", camera);
+	}
 
 	/** Ends 3D mode and returns to default 2D orthographic mode **/
 	@:native("EndMode3D")
 	public static extern function EndMode3D():Void;
 
 	/** Initializes render texture for drawing **/
-	@:native("BeginTextureMode")
-	public static extern function BeginTextureMode(target:RenderTexture2D):Void;
+	public static extern inline function BeginTextureMode(target:RenderTexture2D):Void
+	{
+		untyped __cpp__("BeginTextureMode({0}.value)", target);
+	}
 
 	/** Ends drawing to render texture **/
 	@:native("EndTextureMode")
 	public static extern function EndTextureMode():Void;
 
 	/** Returns a ray trace from mouse position **/
-	@:native("GetMouseRay")
-	public static extern function GetMouseRay(mousePosition:Vector2, camera:Camera):Ray;
+	public static extern inline function GetMouseRay(mousePosition:Vector2, camera:Camera3D):Ray
+	{
+		return untyped __cpp__("cpp::Struct<Ray>(GetMouseRay({0}.value, {1}.value))", mousePosition, camera);
+	}
 
 	/** Returns the screen space position for a 3d world space position **/
-	@:native("GetWorldToScreen")
-	public static extern function GetWorldToScreen(position:Vector3, camera:Camera):Vector2;
+	public static extern inline function GetWorldToScreen(position:Vector3, camera:Camera3D):Vector2
+	{
+		return untyped __cpp__("cpp::Struct<Vector2>(GetWorldToScreen({0}.value, {1}.value))", position, camera);
+	}
 
 	/** Returns camera transform matrix (view matrix) **/
-	@:native("GetCameraMatrix")
-	public static extern function GetCameraMatrix(camera:Camera):Matrix;
+	public static extern inline function GetCameraMatrix(camera:Camera3D):Matrix
+	{
+		return untyped __cpp__("cpp::Struct<Matrix>(GetCameraMatrix({0}.value))", camera);
+	}
 
 	/** Set target FPS (maximum) **/
 	@:native("SetTargetFPS")
@@ -2279,28 +2706,40 @@ class Raylib
 	public static extern function GetTime():cpp.Float64;
 
 	/** Returns hexadecimal value for a Color **/
-	@:native("ColorToInt")
-	public static extern function ColorToInt(color:Color):Int;
+	public static extern inline function ColorToInt(color:Color):Int
+	{
+		return untyped __cpp__("ColorToInt({0}.value)", color);
+	}
 
 	/** Returns color normalized as Float [0..1] **/
-	@:native("ColorNormalize")
-	public static extern function ColorNormalize(color:Color):Vector4;
+	public static extern inline function ColorNormalize(color:Color):Vector4
+	{
+		return untyped __cpp__("cpp::Struct<Vector4>(ColorNormalize({0}.value))", color);
+	}
 
 	/** Returns HSV values for a Color **/
-	@:native("ColorToHSV")
-	public static extern function ColorToHSV(color:Color):Vector3;
+	public static extern inline function ColorToHSV(color:Color):Vector3
+	{
+		return untyped __cpp__("cpp::Struct<Vector3>(ColorToHSV({0}.value))", color);
+	}
 
 	/** Returns a Color from HSV values **/
-	@:native("ColorFromHSV")
-	public static extern function ColorFromHSV(hsv:Vector3):Color;
+	public static extern inline function ColorFromHSV(hsv:Vector3):Color
+	{
+		return untyped __cpp__("cpp::Struct<Color>(ColorFromHSV({0}.value))", hsv);
+	}
 
 	/** Returns a Color struct from hexadecimal value **/
-	@:native("GetColor")
-	public static extern function GetColor(hexValue:Int):Color;
+	public static extern inline function GetColor(hexValue:Int):Color
+	{
+		return untyped __cpp__("cpp::Struct<Color>(GetColor({0}))", hexValue);
+	}
 
 	/** Color fade-in or fade-out, alpha goes from 0.0f to 1.0f **/
-	@:native("Fade")
-	public static extern function Fade(color:Color, alpha:Float):Color;
+	public static extern inline function Fade(color:Color, alpha:Float):Color
+	{
+		return untyped __cpp__("cpp::Struct<Color>(Fade({0}.value, float({1})))", color, alpha);
+	}
 
 	/** Setup window configuration flags (view FLAGS) **/
 	@:native("SetConfigFlags")
@@ -2308,11 +2747,11 @@ class Raylib
 
 	/** Set the current threshold (minimum) log level **/
 	@:native("SetTraceLogLevel")
-	public static extern function SetTraceLogLevel(logType:Int):Void;
+	public static extern function SetTraceLogLevel(logType:TraceLogType):Void;
 
 	/** Set the exit threshold (minimum) log level **/
 	@:native("SetTraceLogExit")
-	public static extern function SetTraceLogExit(logType:Int):Void;
+	public static extern function SetTraceLogExit(logType:TraceLogType):Void;
 
 	/** Set a trace log callback to enable custom logging **/
 	public static extern inline function SetTraceLogCallback(callback:TraceLogCallback):Void
@@ -2322,12 +2761,16 @@ class Raylib
 	}
 
 	/** Show trace log messages (LOG_DEBUG, LOG_INFO, LOG_WARNING, LOG_ERROR) **/
-	@:native("TraceLog")
-	public static extern function TraceLog(logType:Int, text:ConstCharStar, rest:VarArg):Void;
+	public static extern inline function TraceLog(logType:TraceLogType, text:String, rest:VarArg):Void
+	{
+		untyped __cpp__("TraceLog({0}, {1}.__s, {2})", logType, text, rest);
+	}
 
 	/** Takes a screenshot of current screen (saved a .png) **/
-	@:native("TakeScreenshot")
-	public static extern function TakeScreenshot(fileName:ConstCharStar):Void;
+	public static extern inline function TakeScreenshot(fileName:String):Void
+	{
+		untyped __cpp__("TakeScreenshot({0}.__s)", fileName);
+	}
 
 	/** Returns a random value between min and max (both included) **/
 	@:native("GetRandomValue")
@@ -2437,8 +2880,10 @@ class Raylib
 	}
 
 	/** Get file modification time (last write time) **/
-	@:native("GetFileModTime")
-	public static extern function GetFileModTime(fileName:ConstCharStar):Int;
+	public static extern inline function GetFileModTime(fileName:String):Int
+	{
+		return untyped __cpp__("GetFileModTime({0}.__s)", fileName);
+	}
 
 	/** Save integer value to storage file (to defined position) **/
 	@:native("StorageSaveValue")
@@ -2449,8 +2894,10 @@ class Raylib
 	public static extern function StorageLoadValue(position:Int):Int;
 
 	/** Open URL with default system browser (if available) **/
-	@:native("OpenURL")
-	public static extern function OpenURL(url:ConstCharStar):Void;
+	public static extern inline function OpenURL(url:String):Void
+	{
+		untyped __cpp__("OpenURL({0}.__s)", url);
+	}
 
 	/** Detect if a key has been pressed once **/
 	@:native("IsKeyPressed")
@@ -2481,12 +2928,14 @@ class Raylib
 	public static extern function IsGamepadAvailable(gamepad:GamepadNumber):Bool;
 
 	/** Check gamepad name (if available) **/
-	@:native("IsGamepadName")
-	public static extern function IsGamepadName(gamepad:GamepadNumber, name:ConstCharStar):Bool;
+	public static extern inline function IsGamepadName(gamepad:GamepadNumber, name:String):Bool
+	{
+		return untyped __cpp__("IsGamepadName({0}, {1}.__s)", gamepad, name);
+	}
 
 	/** Return gamepad internal name id **/
 	@:native("GetGamepadName")
-	public static extern function GetGamepadName(gamepad:GamepadNumber):ConstCharStar ;
+	public static extern function GetGamepadName(gamepad:GamepadNumber):ConstCharStar; // TODO make string
 
 	/** Detect if a gamepad button has been pressed once **/
 	@:native("IsGamepadButtonPressed")
@@ -2541,8 +2990,10 @@ class Raylib
 	public static extern function GetMouseY():Int;
 
 	/** Returns mouse position XY **/
-	@:native("GetMousePosition")
-	public static extern function GetMousePosition():Vector2;
+	public static extern inline function GetMousePosition():Vector2
+	{
+		return untyped __cpp__("cpp::Struct<Vector2>(GetMousePosition())");
+	}
 
 	/** Set mouse position XY **/
 	@:native("SetMousePosition")
@@ -2569,8 +3020,10 @@ class Raylib
 	public static extern function GetTouchY():Int;
 
 	/** Returns touch position XY for a touch point index (relative to screen size) **/
-	@:native("GetTouchPosition")
-	public static extern function GetTouchPosition(index:Int):Vector2;
+	public static extern inline function GetTouchPosition(index:Int):Vector2
+	{
+		return untyped __cpp__("cpp::Struct<Vector2>(GetTouchPosition({0}))", index);
+	}
 
 	/** Enable a set of gestures using flags **/
 	@:native("SetGesturesEnabled")
@@ -2593,27 +3046,33 @@ class Raylib
 	public static extern function GetGestureHoldDuration():Float;
 
 	/** Get gesture drag vector **/
-	@:native("GetGestureDragVector")
-	public static extern function GetGestureDragVector():Vector2;
+	public static extern inline function GetGestureDragVector():Vector2
+	{
+		return untyped __cpp__("cpp::Struct<Vector2>(GetGestureDragVector())");
+	}
 
 	/** Get gesture drag angle **/
 	@:native("GetGestureDragAngle")
 	public static extern function GetGestureDragAngle():Float;
 
 	/** Get gesture pinch delta **/
-	@:native("GetGesturePinchVector")
-	public static extern function GetGesturePinchVector():Vector2;
+	public static extern inline function GetGesturePinchVector():Vector2
+	{
+		return untyped __cpp__("cpp::Struct<Vector2>(GetGesturePinchVector())");
+	}
 
 	/** Get gesture pinch angle **/
 	@:native("GetGesturePinchAngle")
 	public static extern function GetGesturePinchAngle():Float;
 
 	/** Set camera mode (multiple camera modes available) **/
-	@:native("SetCameraMode")
-	public static extern function SetCameraMode(camera:Camera, mode:CameraMode):Void;
+	public static extern inline function SetCameraMode(camera:Camera3D, mode:CameraMode):Void
+	{
+		untyped __cpp__("SetCameraMode({0}.value, {1})", camera, mode);
+	}
 
 	/** Update camera position for selected mode **/
-	public static extern inline function UpdateCamera(camera:Reference<Camera>):Void
+	public static extern inline function UpdateCamera(camera:Reference<Camera3D>):Void
 	{
 		untyped __cpp__("UpdateCamera(&({0}.value))", camera);
 	}
@@ -2635,96 +3094,142 @@ class Raylib
 	public static extern function SetCameraMoveControls(frontKey:KeyboardKey, backKey:KeyboardKey, rightKey:KeyboardKey, leftKey:KeyboardKey, upKey:KeyboardKey, downKey:KeyboardKey):Void;
 
 	/** Draw a pixel **/
-	@:native("DrawPixel")
-	public static extern function DrawPixel(posX:Int, posY:Int, color:Color):Void;
+	public static extern inline function DrawPixel(posX:Int, posY:Int, color:Color):Void
+	{
+		untyped __cpp__("DrawPixel({0}, {1}, {2}.value)", posX, posY, color);
+	}
 
 	/** Draw a pixel (Vector version) **/
-	@:native("DrawPixelV")
-	public static extern function DrawPixelV(position:Vector2, color:Color):Void;
+	public static extern inline function DrawPixelV(position:Vector2, color:Color):Void
+	{
+		untyped __cpp__("DrawPixelV({0}.value, {1}.value)", position, color);
+	}
 
 	/** Draw a line **/
-	@:native("DrawLine")
-	public static extern function DrawLine(startPosX:Int, startPosY:Int, endPosX:Int, endPosY:Int, color:Color):Void;
+	public static extern inline function DrawLine(startPosX:Int, startPosY:Int, endPosX:Int, endPosY:Int, color:Color):Void
+	{
+		untyped __cpp__("DrawLine({0}, {1}, {2}, {3}, {4}.value)", startPosX, startPosY, endPosX, endPosY, color);
+	}
 
 	/** Draw a line (Vector version) **/
-	@:native("DrawLineV")
-	public static extern function DrawLineV(startPos:Vector2, endPos:Vector2, color:Color):Void;
+	public static extern inline function DrawLineV(startPos:Vector2, endPos:Vector2, color:Color):Void
+	{
+		untyped __cpp__("DrawLineV({0}.value, {1}.value, {2}.value)", startPos, endPos, color);
+	}
 
 	/** Draw a line defining thickness **/
-	@:native("DrawLineEx")
-	public static extern function DrawLineEx(startPos:Vector2, endPos:Vector2, thick:Float, color:Color):Void;
+	public static extern inline function DrawLineEx(startPos:Vector2, endPos:Vector2, thick:Float, color:Color):Void
+	{
+		untyped __cpp__("DrawLineEx({0}.value, {1}.value, float({2}), {3}.value)", startPos, endPos, thick, color);
+	}
 
 	/** Draw a line using cubic-bezier curves in-out **/
-	@:native("DrawLineBezier")
-	public static extern function DrawLineBezier(startPos:Vector2, endPos:Vector2, thick:Float, color:Color):Void;
+	public static extern inline function DrawLineBezier(startPos:Vector2, endPos:Vector2, thick:Float, color:Color):Void
+	{
+		untyped __cpp__("DrawLineBezier({0}.value, {1}.value, float({2}), {3}.value)", startPos, endPos, thick, color);
+	}
 
 	/** Draw a color-filled circle **/
-	@:native("DrawCircle")
-	public static extern function DrawCircle(centerX:Int, centerY:Int, radius:Float, color:Color):Void;
+	public static extern inline function DrawCircle(centerX:Int, centerY:Int, radius:Float, color:Color):Void
+	{
+		untyped __cpp__("DrawCircle({0}, {1}, float({2}), {3}.value)", centerX, centerY, radius, color);
+	}
 
 	/** Draw a piece of a circle **/
-	@:native("DrawCircleSector")
-	public static extern function DrawCircleSector(center:Vector2, radius:Float, startAngle:Int, endAngle:Int, color:Color):Void;
+	public static extern inline function DrawCircleSector(center:Vector2, radius:Float, startAngle:Int, endAngle:Int, color:Color):Void
+	{
+		untyped __cpp__("DrawCircleSector({0}.value, float({1}), {2}, {3}, {4}.value)", center, radius, startAngle, endAngle, color);
+	}
 
 	/** Draw a gradient-filled circle **/
-	@:native("DrawCircleGradient")
-	public static extern function DrawCircleGradient(centerX:Int, centerY:Int, radius:Float, color1:Color, color2:Color):Void;
+	public static extern inline function DrawCircleGradient(centerX:Int, centerY:Int, radius:Float, color1:Color, color2:Color):Void
+	{
+		untyped __cpp__("DrawCircle({0}, {1}, float({2}), {3}.value)", centerX, centerY, radius, color);
+	}
 
 	/** Draw a color-filled circle (Vector version) **/
-	@:native("DrawCircleV")
-	public static extern function DrawCircleV(center:Vector2, radius:Float, color:Color):Void;
+	public static extern inline function DrawCircleV(center:Vector2, radius:Float, color:Color):Void
+	{
+		untyped __cpp__("DrawCircleV({0}.value, float({1}), {2}.value)", center, radius, color);
+	}
 
 	/** Draw circle outline **/
-	@:native("DrawCircleLines")
-	public static extern function DrawCircleLines(centerX:Int, centerY:Int, radius:Float, color:Color):Void;
+	public static extern inline function DrawCircleLines(centerX:Int, centerY:Int, radius:Float, color:Color):Void
+	{
+		untyped __cpp__("DrawCircleLines({0}, {1}, float({2}), {3}.value)", centerX, centerY, radius, color);
+	}
 
 	/** Draw a color-filled rectangle **/
-	@:native("DrawRectangle")
-	public static extern function DrawRectangle(posX:Int, posY:Int, width:Int, height:Int, color:Color):Void;
+	public static extern inline function DrawRectangle(posX:Int, posY:Int, width:Int, height:Int, color:Color):Void
+	{
+		untyped __cpp__("DrawRectangle({0}, {1}, {2}, {3}, {4}.value)", posX, posY, width, height, color);
+	}
 
 	/** Draw a color-filled rectangle (Vector version) **/
-	@:native("DrawRectangleV")
-	public static extern function DrawRectangleV(position:Vector2, size:Vector2, color:Color):Void;
+	public static extern inline function DrawRectangleV(position:Vector2, size:Vector2, color:Color):Void
+	{
+		untyped __cpp__("DrawRectangleV({0}.value, {1}.value, {2}.value)", position, size, color);
+	}
 
 	/** Draw a color-filled rectangle **/
-	@:native("DrawRectangleRec")
-	public static extern function DrawRectangleRec(rec:Rectangle, color:Color):Void;
+	public static extern inline function DrawRectangleRec(rec:Rectangle, color:Color):Void
+	{
+		untyped __cpp__("DrawRectangleRec({0}.value, {1}.value)", rec, color);
+	}
 
 	/** Draw a color-filled rectangle with pro parameters **/
-	@:native("DrawRectanglePro")
-	public static extern function DrawRectanglePro(rec:Rectangle, origin:Vector2, rotation:Float, color:Color):Void;
+	public static extern inline function DrawRectanglePro(rec:Rectangle, origin:Vector2, rotation:Float, color:Color):Void
+	{
+		untyped __cpp__("DrawRectanglePro({0}.value, {1}.value, float({2}), {3}.value)", rec, origin, rotation, color);
+	}
 
 	/** Draw a vertical-gradient-filled rectangle **/
-	@:native("DrawRectangleGradientV")
-	public static extern function DrawRectangleGradientV(posX:Int, posY:Int, width:Int, height:Int, color1:Color, color2:Color):Void;
+	public static extern inline function DrawRectangleGradientV(posX:Int, posY:Int, width:Int, height:Int, color1:Color, color2:Color):Void
+	{
+		untyped __cpp__("DrawRectangleGradientV({0}, {1}, {2}, {3}, {4}.value, {5}.value)", posX, posY, width, height, color1, color2);
+	}
 
 	/** Draw a horizontal-gradient-filled rectangle **/
-	@:native("DrawRectangleGradientH")
-	public static extern function DrawRectangleGradientH(posX:Int, posY:Int, width:Int, height:Int, color1:Color, color2:Color):Void;
+	public static extern inline function DrawRectangleGradientH(posX:Int, posY:Int, width:Int, height:Int, color1:Color, color2:Color):Void
+	{
+		untyped __cpp__("DrawRectangleGradientH({0}, {1}, {2}, {3}, {4}.value, {5}.value)", posX, posY, width, height, color1, color2);
+	}
 
 	/** Draw a gradient-filled rectangle with custom vertex colors **/
-	@:native("DrawRectangleGradientEx")
-	public static extern function DrawRectangleGradientEx(rec:Rectangle, col1:Color, col2:Color, col3:Color, col4:Color):Void;
+	public static extern inline function DrawRectangleGradientEx(rec:Rectangle, col1:Color, col2:Color, col3:Color, col4:Color):Void
+	{
+		untyped __cpp__("DrawRectangleGradientEx({0}.value, {1}.value, {2}.value, {3}.value, {4}.value)", rec, col1, col2, col3, col4);
+	}
 
 	/** Draw rectangle outline **/
-	@:native("DrawRectangleLines")
-	public static extern function DrawRectangleLines(posX:Int, posY:Int, width:Int, height:Int, color:Color):Void;
+	public static extern inline function DrawRectangleLines(posX:Int, posY:Int, width:Int, height:Int, color:Color):Void
+	{
+		untyped __cpp__("DrawRectangleLines({0}, {1}, {2}, {3}, {4}.value)", posX, posY, width, height, color);
+	}
 
 	/** Draw rectangle outline with extended parameters **/
-	@:native("DrawRectangleLinesEx")
-	public static extern function DrawRectangleLinesEx(rec:Rectangle, lineThick:Int, color:Color):Void;
+	public static extern inline function DrawRectangleLinesEx(rec:Rectangle, lineThick:Int, color:Color):Void
+	{
+		untyped __cpp__("DrawRectangleLinesEx({0}.value, {1}, {2}.value)", rec, lineThick, color);
+	}
 
 	/** Draw a color-filled triangle **/
-	@:native("DrawTriangle")
-	public static extern function DrawTriangle(v1:Vector2, v2:Vector2, v3:Vector2, color:Color):Void;
+	public static extern inline function DrawTriangle(v1:Vector2, v2:Vector2, v3:Vector2, color:Color):Void
+	{
+		untyped __cpp__("DrawTriangle({0}.value, {1}.value, {2}.value, {3}.value)", v1, v2, v3, color);
+	}
 
 	/** Draw triangle outline **/
-	@:native("DrawTriangleLines")
-	public static extern function DrawTriangleLines(v1:Vector2, v2:Vector2, v3:Vector2, color:Color):Void;
+	public static extern inline function DrawTriangleLines(v1:Vector2, v2:Vector2, v3:Vector2, color:Color):Void
+	{
+		untyped __cpp__("DrawTriangleLines({0}.value, {1}.value, {2}.value, {3}.value)", v1, v2, v3, color);
+	}
 
 	/** Draw a regular polygon (Vector version) **/
-	@:native("DrawPoly")
-	public static extern function DrawPoly(center:Vector2, sides:Int, radius:Float, rotation:Float, color:Color):Void;
+	public static extern inline function DrawPoly(center:Vector2, sides:Int, radius:Float, rotation:Float, color:Color):Void
+	{
+		untyped __cpp__("DrawPoly({0}.value, {1}, float({2}), float({3}), {4}.value)", center, sides, radius, rotation, color);
+	}
 
 	/** Draw a closed polygon defined by points **/
 	@:native("DrawPolyEx")
@@ -2735,40 +3240,58 @@ class Raylib
 	public static extern function DrawPolyExLines(points:Star<Vector2>, numPoints:Int, color:Color):Void; // TODO to Array
 
 	/** Define default texture used to draw shapes **/
-	@:native("SetShapesTexture")
-	public static extern function SetShapesTexture(texture:Texture2D, source:Rectangle):Void;
+	public static extern inline function SetShapesTexture(texture:Texture2D, source:Rectangle):Void
+	{
+		untyped __cpp__("SetShapesTexture({0}.value, {1}.value)", texture, source);
+	}
 
 	/** Check collision between two rectangles **/
-	@:native("CheckCollisionRecs")
-	public static extern function CheckCollisionRecs(rec1:Rectangle, rec2:Rectangle):Bool;
+	public static extern inline function CheckCollisionRecs(rec1:Rectangle, rec2:Rectangle):Bool
+	{
+		return untyped __cpp__("CheckCollisionRecs({0}.value, {1}.value)", rec1, rec2);
+	}
 
 	/** Check collision between two circles **/
-	@:native("CheckCollisionCircles")
-	public static extern function CheckCollisionCircles(center1:Vector2, radius1:Float, center2:Vector2, radius2:Float):Bool;
+	public static extern inline function CheckCollisionCircles(center1:Vector2, radius1:Float, center2:Vector2, radius2:Float):Bool
+	{
+		return untyped __cpp__("CheckCollisionCircles({0}.value, float({1}), {2}.value, float({3}))", center1, radius1, center2, radius2);
+	}
 
 	/** Check collision between circle and rectangle **/
-	@:native("CheckCollisionCircleRec")
-	public static extern function CheckCollisionCircleRec(center:Vector2, radius:Float, rec:Rectangle):Bool;
+	public static extern inline function CheckCollisionCircleRec(center:Vector2, radius:Float, rec:Rectangle):Bool
+	{
+		return untyped __cpp__("CheckCollisionCircleRec({0}.value, float({1}), {2}.value)", center, radius, rec);
+	}
 
 	/** Get collision rectangle for two rectangles collision **/
-	@:native("GetCollisionRec")
-	public static extern function GetCollisionRec(rec1:Rectangle, rec2:Rectangle):Rectangle;
+	public static extern inline function GetCollisionRec(rec1:Rectangle, rec2:Rectangle):Rectangle
+	{
+		return untyped __cpp__("cpp::Struct<Rectangle>(GetCollisionRec({0}.value, {1}.value))", rec1, rec2);
+	}
 
 	/** Check if point is inside rectangle **/
-	@:native("CheckCollisionPointRec")
-	public static extern function CheckCollisionPointRec(point:Vector2, rec:Rectangle):Bool;
+	public static extern inline function CheckCollisionPointRec(point:Vector2, rec:Rectangle):Bool
+	{
+		return untyped __cpp__("CheckCollisionPointRec({0}.value, {1}.value)", point, rec);
+	}
 
 	/** Check if point is inside circle **/
-	@:native("CheckCollisionPointCircle")
-	public static extern function CheckCollisionPointCircle(point:Vector2, center:Vector2, radius:Float):Bool;
+	public static extern inline function CheckCollisionPointCircle(point:Vector2, center:Vector2, radius:Float):Bool
+	{
+		return untyped __cpp__("CheckCollisionPointCircle({0}.value, {1}.value, float({2}))", point, center, radius);
+	}
 
 	/** Check if point is inside a triangle **/
-	@:native("CheckCollisionPointTriangle")
-	public static extern function CheckCollisionPointTriangle(point:Vector2, p1:Vector2, p2:Vector2, p3:Vector2):Bool;
+	public static extern inline function CheckCollisionPointTriangle(point:Vector2, p1:Vector2, p2:Vector2, p3:Vector2):Bool
+	{
+		return untyped __cpp__("CheckCollisionPointTriangle({0}.value, {1}.value, {2}.value, {3}.value)", point, p1, p2, p3);
+	}
 
 	/** Load image from file into CPU memory (RAM) **/
-	@:native("LoadImage")
-	public static extern function LoadImage(fileName:ConstCharStar):Image;
+	public static extern inline function LoadImage(fileName:String):Image
+	{
+		return untyped __cpp__("LoadImage({0}.__s)", fileName);
+	}
 
 	/** Load image from Color array data (RGBA - 32bit) **/
 	@:native("LoadImageEx")
@@ -2776,47 +3299,67 @@ class Raylib
 
 	/** Load image from raw data with parameters **/
 	@:native("LoadImagePro")
-	public static extern function LoadImagePro(data:Star<cpp.Void>, width:Int, height:Int, format:Int):Image; // TODO to Array
+	public static extern function LoadImagePro(data:Star<cpp.Void>, width:Int, height:Int, format:PixelFormat):Image; // TODO to Array
 
 	/** Load image from RAW file data **/
-	@:native("LoadImageRaw")
-	public static extern function LoadImageRaw(fileName:ConstCharStar, width:Int, height:Int, format:Int, headerSize:Int):Image;
+	public static extern inline function LoadImageRaw(fileName:String, width:Int, height:Int, format:PixelFormat, headerSize:Int):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(LoadImageRaw({0}.__s, {1}, {2}, {3}, {4}))", fileName, width, height, format, headerSize);
+	}
 
 	/** Export image data to file **/
-	@:native("ExportImage")
-	public static extern function ExportImage(image:Image, fileName:ConstCharStar):Void;
+	public static extern inline function ExportImage(image:Image, fileName:String):Void
+	{
+		untyped __cpp__("ExportImage({0}.value, {1}.__s)", image, fileName);
+	}
 
 	/** Export image as code file defining an array of bytes **/
-	@:native("ExportImageAsCode")
-	public static extern function ExportImageAsCode(image:Image, fileName:ConstCharStar):Void;
+	public static extern inline function ExportImageAsCode(image:Image, fileName:String):Void
+	{
+		untyped __cpp__("ExportImageAsCode({0}.value, {1}.__s)", image, fileName);
+	}
 
 	/** Load texture from file into GPU memory (VRAM) **/
-	@:native("LoadTexture")
-	public static extern function LoadTexture(fileName:ConstCharStar):Texture2D;
+	public static extern inline function LoadTexture(fileName:String):Texture2D
+	{
+		return untyped __cpp__("cpp::Struct<Texture2D>(LoadTexture({0}.__s))", fileName);
+	}
 
 	/** Load texture from image data **/
-	@:native("LoadTextureFromImage")
-	public static extern function LoadTextureFromImage(image:Image):Texture2D;
+	public static extern inline function LoadTextureFromImage(image:Image):Texture2D
+	{
+		return untyped __cpp__("cpp::Struct<Texture2D>(LoadTextureFromImage({0}.value))", image);
+	}
 
 	/** Load cubemap from image, multiple image cubemap layouts supported **/
-	@:native("LoadTextureCubemap")
-	public static extern function LoadTextureCubemap(image:Image, layoutType:Int):TextureCubemap;
+	public static extern inline function LoadTextureCubemap(image:Image, layoutType:CubemapLayoutType):Texture2D
+	{
+		return untyped __cpp__("cpp::Struct<Texture2D>(LoadTextureCubemap({0}.value, {1}))", image, layoutType);
+	}
 
 	/** Load texture for rendering (framebuffer) **/
-	@:native("LoadRenderTexture")
-	public static extern function LoadRenderTexture(width:Int, height:Int):RenderTexture2D;
+	public static extern inline function LoadRenderTexture(width:Int, height:Int):RenderTexture2D
+	{
+		return untyped __cpp__("cpp::Struct<Texture2D>(LoadRenderTexture({0}, {1}))", width, height);
+	}
 
 	/** Unload image from CPU memory (RAM) **/
-	@:native("UnloadImage")
-	public static extern function UnloadImage(image:Image):Void;
+	public static extern inline function UnloadImage(image:Image):Void
+	{
+		untyped __cpp__("UnloadImage({0}.value)", image);
+	}
 
 	/** Unload texture from GPU memory (VRAM) **/
-	@:native("UnloadTexture")
-	public static extern function UnloadTexture(texture:Texture2D):Void;
+	public static extern inline function UnloadTexture(texture:Texture2D):Void
+	{
+		untyped __cpp__("UnloadTexture({0}.value)", texture);
+	}
 
 	/** Unload render texture from GPU memory (VRAM) **/
-	@:native("UnloadRenderTexture")
-	public static extern function UnloadRenderTexture(target:RenderTexture2D):Void;
+	public static extern inline function UnloadRenderTexture(target:RenderTexture2D):Void
+	{
+		untyped __cpp__("UnloadRenderTexture({0}.value)", target);
+	}
 
 	/** Get pixel data from image as a Color struct array **/
 	@:native("GetImageData")
@@ -2828,28 +3371,36 @@ class Raylib
 
 	/** Get pixel data size in bytes (image or texture) **/
 	@:native("GetPixelDataSize")
-	public static extern function GetPixelDataSize(width:Int, height:Int, format:Int):Int;
+	public static extern function GetPixelDataSize(width:Int, height:Int, format:PixelFormat):Int;
 
 	/** Get pixel data from GPU texture and return an Image **/
-	@:native("GetTextureData")
-	public static extern function GetTextureData(texture:Texture2D):Image;
+	public static extern inline function GetTextureData(texture:Texture2D):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(GetTextureData({0}.value))", texture);
+	}
 
 	/** Get pixel data from screen buffer and return an Image (screenshot) **/
-	@:native("GetScreenData")
-	public static extern function GetScreenData():Image;
+	public static extern inline function GetScreenData():Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(GetScreenData())");
+	}
 
 	/** Update GPU texture with new data **/
-	@:native("UpdateTexture")
-	public static extern function UpdateTexture(texture:Texture2D, pixels:ConstVoidStar):Void;
+	public static extern inline function UpdateTexture(texture:Texture2D, pixels:ConstVoidStar):Void // TODO array
+	{
+		untyped __cpp__("UpdateTexture({0}.value, {1})", texture, pixels);
+	}
 
 	/** Create an image duplicate (useful for transformations) **/
-	@:native("ImageCopy")
-	public static extern function ImageCopy(image:Image):Image;
+	public static extern inline function ImageCopy(image:Image):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(ImageCopy({0}.value))", image);
+	}
 
 	/** Convert image to POT (power-of-two) **/
 	public static extern inline function ImageToPOT(image:Reference<Image>, fillColor:Color):Void
 	{
-		untyped __cpp__("ImageToPOT(&({0}.value), {1})", image, fillColor);
+		untyped __cpp__("ImageToPOT(&({0}.value), {1}.value)", image, fillColor);
 	}
 
 	/** Convert image data to desired format **/
@@ -2861,13 +3412,13 @@ class Raylib
 	/** Apply alpha mask to image **/
 	public static extern inline function ImageAlphaMask(image:Reference<Image>, alphaMask:Image):Void
 	{
-		untyped __cpp__("ImageAlphaMask(&({0}.value), {1})", image, alphaMask);
+		untyped __cpp__("ImageAlphaMask(&({0}.value), {1}.value)", image, alphaMask);
 	}
 
 	/** Clear alpha channel to desired color **/
 	public static extern inline function ImageAlphaClear(image:Reference<Image>, color:Color, threshold:Float):Void
 	{
-		untyped __cpp__("ImageAlphaClear(&({0}.value), {1}, float({2}))", image, color, threshold);
+		untyped __cpp__("ImageAlphaClear(&({0}.value), {1}.value, float({2}))", image, color, threshold);
 	}
 
 	/** Crop image depending on alpha value **/
@@ -2885,7 +3436,7 @@ class Raylib
 	/** Crop an image to a defined rectangle **/
 	public static extern inline function ImageCrop(image:Reference<Image>, crop:Rectangle):Void
 	{
-		untyped __cpp__("ImageCrop(&({0}.value), {1})", image, crop);
+		untyped __cpp__("ImageCrop(&({0}.value), {1}.value)", image, crop);
 	}
 
 	/** Resize image (Bicubic scaling algorithm) **/
@@ -2903,7 +3454,7 @@ class Raylib
 	/** Resize canvas and fill with color **/
 	public static extern inline function ImageResizeCanvas(image:Reference<Image>, newWidth:Int, newHeight:Int, offsetX:Int, offsetY:Int, color:Color):Void
 	{
-		untyped __cpp__("ImageResizeCanvas(&({0}.value), {1}, {2}, {3}, {4}, {5})", image, newWidth, newHeight, offsetX, offsetY, color);
+		untyped __cpp__("ImageResizeCanvas(&({0}.value), {1}, {2}, {3}, {4}, {5}.value)", image, newWidth, newHeight, offsetX, offsetY, color);
 	}
 
 	/** Generate all mipmap levels for a provided image **/
@@ -2923,41 +3474,45 @@ class Raylib
 	public static extern function ImageExtractPalette(image:Int, maxPaletteSize:Int, extractCount:Star<Int>):Star<Color>; // TODO to Array
 
 	/** Create an image from text (default font) **/
-	@:native("ImageText")
-	public static extern function ImageText(text:ConstCharStar, fontSize:Int, color:Color):Image;
+	public static extern inline function ImageText(text:String, fontSize:Int, color:Color):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(ImageText({0}.__s, {1}, {2}.value))", text, fontSize, color);
+	}
 
 	/** Create an image from text (custom sprite font) **/
-	@:native("ImageTextEx")
-	public static extern function ImageTextEx(font:Font, text:ConstCharStar, fontSize:Float, spacing:Float, tint:Color):Image;
+	public static extern inline function ImageTextEx(font:Font, text:String, fontSize:Float, spacing:Float, tint:Color):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(ImageTextEx({0}.value, {1}.__s, float({2}), float({3}), {4}.value))", font, text, fontSize, spacing, tint);
+	}
 
 	/** Draw a source image within a destination image **/
 	public static extern inline function ImageDraw(dst:Reference<Image>, src:Image, srcRec:Rectangle, dstRec:Rectangle):Void
 	{
-		untyped __cpp__("ImageDraw(&({0}.value), {1}, {2}, {3})", dst, src, srcRec, dstRec);
+		untyped __cpp__("ImageDraw(&({0}.value), {1}.value, {2}.value, {3}.value)", dst, src, srcRec, dstRec);
 	}
 
 	/** Draw rectangle within an image **/
 	public static extern inline function ImageDrawRectangle(dst:Reference<Image>, rec:Rectangle, color:Color):Void
 	{
-		untyped __cpp__("ImageDrawRectangle(&({0}.value), {1}, {2})", dst, rec, color);
+		untyped __cpp__("ImageDrawRectangle(&({0}.value), {1}.value, {2}.value)", dst, rec, color);
 	}
 
 	/** Draw rectangle lines within an image **/
 	public static extern inline function ImageDrawRectangleLines(dst:Reference<Image>, rec:Rectangle, thick:Int, color:Color):Void
 	{
-		untyped __cpp__("ImageDrawRectangleLines(&({0}.value), {1}, {2}, {3})", dst, rec, thick, color);
+		untyped __cpp__("ImageDrawRectangleLines(&({0}.value), {1}.value, {2}, {3}.value)", dst, rec, thick, color);
 	}
 
 	/** Draw text (default font) within an image (destination) **/
-	public static extern inline function ImageDrawText(dst:Reference<Image>, position:Vector2, text:ConstCharStar, fontSize:Int, color:Color):Void
+	public static extern inline function ImageDrawText(dst:Reference<Image>, position:Vector2, text:String, fontSize:Int, color:Color):Void
 	{
-		untyped __cpp__("ImageDrawText(&({0}.value), {1}, {2}, {3}, {4})", dst, position, text, fontSize, color);
+		untyped __cpp__("ImageDrawText(&({0}.value), {1}.value, {2}.__s, {3}, {4}.value)", dst, position, text, fontSize, color);
 	}
 
 	/** Draw text (custom sprite font) within an image (destination) **/
-	public static extern inline function ImageDrawTextEx(dst:Reference<Image>, position:Vector2, font:Font, text:ConstCharStar, fontSize:Float, spacing:Float, color:Color):Void
+	public static extern inline function ImageDrawTextEx(dst:Reference<Image>, position:Vector2, font:Font, text:String, fontSize:Float, spacing:Float, color:Color):Void
 	{
-		untyped __cpp__("ImageDrawTextEx(&({0}.value), {1}, {2}, {3}, float({4}), float({5}), {6})", dst, position, font, text, fontSize, spacing, color);
+		untyped __cpp__("ImageDrawTextEx(&({0}.value), {1}.value, {2}.value, {3}.__s, float({4}), float({5}), {6}.value)", dst, position, font, text, fontSize, spacing, color);
 	}
 
 	/** Flip image vertically **/
@@ -2987,7 +3542,7 @@ class Raylib
 	/** Modify image color: tint **/
 	public static extern inline function ImageColorTint(image:Reference<Image>, color:Color):Void
 	{
-		untyped __cpp__("ImageColorTint(&({0}.value), {1})", image, color);
+		untyped __cpp__("ImageColorTint(&({0}.value), {1}.value)", image, color);
 	}
 
 	/** Modify image color: invert **/
@@ -3017,40 +3572,56 @@ class Raylib
 	/** Modify image color: replace color **/
 	public static extern inline function ImageColorReplace(image:Reference<Image>, color:Color, replace:Color):Void
 	{
-		untyped __cpp__("ImageColorReplace(&({0}.value), {1}, {2})", image, color, replace);
+		untyped __cpp__("ImageColorReplace(&({0}.value), {1}.value, {2}.value)", image, color, replace);
 	}
 
 	/** Generate image: plain color **/
-	@:native("GenImageColor")
-	public static extern function GenImageColor(width:Int, height:Int, color:Color):Image;
+	public static extern inline function GenImageColor(width:Int, height:Int, color:Color):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(GenImageColor(({0}.value), {1}, {2}.value))", width, height, color);
+	}
 
 	/** Generate image: vertical gradient **/
-	@:native("GenImageGradientV")
-	public static extern function GenImageGradientV(width:Int, height:Int, top:Color, bottom:Color):Image;
+	public static extern inline function GenImageGradientV(width:Int, height:Int, top:Color, bottom:Color):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(GenImageGradientV({0}, {1}, {2}.value, {3}.value))", width, height, top, bottom);
+	}
 
 	/** Generate image: horizontal gradient **/
-	@:native("GenImageGradientH")
-	public static extern function GenImageGradientH(width:Int, height:Int, left:Color, right:Color):Image;
+	public static extern inline function GenImageGradientH(width:Int, height:Int, left:Color, right:Color):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(GenImageGradientH({0}, {1}, {2}.value, {3}.value))", width, height, left, right);
+	}
 
 	/** Generate image: radial gradient **/
-	@:native("GenImageGradientRadial")
-	public static extern function GenImageGradientRadial(width:Int, height:Int, density:Float, inner:Color, outer:Color):Image;
+	public static extern inline function GenImageGradientRadial(width:Int, height:Int, density:Float, inner:Color, outer:Color):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(GenImageGradientRadial({0}, {1}, float({2}), {3}.value, {4}.value))", width, height, density, inner, outer);
+	}
 
 	/** Generate image: checked **/
-	@:native("GenImageChecked")
-	public static extern function GenImageChecked(width:Int, height:Int, checksX:Int, checksY:Int, col1:Color, col2:Color):Image;
+	public static extern inline function GenImageChecked(width:Int, height:Int, checksX:Int, checksY:Int, col1:Color, col2:Color):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(GenImageChecked({0}, {1}, {2}, {3}, {4}.value, {5}.value))", width, height, checksX, checksY, col1, col2);
+	}
 
 	/** Generate image: white noise **/
-	@:native("GenImageWhiteNoise")
-	public static extern function GenImageWhiteNoise(width:Int, height:Int, factor:Float):Image;
+	public static extern inline function GenImageWhiteNoise(width:Int, height:Int, factor:Float):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(GenImageWhiteNoise({0}, {1}, float({2})))", width, height, factor);
+	}
 
 	/** Generate image: perlin noise **/
-	@:native("GenImagePerlinNoise")
-	public static extern function GenImagePerlinNoise(width:Int, height:Int, offsetX:Int, offsetY:Int, scale:Float):Image;
+	public static extern inline function GenImagePerlinNoise(width:Int, height:Int, offsetX:Int, offsetY:Int, scale:Float):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(GenImagePerlinNoise({0}, {1}, {2}, {3}, float({4})))", width, height, offsetX, offsetY, scale);
+	}
 
 	/** Generate image: cellular algorithm. Bigger tileSize means bigger cells **/
-	@:native("GenImageCellular")
-	public static extern function GenImageCellular(width:Int, height:Int, tileSize:Int):Image;
+	public static extern inline function GenImageCellular(width:Int, height:Int, tileSize:Int):Image
+	{
+		return untyped __cpp__("cpp::Struct<Image>(GenImageCellular({0}, {1}, {2}))", width, height, tileSize);
+	}
 
 	/** Generate GPU mipmaps for a texture **/
 	public static extern inline function GenTextureMipmaps(texture:Reference<Texture2D>):Void
@@ -3059,56 +3630,80 @@ class Raylib
 	}
 
 	/** Set texture scaling filter mode **/
-	@:native("SetTextureFilter")
-	public static extern function SetTextureFilter(texture:Texture2D, filterMode:Int):Void;
+	public static extern inline function SetTextureFilter(texture:Texture2D, filterMode:TextureFilterMode):Void
+	{
+		untyped __cpp__("SetTextureFilter({0}.value, {1})", texture, filterMode);
+	}
 
 	/** Set texture wrapping mode **/
-	@:native("SetTextureWrap")
-	public static extern function SetTextureWrap(texture:Texture2D, wrapMode:Int):Void;
+	public static extern inline function SetTextureWrap(texture:Texture2D, wrapMode:TextureWrapMode):Void
+	{
+		untyped __cpp__("SetTextureWrap({0}.value, {1})", texture, wrapMode);
+	}
 
 	/** Draw a Texture2D **/
-	@:native("DrawTexture")
-	public static extern function DrawTexture(texture:Texture2D, posX:Int, posY:Int, tint:Color):Void;
+	public static extern inline function DrawTexture(texture:Texture2D, posX:Int, posY:Int, tint:Color):Void
+	{
+		untyped __cpp__("DrawTexture({0}.value, {1}, {2}, {3}.value)", texture, posX, posY, tint);
+	}
 
 	/** Draw a Texture2D with position defined as Vector2 **/
-	@:native("DrawTextureV")
-	public static extern function DrawTextureV(texture:Texture2D, position:Vector2, tint:Color):Void;
+	public static extern inline function DrawTextureV(texture:Texture2D, position:Vector2, tint:Color):Void
+	{
+		untyped __cpp__("DrawTextureV({0}.value, {1}.value, {2}.value)", texture, position, tint);
+	}
 
 	/** Draw a Texture2D with extended parameters **/
-	@:native("DrawTextureEx")
-	public static extern function DrawTextureEx(texture:Texture2D, position:Vector2, rotation:Float, scale:Float, tint:Color):Void;
+	public static extern inline function DrawTextureEx(texture:Texture2D, position:Vector2, rotation:Float, scale:Float, tint:Color):Void
+	{
+		untyped __cpp__("DrawTextureEx({0}.value, {1}.value, float({2}), float({3}), {4}.value)", texture, position, rotation, scale, tint);
+	}
 
 	/** Draw a part of a texture defined by a rectangle **/
-	@:native("DrawTextureRec")
-	public static extern function DrawTextureRec(texture:Texture2D, sourceRec:Rectangle, position:Vector2, tint:Color):Void;
+	public static extern inline function DrawTextureRec(texture:Texture2D, sourceRec:Rectangle, position:Vector2, tint:Color):Void
+	{
+		untyped __cpp__("DrawTextureRec({0}.value, {1}.value, {2}.value, {3}.value)", texture, sourceRec, position, tint);
+	}
 
 	/** Draw texture quad with tiling and offset parameters **/
-	@:native("DrawTextureQuad")
-	public static extern function DrawTextureQuad(texture:Texture2D, tiling:Vector2, offset:Vector2, quad:Rectangle, tint:Color):Void;
+	public static extern inline function DrawTextureQuad(texture:Texture2D, tiling:Vector2, offset:Vector2, quad:Rectangle, tint:Color):Void
+	{
+		untyped __cpp__("DrawTextureQuad({0}.value, {1}.value, {2}.value, {3}.value, {4}.value)", texture, tiling, offset, quad, tint);
+	}
 
 	/** Draw a part of a texture defined by a rectangle with 'pro' parameters **/
-	@:native("DrawTexturePro")
-	public static extern function DrawTexturePro(texture:Texture2D, sourceRec:Rectangle, destRec:Rectangle, origin:Vector2, rotation:Float, tint:Color):Void;
+	public static extern inline function DrawTexturePro(texture:Texture2D, sourceRec:Rectangle, destRec:Rectangle, origin:Vector2, rotation:Float, tint:Color):Void
+	{
+		untyped __cpp__("DrawTexturePro({0}.value, {1}.value, {2}.value, {3}.value, float({4}), {5}.value)", texture, sourceRec, destRec, origin, rotation, tint);
+	}
 
 	/** Draws a texture (or part of it) that stretches or shrinks nicely **/
-	@:native("DrawTextureNPatch")
-	public static extern function DrawTextureNPatch(texture:Texture2D, nPatchInfo:NPatchInfo, destRec:Rectangle, origin:Vector2, rotation:Float, tint:Color):Void;
+	public static extern inline function DrawTextureNPatch(texture:Texture2D, nPatchInfo:NPatchInfo, destRec:Rectangle, origin:Vector2, rotation:Float, tint:Color):Void
+	{
+		untyped __cpp__("DrawTextureNPatch({0}.value, {1}.value, {2}.value, {3}.value, float({4}), {5}.value)", texture, nPatchInfo, destRec, origin, rotation, tint);
+	}
 
 	/** Get the default Font **/
-	@:native("GetFontDefault")
-	public static extern function GetFontDefault():Font;
+	public static extern inline function GetFontDefault():Font
+	{
+		return untyped __cpp__("cpp::Struct<Font>(GetFontDefault())");
+	}
 
 	/** Load font from file into GPU memory (VRAM) **/
-	@:native("LoadFont")
-	public static extern function LoadFont(fileName:ConstCharStar):Font;
+	public static extern inline function LoadFont(fileName:String):Font
+	{
+		return untyped __cpp__("cpp::Struct<Font>(LoadFont({0}.__s))", fileName);
+	}
 
 	/** Load font from file with extended parameters **/
 	@:native("LoadFontEx")
 	public static extern function LoadFontEx(fileName:ConstCharStar, fontSize:Int, fontChars:Star<Int>, charsCount:Int):Font; // TODO to Array
 
 	/** Load font from Image (XNA style) **/
-	@:native("LoadFontFromImage")
-	public static extern function LoadFontFromImage(image:Image, key:Color, firstChar:Int):Font;
+	public static extern inline function LoadFontFromImage(image:Image, key:Color, firstChar:Int):Font
+	{
+		return untyped __cpp__("cpp::Struct<Font>(LoadFontFromImage({0}.value, {1}.value, {2}))", image, key, firstChar);
+	}
 
 	/** Load font data for further use **/
 	@:native("LoadFontData")
@@ -3117,44 +3712,60 @@ class Raylib
 	/** Generate image font atlas using chars info **/
 	public static extern inline function GenImageFontAtlas(chars:Reference<CharInfo>, charsCount:Int, fontSize:Int, padding:Int, packMethod:Int):Image
 	{
-		return untyped __cpp__("GenImageFontAtlas(&({0}.value), {1}, {2}, {3}, {4})", chars, charsCount, fontSize, padding, packMethod);
+		return untyped __cpp__("cpp::Struct<Image>(GenImageFontAtlas(&({0}.value), {1}, {2}, {3}, {4}))", chars, charsCount, fontSize, padding, packMethod);
 	}
 
 	/** Unload Font from GPU memory (VRAM) **/
-	@:native("UnloadFont")
-	public static extern function UnloadFont(font:Font):Void;
+	public static extern inline function UnloadFont(font:Font):Void
+	{
+		untyped __cpp__("UnloadFont({0}.value)", font);
+	}
 
 	/** Shows current FPS **/
 	@:native("DrawFPS")
 	public static extern function DrawFPS(posX:Int, posY:Int):Void;
 
 	/** Draw text (using default font) **/
-	@:native("DrawText")
-	public static extern function DrawText(text:ConstCharStar, posX:Int, posY:Int, fontSize:Int, color:Color):Void;
+	public static extern inline function DrawText(text:String, posX:Int, posY:Int, fontSize:Int, color:Color):Void
+	{
+		untyped __cpp__("DrawText({0}.__s, {1}, {2}, {3}, {4}.value)", text, posX, posY, fontSize, color);
+	}
 
 	/** Draw text using font and additional parameters **/
-	@:native("DrawTextEx")
-	public static extern function DrawTextEx(font:Font, text:ConstCharStar, position:Vector2, fontSize:Float, spacing:Float, tint:Color):Void;
+	public static extern inline function DrawTextEx(font:Font, text:String, position:Vector2, fontSize:Float, spacing:Float, tint:Color):Void
+	{
+		untyped __cpp__("DrawTextEx({0}.value, {1}.__s, {2}.value, float({3}), float({4}), {5}.value)", font, text, position, fontSize, spacing, tint);
+	}
 
 	/** Draw text using font inside rectangle limits **/
-	@:native("DrawTextRec")
-	public static extern function DrawTextRec(font:Font, text:ConstCharStar, rec:Rectangle, fontSize:Float, spacing:Float, wordWrap:Bool, tint:Color):Void;
+	public static extern inline function DrawTextRec(font:Font, text:String, rec:Rectangle, fontSize:Float, spacing:Float, wordWrap:Bool, tint:Color):Void
+	{
+		untyped __cpp__("DrawTextRec({0}.value, {1}.__s, {2}.value, float({3}), float({4}), {5}, {6}.value)", font, text, rec, fontSize, wordWrap, tint);
+	}
 
 	/** Draw text using font inside rectangle limits with support for text selection **/
-	@:native("DrawTextRecEx")
-	public static extern function DrawTextRecEx(font:Font, text:ConstCharStar, rec:Rectangle, fontSize:Float, spacing:Float, wordWrap:Bool, tint:Color, selectStart:Int, selectLength:Int, selectText:Color, selectBack:Color):Void;
+	public static extern inline function DrawTextRecEx(font:Font, text:String, rec:Rectangle, fontSize:Float, spacing:Float, wordWrap:Bool, tint:Color, selectStart:Int, selectLength:Int, selectText:Color, selectBack:Color):Void
+	{
+		untyped __cpp__("DrawTextRecEx({0}.value, {1}.__s, {2}.value, float({3}), float({4}), {5}, {6}.value, {7}, {8}, {9}.value, {10}.value)", font, text, rec, fontSize, spacing, wordWrap, tint, selectStart, selectLength, selectText, selectBack);
+	}
 
 	/** Measure string width for default font **/
-	@:native("MeasureText")
-	public static extern function MeasureText(text:ConstCharStar, fontSize:Int):Int;
+	public static extern inline function MeasureText(text:String, fontSize:Int):Int
+	{
+		return untyped __cpp__("MeasureText({0}.__s, {1})", text, fontSize);
+	}
 
 	/** Measure string size for Font **/
-	@:native("MeasureTextEx")
-	public static extern function MeasureTextEx(font:Font, text:ConstCharStar, fontSize:Float, spacing:Float):Vector2;
+	public static extern inline function MeasureTextEx(font:Font, text:String, fontSize:Float, spacing:Float):Vector2
+	{
+		return untyped __cpp__("cpp::Struct<Vector2>(MeasureTextEx({0}.value, {1}.__s, float({2}), float({3})))", font, text, fontSize, spacing);
+	}
 
 	/** Get index position for a unicode character on font **/
-	@:native("GetGlyphIndex")
-	public static extern function GetGlyphIndex(font:Font, character:Int):Int;
+	public static extern inline function GetGlyphIndex(font:Font, character:Int):Int
+	{
+		return untyped __cpp__("GetGlyphIndex({0}.value, {1})", font, character);
+	}
 
 	/** Check if two text string are equal
 	NOTE: This is using the Haxe API. **/
@@ -3255,84 +3866,122 @@ class Raylib
 	}
 
 	/** Draw a line in 3D world space **/
-	@:native("DrawLine3D")
-	public static extern function DrawLine3D(startPos:Vector3, endPos:Vector3, color:Color):Void;
+	public static extern inline function DrawLine3D(startPos:Vector3, endPos:Vector3, color:Color):Void
+	{
+		untyped __cpp__("DrawLine3D({0}.value, {1}.value, {2}.value)", startPos, endPos, color);
+	}
 
 	/** Draw a circle in 3D world space **/
-	@:native("DrawCircle3D")
-	public static extern function DrawCircle3D(center:Vector3, radius:Float, rotationAxis:Vector3, rotationAngle:Float, color:Color):Void;
+	public static extern inline function DrawCircle3D(center:Vector3, radius:Float, rotationAxis:Vector3, rotationAngle:Float, color:Color):Void
+	{
+		untyped __cpp__("DrawCircle3D({0}.value, float({1}), {2}.value, float({3}), {4}.value)", center, radius, rotationAxis, rotationAngle, color);
+	}
 
 	/** Draw cube **/
-	@:native("DrawCube")
-	public static extern function DrawCube(position:Vector3, width:Float, height:Float, length:Float, color:Color):Void;
+	public static extern inline function DrawCube(position:Vector3, width:Float, height:Float, length:Float, color:Color):Void
+	{
+		untyped __cpp__("DrawCube({0}.value, float({1}), float({2}), float({3}), {4}.value)", position, width, height, length, color);
+	}
 
 	/** Draw cube (Vector version) **/
-	@:native("DrawCubeV")
-	public static extern function DrawCubeV(position:Vector3, size:Vector3, color:Color):Void;
+	public static extern inline function DrawCubeV(position:Vector3, size:Vector3, color:Color):Void
+	{
+		untyped __cpp__("DrawCubeV({0}.value, {1}.value, {2}.value)", position, size, color);
+	}
 
 	/** Draw cube wires **/
-	@:native("DrawCubeWires")
-	public static extern function DrawCubeWires(position:Vector3, width:Float, height:Float, length:Float, color:Color):Void;
+	public static extern inline function DrawCubeWires(position:Vector3, width:Float, height:Float, length:Float, color:Color):Void
+	{
+		untyped __cpp__("DrawCubeWires({0}.value, float({1}), float({2}), float({3}), {4}.value)", position, width, height, length, color);
+	}
 
 	/** Draw cube wires (Vector version) **/
-	@:native("DrawCubeWiresV")
-	public static extern function DrawCubeWiresV(position:Vector3, size:Vector3, color:Color):Void;
+	public static extern inline function DrawCubeWiresV(position:Vector3, size:Vector3, color:Color):Void
+	{
+		untyped __cpp__("DrawCubeWiresV({0}.value, {1}.value, {2}.value)", position, size, color);
+	}
 
 	/** Draw cube textured **/
-	@:native("DrawCubeTexture")
-	public static extern function DrawCubeTexture(texture:Texture2D, position:Vector3, width:Float, height:Float, length:Float, color:Color):Void;
+	public static extern inline function DrawCubeTexture(texture:Texture2D, position:Vector3, width:Float, height:Float, length:Float, color:Color):Void
+	{
+		untyped __cpp__("DrawCubeTexture({0}.value, {1}.value, float({2}), float({3}), float({4}), {5}.value)", texture, position, width, height, length, color);
+	}
 
 	/** Draw sphere **/
-	@:native("DrawSphere")
-	public static extern function DrawSphere(centerPos:Vector3, radius:Float, color:Color):Void;
+	public static extern inline function DrawSphere(centerPos:Vector3, radius:Float, color:Color):Void
+	{
+		untyped __cpp__("DrawSphere({0}.value, float({1}), {2}.value)", centerPos, radius, color);
+	}
 
 	/** Draw sphere with extended parameters **/
-	@:native("DrawSphereEx")
-	public static extern function DrawSphereEx(centerPos:Vector3, radius:Float, rings:Int, slices:Int, color:Color):Void;
+	public static extern inline function DrawSphereEx(centerPos:Vector3, radius:Float, rings:Int, slices:Int, color:Color):Void
+	{
+		untyped __cpp__("DrawSphereEx({0}.value, float({1}), {2}, {3}, {4}.value)", centerPos, radius, ring, slices, color);
+	}
 
 	/** Draw sphere wires **/
-	@:native("DrawSphereWires")
-	public static extern function DrawSphereWires(centerPos:Vector3, radius:Float, rings:Int, slices:Int, color:Color):Void;
+	public static extern inline function DrawSphereWires(centerPos:Vector3, radius:Float, rings:Int, slices:Int, color:Color):Void
+	{
+		untyped __cpp__("DrawSphereWires({0}.value, float({1}), {2}, {3}, {4}.value)", centerPos, radius, ring, slices, color);
+	}
 
 	/** Draw a cylinder/cone **/
-	@:native("DrawCylinder")
-	public static extern function DrawCylinder(position:Vector3, radiusTop:Float, radiusBottom:Float, height:Float, slices:Int, color:Color):Void;
+	public static extern inline function DrawCylinder(position:Vector3, radiusTop:Float, radiusBottom:Float, height:Float, slices:Int, color:Color):Void
+	{
+		untyped __cpp__("DrawCylinder({0}.value, float({1}), float({2}), float({3}), {4}, {5}.value)", position, radiusTop, radiusBottom, height, slices, color);
+	}
 
 	/** Draw a cylinder/cone wires **/
-	@:native("DrawCylinderWires")
-	public static extern function DrawCylinderWires(position:Vector3, radiusTop:Float, radiusBottom:Float, height:Float, slices:Int, color:Color):Void;
+	public static extern inline function DrawCylinderWires(position:Vector3, radiusTop:Float, radiusBottom:Float, height:Float, slices:Int, color:Color):Void
+	{
+		untyped __cpp__("DrawCylinderWires({0}.value, float({1}), float({2}), float({3}), {4}, {5}.value)", position, radiusTop, radiusBottom, height, slices, color);
+	}
 
 	/** Draw a plane XZ **/
-	@:native("DrawPlane")
-	public static extern function DrawPlane(centerPos:Vector3, size:Vector2, color:Color):Void;
+	public static extern inline function DrawPlane(centerPos:Vector3, size:Vector2, color:Color):Void
+	{
+		untyped __cpp__("DrawPlane({0}.value, {1}.value, {2}.value)", centerPos, size, color);
+	}
 
 	/** Draw a ray line **/
-	@:native("DrawRay")
-	public static extern function DrawRay(ray:Ray, color:Color):Void;
+	public static extern inline function DrawRay(ray:Ray, color:Color):Void
+	{
+		untyped __cpp__("DrawRay({0}.value, {1}.value)", ray, color);
+	}
 
 	/** Draw a grid (centered at (0, 0, 0)) **/
 	@:native("DrawGrid")
 	public static extern function DrawGrid(slices:Int, spacing:Float):Void;
 
 	/** Draw simple gizmo **/
-	@:native("DrawGizmo")
-	public static extern function DrawGizmo(position:Vector3):Void;
+	public static extern inline function DrawGizmo(position:Vector3):Void
+	{
+		untyped __cpp__("DrawGizmo({0}.value)", position);
+	}
 
 	/** Load model from files (mesh and material) **/
-	@:native("LoadModel")
-	public static extern function LoadModel(fileName:ConstCharStar):Model;
+	public static extern inline function LoadModel(fileName:String):Model
+	{
+		return untyped __cpp__("cpp::Struct<Model>(LoadModel({0}.__s))", fileName);
+	}
 
 	/** Load model from generated mesh **/
-	@:native("LoadModelFromMesh")
-	public static extern function LoadModelFromMesh(mesh:Mesh):Model;
+	public static extern inline function LoadModelFromMesh(mesh:Mesh):Model
+	{
+		return untyped __cpp__("cpp::Struct<Model>(LoadModelFromMesh({0}.value))", mesh);
+	}
 
 	/** Unload model from memory (RAM and/or VRAM) **/
-	@:native("UnloadModel")
-	public static extern function UnloadModel(model:Model):Void;
+	public static extern inline function UnloadModel(model:Model):Void
+	{
+		untyped __cpp__("UnloadModel({0}.value)", model);
+	}
 
 	/** Load mesh from file **/
-	@:native("LoadMesh")
-	public static extern function LoadMesh(fileName:ConstCharStar):Mesh;
+	public static extern inline function LoadMesh(fileName:String):Mesh
+	{
+		return untyped __cpp__("cpp::Struct<Mesh>(LoadMesh({0}.__s))", fileName);
+	}
 
 	/** Unload mesh from memory (RAM and/or VRAM) **/
 	public static extern inline function UnloadMesh(mesh:Reference<Mesh>):Void
@@ -3341,12 +3990,16 @@ class Raylib
 	}
 
 	/** Export mesh data to file **/
-	@:native("ExportMesh")
-	public static extern function ExportMesh(mesh:Mesh, fileName:ConstCharStar):Void;
+	public static extern inline function ExportMesh(mesh:Mesh, fileName:String):Void
+	{
+		untyped __cpp__("ExportMesh({0}.value, {1}.__s)", mesh, fileName);
+	}
 
 	/** Compute mesh bounding box limits **/
-	@:native("MeshBoundingBox")
-	public static extern function MeshBoundingBox(mesh:Mesh):BoundingBox;
+	public static extern inline function MeshBoundingBox(mesh:Mesh):BoundingBox
+	{
+		return untyped __cpp__("cpp::Struct<BoundingBox>(MeshBoundingBox({0}.value))", mesh);
+	}
 
 	/** Compute mesh tangents **/
 	public static extern inline function MeshTangents(mesh:Reference<Mesh>):Void
@@ -3361,196 +4014,287 @@ class Raylib
 	}
 
 	/** Generate polygonal mesh **/
-	@:native("GenMeshPoly")
-	public static extern function GenMeshPoly(sides:Int, radius:Float):Mesh;
+	public static extern inline function GenMeshPoly(sides:Int, radius:Float):Mesh
+	{
+		return untyped __cpp__("cpp::Struct<Mesh>(GenMeshPoly({0}, float({1})))", sides, radius);
+	}
 
 	/** Generate plane mesh (with subdivisions) **/
-	@:native("GenMeshPlane")
-	public static extern function GenMeshPlane(width:Float, length:Float, resX:Int, resZ:Int):Mesh;
+	public static extern inline function GenMeshPlane(width:Float, length:Float, resX:Int, resZ:Int):Mesh
+	{
+		return untyped __cpp__("cpp::Struct<Mesh>(GenMeshPlane(float({0}), float({1}), {2}, {3}))", width, length, resX, resZ);
+	}
 
 	/** Generate cuboid mesh **/
-	@:native("GenMeshCube")
-	public static extern function GenMeshCube(width:Float, height:Float, length:Float):Mesh;
+	public static extern inline function GenMeshCube(width:Float, height:Float, length:Float):Mesh
+	{
+		return untyped __cpp__("cpp::Struct<Mesh>(GenMeshCube(float({0}), float({1}), float({2})))", width, height, length);
+	}
 
 	/** Generate sphere mesh (standard sphere) **/
-	@:native("GenMeshSphere")
-	public static extern function GenMeshSphere(radius:Float, rings:Int, slices:Int):Mesh;
+	public static extern inline function GenMeshSphere(radius:Float, rings:Int, slices:Int):Mesh
+	{
+		return untyped __cpp__("cpp::Struct<Mesh>(GenMeshSphere(float({0}), {1}, {2}))", radius, rings, slices);
+	}
 
 	/** Generate half-sphere mesh (no bottom cap) **/
-	@:native("GenMeshHemiSphere")
-	public static extern function GenMeshHemiSphere(radius:Float, rings:Int, slices:Int):Mesh;
+	public static extern inline function GenMeshHemiSphere(radius:Float, rings:Int, slices:Int):Mesh
+	{
+		return untyped __cpp__("cpp::Struct<Mesh>(GenMeshHemiSphere(float({0}), {1}, {2}))", radius, rings, slices);
+	}
 
 	/** Generate cylinder mesh **/
-	@:native("GenMeshCylinder")
-	public static extern function GenMeshCylinder(radius:Float, height:Float, slices:Int):Mesh;
+	public static extern inline function GenMeshCylinder(radius:Float, height:Float, slices:Int):Mesh
+	{
+		return untyped __cpp__("cpp::Struct<Mesh>(GenMeshCylinder(float({0}), float({1}), {2}))", radius, height, slices);
+	}
 
 	/** Generate torus mesh **/
-	@:native("GenMeshTorus")
-	public static extern function GenMeshTorus(radius:Float, size:Float, radSeg:Int, sides:Int):Mesh;
+	public static extern inline function GenMeshTorus(radius:Float, size:Float, radSeg:Int, sides:Int):Mesh
+	{
+		return untyped __cpp__("cpp::Struct<Mesh>(GenMeshTorus(float({0}), float({1}), {2}, {3}))", radius, size, radSeg, sides);
+	}
 
 	/** Generate trefoil knot mesh **/
-	@:native("GenMeshKnot")
-	public static extern function GenMeshKnot(radius:Float, size:Float, radSeg:Int, sides:Int):Mesh;
+	public static extern inline function GenMeshKnot(radius:Float, size:Float, radSeg:Int, sides:Int):Mesh
+	{
+		return untyped __cpp__("cpp::Struct<Mesh>(GenMeshKnot(float({0}), float({1}), {2}, {3}))", radius, size, radSeg, sides);
+	}
 
 	/** Generate heightmap mesh from image data **/
-	@:native("GenMeshHeightmap")
-	public static extern function GenMeshHeightmap(heightmap:Image, size:Vector3):Mesh;
+	public static extern inline function GenMeshHeightmap(heightmap:Image, size:Vector3):Mesh
+	{
+		return untyped __cpp__("cpp::Struct<Mesh>(GenMeshHeightmap({0}.value, {1}.value))", heightmap, size);
+	}
 
 	/** Generate cubes-based map mesh from image data **/
-	@:native("GenMeshCubicmap")
-	public static extern function GenMeshCubicmap(cubicmap:Image, cubeSize:Vector3):Mesh;
+	public static extern inline function GenMeshCubicmap(cubicmap:Image, cubeSize:Vector3):Mesh
+	{
+		return untyped __cpp__("cpp::Struct<Mesh>(GenMeshCubicmap({0}.value, {1}.value))", cubicmap, cubeSize);
+	}
 
 	/** Load material from file **/
-	@:native("LoadMaterial")
-	public static extern function LoadMaterial(fileName:ConstCharStar):Material;
+	public static extern inline function LoadMaterial(fileName:String):Material
+	{
+		return untyped __cpp__("cpp::Struct<Material>(LoadMaterial({0}.__s))", fileName);
+	}
 
 	/** Load default material (Supports: DIFFUSE, SPECULAR, NORMAL maps) **/
-	@:native("LoadMaterialDefault")
-	public static extern function LoadMaterialDefault():Material;
+	public static extern inline function LoadMaterialDefault():Material
+	{
+		return untyped __cpp__("cpp::Struct<Material>(LoadMaterialDefault())");
+	}
 
 	/** Unload material from GPU memory (VRAM) **/
-	@:native("UnloadMaterial")
-	public static extern function UnloadMaterial(material:Material):Void;
+	public static extern inline function UnloadMaterial(material:Material):Void
+	{
+		untyped __cpp__("UnloadMaterial({0}.value)");
+	}
 
 	/** Draw a model (with texture if set) **/
-	@:native("DrawModel")
-	public static extern function DrawModel(model:Model, position:Vector3, scale:Float, tint:Color):Void;
+	public static extern inline function DrawModel(model:Model, position:Vector3, scale:Float, tint:Color):Void
+	{
+		untyped __cpp__("DrawModel({0}.value, {1}.value, float({2}), {3}.value)", model, position, scale, tint);
+	}
 
 	/** Draw a model with extended parameters **/
-	@:native("DrawModelEx")
-	public static extern function DrawModelEx(model:Model, position:Vector3, rotationAxis:Vector3, rotationAngle:Float, scale:Vector3, tint:Color):Void;
+	public static extern inline function DrawModelEx(model:Model, position:Vector3, rotationAxis:Vector3, rotationAngle:Float, scale:Vector3, tint:Color):Void
+	{
+		untyped __cpp__("DrawModelEx({0}.value, {1}.value, {2}.value, float({3}), {4}.value, {5}.value)", model, position, rotationAxis, rotationAngle, scale, tint);
+	}
 
 	/** Draw a model wires (with texture if set) **/
-	@:native("DrawModelWires")
-	public static extern function DrawModelWires(model:Model, position:Vector3, scale:Float, tint:Color):Void;
+	public static extern inline function DrawModelWires(model:Model, position:Vector3, scale:Float, tint:Color):Void
+	{
+		untyped __cpp__("DrawModelWires({0}.value, {1}.value, float({2}), {3}.value)", model, position, scale, tint);
+	}
 
 	/** Draw a model wires (with texture if set) with extended parameters **/
-	@:native("DrawModelWiresEx")
-	public static extern function DrawModelWiresEx(model:Model, position:Vector3, rotationAxis:Vector3, rotationAngle:Float, scale:Vector3, tint:Color):Void;
+	public static extern inline function DrawModelWiresEx(model:Model, position:Vector3, rotationAxis:Vector3, rotationAngle:Float, scale:Vector3, tint:Color):Void
+	{
+		untyped __cpp__("DrawModelWiresEx({0}.value, {1}.value, {2}.value, float({3}), {4}.value, {5}.value)", model, position, rotationAxis, rotationAngle, scale, tint);
+	}
 
 	/** Draw bounding box (wires) **/
-	@:native("DrawBoundingBox")
-	public static extern function DrawBoundingBox(box:BoundingBox, color:Color):Void;
+	public static extern inline function DrawBoundingBox(box:BoundingBox, color:Color):Void
+	{
+		untyped __cpp__("DrawBoundingBox({0}.value, {1}.value)", box, color);
+	}
 
 	/** Draw a billboard texture **/
-	@:native("DrawBillboard")
-	public static extern function DrawBillboard(camera:Camera, texture:Texture2D, center:Vector3, size:Float, tint:Color):Void;
+	public static extern inline function DrawBillboard(camera:Camera3D, texture:Texture2D, center:Vector3, size:Float, tint:Color):Void
+	{
+		untyped __cpp__("DrawBillboard({0}.value, {1}.value, {2}.value, float({3}), {4}.value)", camera, texture, center, size, tint);
+	}
 
 	/** Draw a billboard texture defined by sourceRec **/
-	@:native("DrawBillboardRec")
-	public static extern function DrawBillboardRec(camera:Camera, texture:Texture2D, sourceRec:Rectangle, center:Vector3, size:Float, tint:Color):Void;
+	public static extern inline function DrawBillboardRec(camera:Camera3D, texture:Texture2D, sourceRec:Rectangle, center:Vector3, size:Float, tint:Color):Void
+	{
+		untyped __cpp__("DrawBillboardRec({0}.value, {1}.value, {2}.value, {3}.value, float({4}), {5}.value)", camera, texture, sourceRec, center, size, tint);
+	}
 
 	/** Detect collision between two spheres **/
-	@:native("CheckCollisionSpheres")
-	public static extern function CheckCollisionSpheres(centerA:Vector3, radiusA:Float, centerB:Vector3, radiusB:Float):Bool;
+	public static extern inline function CheckCollisionSpheres(centerA:Vector3, radiusA:Float, centerB:Vector3, radiusB:Float):Bool
+	{
+		return untyped __cpp__("CheckCollisionSpheres({0}.value, float({1}), {2}.value, float({3}))", centerA, radiusA, centerB, radiusB);
+	}
 
 	/** Detect collision between two bounding boxes **/
-	@:native("CheckCollisionBoxes")
-	public static extern function CheckCollisionBoxes(box1:BoundingBox, box2:BoundingBox):Bool;
+	public static extern inline function CheckCollisionBoxes(box1:BoundingBox, box2:BoundingBox):Bool
+	{
+		return untyped __cpp__("CheckCollisionBoxes({0}.value, {1}.value)", box1, box2);
+	}
 
 	/** Detect collision between box and sphere **/
-	@:native("CheckCollisionBoxSphere")
-	public static extern function CheckCollisionBoxSphere(box:BoundingBox, centerSphere:Vector3, radiusSphere:Float):Bool;
+	public static extern inline function CheckCollisionBoxSphere(box:BoundingBox, centerSphere:Vector3, radiusSphere:Float):Bool
+	{
+		return untyped __cpp__("CheckCollisionBoxSphere({0}.value, {1}.value, float({2}))", box, centerSphere, radiusSphere);
+	}
 
 	/** Detect collision between ray and sphere **/
-	@:native("CheckCollisionRaySphere")
-	public static extern function CheckCollisionRaySphere(ray:Ray, spherePosition:Vector3, sphereRadius:Float):Bool;
+	public static extern inline function CheckCollisionRaySphere(ray:Ray, spherePosition:Vector3, sphereRadius:Float):Bool
+	{
+		return untyped __cpp__("CheckCollisionRaySphere({0}.value, {1}.value, float({2}))", ray, spherePosition, sphereRadius);
+	}
 
 	/** Detect collision between ray and sphere, returns collision point **/
 	public static extern inline function CheckCollisionRaySphereEx(ray:Ray, spherePosition:Vector3, sphereRadius:Float, collisionPoint:Reference<Vector3>):Bool
 	{
-		return untyped __cpp__("CheckCollisionRaySphereEx({0}, {1}, float({2}), &({3}.value))", ray, spherePosition, sphereRadius, collisionPoint);
+		return untyped __cpp__("CheckCollisionRaySphereEx({0}.value, {1}.value, float({2}), &({3}.value))", ray, spherePosition, sphereRadius, collisionPoint);
 	}
 
 	/** Detect collision between ray and box **/
-	@:native("CheckCollisionRayBox")
-	public static extern function CheckCollisionRayBox(ray:Ray, box:BoundingBox):Bool;
+	public static extern inline function CheckCollisionRayBox(ray:Ray, box:BoundingBox):Bool
+	{
+		return untyped __cpp__("CheckCollisionRayBox({0}.value, {1}.value)", ray, box);
+	}
 
 	/** Get collision info between ray and model **/
 	public static extern inline function GetCollisionRayModel(ray:Ray, model:Reference<Model>):RayHitInfo
 	{
-		return untyped __cpp__("GetCollisionRayModel({0}, &({1}.value))", ray, model);
+		return untyped __cpp__("cpp::Struct<RayHitInfo>(GetCollisionRayModel({0}.value, &({1}.value)))", ray, model);
 	}
 
 	/** Get collision info between ray and triangle **/
-	@:native("GetCollisionRayTriangle")
-	public static extern function GetCollisionRayTriangle(ray:Ray, p1:Vector3, p2:Vector3, p3:Vector3):RayHitInfo;
+	public static extern inline function GetCollisionRayTriangle(ray:Ray, p1:Vector3, p2:Vector3, p3:Vector3):RayHitInfo
+	{
+		return untyped __cpp__("cpp::Struct<RayHitInfo>(GetCollisionRayTriangle({0}.value, {1}.value, {2}.value, {3}.value))", ray, p1, p2, p3);
+	}
 
 	/** Get collision info between ray and ground plane (Y-normal plane) **/
-	@:native("GetCollisionRayGround")
-	public static extern function GetCollisionRayGround(ray:Ray, groundHeight:Float):RayHitInfo;
+	public static extern inline function GetCollisionRayGround(ray:Ray, groundHeight:Float):RayHitInfo
+	{
+		return untyped __cpp__("cpp::Struct<RayHitInfo>(GetCollisionRayGround({0}.value, float({1})))", ray, groundHeight);
+	}
 
-	/** Load chars array from text file **/
-	@:native("LoadText")
-	public static extern function LoadText(fileName:ConstCharStar):Star<Char>; // TODO use File API
+	/** Load chars array from text file
+	NOTE: This is using the Haxe API. **/
+	public static extern inline function LoadText(fileName:String):String
+	{
+		return File.getContent(fileName);
+	}
 
 	/** Load shader from files and bind default locations **/
-	@:native("LoadShader")
-	public static extern function LoadShader(vsFileName:ConstCharStar, fsFileName:ConstCharStar):Shader;
+	public static extern inline function LoadShader(vsFileName:String, fsFileName:String):Shader
+	{
+		return untyped __cpp__("cpp::Struct<Shader>(LoadShader({0}.__s, {1}.__s))", vsFileName, fsFileName);
+	}
 
 	/** Load shader from code strings and bind default locations **/
-	@:native("LoadShaderCode")
-	public static extern function LoadShaderCode(vsCode:Star<Char>, fsCode:Star<Char>):Shader;
+	public static extern inline function LoadShaderCode(vsCode:String, fsCode:String):Shader
+	{
+		return untyped __cpp__("cpp::Struct<Shader>(LoadShaderCode({0}.__s, {1}.__s))", vsCode, fsCode);
+	}
 
 	/** Unload shader from GPU memory (VRAM) **/
-	@:native("UnloadShader")
-	public static extern function UnloadShader(shader:Shader):Void;
+	public static extern inline function UnloadShader(shader:Shader):Void
+	{
+		untyped __cpp__("UnloadShader({0}.value)", shader);
+	}
 
 	/** Get default shader **/
-	@:native("GetShaderDefault")
-	public static extern function GetShaderDefault():Shader;
+	public static extern inline function GetShaderDefault():Shader
+	{
+		return untyped __cpp__("cpp::Struct<Shader>((GetShaderDefault())");
+	}
 
 	/** Get default texture **/
-	@:native("GetTextureDefault")
-	public static extern function GetTextureDefault():Texture2D;
+	public static extern inline function GetTextureDefault():Texture2D
+	{
+		return untyped __cpp__("cpp::Struct<Texture2D>(GetTextureDefault())");
+	}
 
 	/** Get shader uniform location **/
-	@:native("GetShaderLocation")
-	public static extern function GetShaderLocation(shader:Shader, uniformName:ConstCharStar):Int;
+	public static inline extern function GetShaderLocation(shader:Shader, uniformName:String):Int
+	{
+		return untyped __cpp__("GetShaderLocation({0}.value, {1}.__s)", shader, uniformName);
+	}
 
 	/** Set shader uniform value **/
-	@:native("SetShaderValue")
-	public static extern function SetShaderValue(shader:Shader, uniformLoc:Int, value:ConstVoidStar, uniformType:Int):Void;
+	public static extern inline function SetShaderValue(shader:Shader, uniformLoc:ShaderLocationIndex, value:ConstVoidStar, uniformType:ShaderUniformDataType):Void
+	{
+		untyped __cpp__("SetShaderValue({0}.value, {1}, {2}, {3})", shader, uniformLoc, value, uniformType);
+	}
 
 	/** Set shader uniform value vector **/
-	@:native("SetShaderValueV")
-	public static extern function SetShaderValueV(shader:Shader, uniformLoc:Int, value:ConstVoidStar, uniformType:Int, count:Int):Void;
+	public static extern inline function SetShaderValueV(shader:Shader, uniformLoc:ShaderLocationIndex, value:ConstVoidStar, uniformType:ShaderUniformDataType, count:Int):Void
+	{
+		untyped __cpp__("SetShaderValueV({0}.value, {1}, {2}, {3}, {4})", shader, uniformLoc, value, uniformType, count);
+	}
 
 	/** Set shader uniform value (matrix 4x4) **/
-	@:native("SetShaderValueMatrix")
-	public static extern function SetShaderValueMatrix(shader:Shader, uniformLoc:Int, mat:Matrix):Void;
+	public static extern inline function SetShaderValueMatrix(shader:Shader, uniformLoc:ShaderLocationIndex, mat:Matrix):Void
+	{
+		untyped __cpp__("SetShaderValueMatrix({0}.value, {1}, {2}.value)", shader, uniformLoc, mat);
+	}
 
 	/** Set a custom projection matrix (replaces internal projection matrix) **/
-	@:native("SetMatrixProjection")
-	public static extern function SetMatrixProjection(proj:Matrix):Void;
+	public static extern inline function SetMatrixProjection(proj:Matrix):Void
+	{
+		untyped __cpp__("SetMatrixProjection({0}.value)", proj);
+	}
 
 	/** Set a custom modelview matrix (replaces internal modelview matrix) **/
-	@:native("SetMatrixModelview")
-	public static extern function SetMatrixModelview(view:Matrix):Void;
+	public static extern inline function SetMatrixModelview(view:Matrix):Void
+	{
+		untyped __cpp__("SetMatrixModelview({0}.value)", view);
+	}
 
 	/** Get internal modelview matrix **/
-	@:native("GetMatrixModelview")
-	public static extern function GetMatrixModelview():Matrix;
+	public static extern inline function GetMatrixModelview():Matrix
+	{
+		return untyped __cpp__("cpp::Struct<Matrix>(GetMatrixModelview())");
+	}
 
 	/** Generate cubemap texture from HDR texture **/
-	@:native("GenTextureCubemap")
-	public static extern function GenTextureCubemap(shader:Shader, skyHDR:Texture2D, size:Int):Texture2D;
+	public static extern inline function GenTextureCubemap(shader:Shader, skyHDR:Texture2D, size:Int):Texture2D
+	{
+		return untyped __cpp__("cpp::Struct<Texture2D>(GenTextureCubemap({0}.value, {1}.value, {2}))", shader, skyHDR, size);
+	}
 
 	/** Generate irradiance texture using cubemap data **/
-	@:native("GenTextureIrradiance")
-	public static extern function GenTextureIrradiance(shader:Shader, cubemap:Texture2D, size:Int):Texture2D;
+	public static extern inline function GenTextureIrradiance(shader:Shader, cubemap:Texture2D, size:Int):Texture2D
+	{
+		return untyped __cpp__("cpp::Struct<Texture2D>(GenTextureIrradiance({0}.value, {1}.value, {2}))", shader, cubemap, size);
+	}
 
 	/** Generate prefilter texture using cubemap data **/
-	@:native("GenTexturePrefilter")
-	public static extern function GenTexturePrefilter(shader:Shader, cubemap:Texture2D, size:Int):Texture2D;
+	public static extern inline function GenTexturePrefilter(shader:Shader, cubemap:Texture2D, size:Int):Texture2D
+	{
+		return untyped __cpp__("cpp::Struct<Texture2D>(GenTexturePrefilter({0}.value, {1}.value, {2}))", shader, cubemap, size);
+	}
 
 	/** Generate BRDF texture using cubemap data **/
-	@:native("GenTextureBRDF")
-	public static extern function GenTextureBRDF(shader:Shader, size:Int):Texture2D;
+	public static extern inline function GenTextureBRDF(shader:Shader, size:Int):Texture2D
+	{
+		return untyped __cpp__("cpp::Struct<Texture2D>(GenTextureBRDF({0}.value, {1}))", shader, size);
+	}
 
 	/** Begin custom shader drawing **/
-	@:native("BeginShaderMode")
-	public static extern function BeginShaderMode(shader:Shader):Void;
+	public static extern inline function BeginShaderMode(shader:Shader):Void
+	{
+		untyped __cpp__("BeginShaderMode({0}.value)", shader);
+	}
 
 	/** End custom shader drawing (use default shader) **/
 	@:native("EndShaderMode")
@@ -3573,15 +4317,19 @@ class Raylib
 	public static extern function EndScissorMode():Void;
 
 	/** Get VR device information for some standard devices **/
-	@:native("GetVrDeviceInfo")
-	public static extern function GetVrDeviceInfo(vrDeviceType:VrDeviceType):VrDeviceInfo;
+	public static extern inline function GetVrDeviceInfo(vrDeviceType:VrDeviceType):VrDeviceInfo
+	{
+		return untyped __cpp__("cpp::Struct<VrDeviceInfo>(GetVrDeviceInfo({0}))", vrDeviceType);
+	}
 
 	/** Init VR simulator for selected device parameters **/
-	@:native("InitVrSimulator")
-	public static extern function InitVrSimulator(info:VrDeviceInfo):Void;
+	public static extern inline function InitVrSimulator(info:VrDeviceInfo):Void
+	{
+		untyped __cpp__("InitVrSimulator({0}.value)", info);
+	}
 
 	/** Update VR tracking (position and orientation) and camera **/
-	public static extern inline function UpdateVrTracking(camera:Reference<Camera>):Void
+	public static extern inline function UpdateVrTracking(camera:Reference<Camera3D>):Void
 	{
 		untyped __cpp__("UpdateVrTracking(&({0}.value))", camera);
 	}
@@ -3623,68 +4371,98 @@ class Raylib
 	public static extern function SetMasterVolume(volume:Float):Void;
 
 	/** Load wave data from file **/
-	@:native("LoadWave")
-	public static extern function LoadWave(fileName:ConstCharStar):Wave;
+	public static extern inline function LoadWave(fileName:String):Wave
+	{
+		return untyped __cpp__("cpp::Struct<Wave>(LoadWave({0}.__s))", fileName);
+	}
 
 	/** Load wave data from raw array data **/
 	@:native("LoadWaveEx")
 	public static extern function LoadWaveEx(data:Star<cpp.Void>, sampleCount:Int, sampleRate:Int, sampleSize:Int, channels:Int):Wave; // TODO to Array
 
 	/** Load sound from file **/
-	@:native("LoadSound")
-	public static extern function LoadSound(fileName:ConstCharStar):Sound;
+	public static extern inline function LoadSound(fileName:String):Sound
+	{
+		return untyped __cpp__("cpp::Struct<Sound>(LoadSound({0}.__s))", fileName);
+	}
 
 	/** Load sound from wave data **/
-	@:native("LoadSoundFromWave")
-	public static extern function LoadSoundFromWave(wave:Wave):Sound;
+	public static extern inline function LoadSoundFromWave(wave:Wave):Sound
+	{
+		return untyped __cpp__("cpp::Struct<Sound>(LoadSoundFromWave({0}.value))", wave);
+	}
 
 	/** Update sound buffer with new data **/
-	@:native("UpdateSound")
-	public static extern function UpdateSound(sound:Sound, data:ConstVoidStar, samplesCount:Int):Void;
+	public static extern inline function UpdateSound(sound:Sound, data:ConstVoidStar, samplesCount:Int):Void
+	{
+		untyped __cpp__("UpdateSound({0}.value, {1}, {2})", sound, data, samplesCount);
+	}
 
 	/** Unload wave data **/
-	@:native("UnloadWave")
-	public static extern function UnloadWave(wave:Wave):Void;
+	public static extern inline function UnloadWave(wave:Wave):Void
+	{
+		untyped __cpp__("UnloadWave({0}.value)", wave);
+	}
 
 	/** Unload sound **/
-	@:native("UnloadSound")
-	public static extern function UnloadSound(sound:Sound):Void;
+	public static extern inline function UnloadSound(sound:Sound):Void
+	{
+		untyped __cpp__("UnloadSound({0}.value)", sound);
+	}
 
 	/** Export wave data to file **/
-	@:native("ExportWave")
-	public static extern function ExportWave(wave:Wave, fileName:ConstCharStar):Void;
+	public static extern inline function ExportWave(wave:Wave, fileName:String):Void
+	{
+		untyped __cpp__("ExportWave({0}.value, {1}.__s)", wave, fileName);
+	}
 
 	/** Export wave sample data to code (.h) **/
-	@:native("ExportWaveAsCode")
-	public static extern function ExportWaveAsCode(wave:Wave, fileName:ConstCharStar):Void;
+	public static extern inline function ExportWaveAsCode(wave:Wave, fileName:String):Void
+	{
+		untyped __cpp__("ExportWaveAsCode({0}.value, {1}.__s)", wave, fileName);
+	}
 
 	/** Play a sound **/
-	@:native("PlaySound")
-	public static extern function PlaySound(sound:Sound):Void;
+	public static extern inline function PlaySound(sound:Sound):Void
+	{
+		untyped __cpp__("PlaySound({0}.value)", sound);
+	}
 
 	/** Pause a sound **/
-	@:native("PauseSound")
-	public static extern function PauseSound(sound:Sound):Void;
+	public static extern inline function PauseSound(sound:Sound):Void
+	{
+		untyped __cpp__("PauseSound({0}.value)", sound);
+	}
 
 	/** Resume a paused sound **/
-	@:native("ResumeSound")
-	public static extern function ResumeSound(sound:Sound):Void;
+	public static extern inline function ResumeSound(sound:Sound):Void
+	{
+		untyped __cpp__("ResumeSound({0}.value)", sound);
+	}
 
 	/** Stop playing a sound **/
-	@:native("StopSound")
-	public static extern function StopSound(sound:Sound):Void;
+	public static extern inline function StopSound(sound:Sound):Void
+	{
+		untyped __cpp__("StopSound({0}.value)", sound);
+	}
 
 	/** Check if a sound is currently playing **/
-	@:native("IsSoundPlaying")
-	public static extern function IsSoundPlaying(sound:Sound):Bool;
+	public static extern inline function IsSoundPlaying(sound:Sound):Bool
+	{
+		return untyped __cpp__("IsSoundPlaying({0}.value)", sound);
+	}
 
 	/** Set volume for a sound (1.0 is max level) **/
-	@:native("SetSoundVolume")
-	public static extern function SetSoundVolume(sound:Sound, volume:Float):Void;
+	public static extern inline function SetSoundVolume(sound:Sound, volume:Float):Void
+	{
+		untyped __cpp__("SetSoundVolume({0}.value, float({1}))", sound, volume);
+	}
 
 	/** Set pitch for a sound (1.0 is base level) **/
-	@:native("SetSoundPitch")
-	public static extern function SetSoundPitch(sound:Sound, pitch:Float):Void;
+	public static extern inline function SetSoundPitch(sound:Sound, pitch:Float):Void
+	{
+		untyped __cpp__("SetSoundPitch({0}.value, float({1}))", sound, pitch);
+	}
 
 	/** Convert wave data to desired format **/
 	public static extern inline function WaveFormat(wave:Reference<Wave>, sampleRate:Int, sampleSize:Int, channels:Int):Void
@@ -3693,8 +4471,10 @@ class Raylib
 	}
 
 	/** Copy a wave to a new wave **/
-	@:native("WaveCopy")
-	public static extern function WaveCopy(wave:Wave):Wave;
+	public static extern inline function WaveCopy(wave:Wave):Wave
+	{
+		return untyped __cpp__("cpp::Struct<Wave>(WaveCopy({0}.value))", wave);
+	}
 
 	/** Crop a wave to defined samples range **/
 	public static extern inline function WaveCrop(wave:Reference<Wave>, initSample:Int, finalSample:Int):Void
@@ -3707,98 +4487,146 @@ class Raylib
 	public static extern function GetWaveData(wave:Wave):Star<Float>; // TODO to Array
 
 	/** Load music stream from file **/
-	@:native("LoadMusicStream")
-	public static extern function LoadMusicStream(fileName:ConstCharStar):Music;
+	public static extern inline function LoadMusicStream(fileName:String):Music
+	{
+		return untyped __cpp__("cpp::Struct<Music>(LoadMusicStream({0}.__s))", fileName);
+	}
 
 	/** Unload music stream **/
-	@:native("UnloadMusicStream")
-	public static extern function UnloadMusicStream(music:Music):Void;
+	public static extern inline function UnloadMusicStream(music:Music):Void
+	{
+		untyped __cpp__("UnloadMusicStream({0}.value)", music);
+	}
 
 	/** Start music playing **/
-	@:native("PlayMusicStream")
-	public static extern function PlayMusicStream(music:Music):Void;
+	public static extern inline function PlayMusicStream(music:Music):Void
+	{
+		untyped __cpp__("PlayMusicStream({0}.value)", music);
+	}
 
 	/** Updates buffers for music streaming **/
-	@:native("UpdateMusicStream")
-	public static extern function UpdateMusicStream(music:Music):Void;
+	public static extern inline function UpdateMusicStream(music:Music):Void
+	{
+		untyped __cpp__("UpdateMusicStream({0}.value)", music);
+	}
 
 	/** Stop music playing **/
-	@:native("StopMusicStream")
-	public static extern function StopMusicStream(music:Music):Void;
+	public static extern inline function StopMusicStream(music:Music):Void
+	{
+		untyped __cpp__("StopMusicStream({0}.value)", music);
+	}
 
 	/** Pause music playing **/
-	@:native("PauseMusicStream")
-	public static extern function PauseMusicStream(music:Music):Void;
+	public static extern inline function PauseMusicStream(music:Music):Void
+	{
+		untyped __cpp__("PauseMusicStream({0}.value)", music);
+	}
 
 	/** Resume playing paused music **/
-	@:native("ResumeMusicStream")
-	public static extern function ResumeMusicStream(music:Music):Void;
+	public static extern inline function ResumeMusicStream(music:Music):Void
+	{
+		untyped __cpp__("ResumeMusicStream({0}.value)", music);
+	}
 
 	/** Check if music is playing **/
-	@:native("IsMusicPlaying")
-	public static extern function IsMusicPlaying(music:Music):Bool;
+	public static extern inline function IsMusicPlaying(music:Music):Bool
+	{
+		return untyped __cpp__("IsMusicPlaying({0}.value)", music);
+	}
 
 	/** Set volume for music (1.0 is max level) **/
-	@:native("SetMusicVolume")
-	public static extern function SetMusicVolume(music:Music, volume:Float):Void;
+	public static extern inline function SetMusicVolume(music:Music, volume:Float):Void
+	{
+		untyped __cpp__("SetMusicVolume({0}.value, float({1}))", music, volume);
+	}
 
 	/** Set pitch for a music (1.0 is base level) **/
-	@:native("SetMusicPitch")
-	public static extern function SetMusicPitch(music:Music, pitch:Float):Void;
+	public static extern inline function SetMusicPitch(music:Music, pitch:Float):Void
+	{
+		untyped __cpp__("SetMusicPitch({0}.value, float({1}))", music, pitch);
+	}
 
 	/** Set music loop count (loop repeats) **/
-	@:native("SetMusicLoopCount")
-	public static extern function SetMusicLoopCount(music:Music, count:Int):Void;
+	public static extern inline function SetMusicLoopCount(music:Music, count:Int):Void
+	{
+		untyped __cpp__("SetMusicLoopCount({0}.value, {1})", music, count);
+	}
 
 	/** Get music time length (in seconds) **/
-	@:native("GetMusicTimeLength")
-	public static extern function GetMusicTimeLength(music:Music):Float;
+	public static extern inline function GetMusicTimeLength(music:Music):Float
+	{
+		return untyped __cpp__("GetMusicTimeLength({0}.value)", music);
+	}
 
 	/** Get current music time played (in seconds) **/
-	@:native("GetMusicTimePlayed")
-	public static extern function GetMusicTimePlayed(music:Music):Float;
+	public static extern inline function GetMusicTimePlayed(music:Music):Float
+	{
+		return untyped __cpp__("GetMusicTimePlayed({0}.value)", music);
+	}
 
 	/** Init audio stream (to stream raw audio pcm data) **/
-	@:native("InitAudioStream")
-	public static extern function InitAudioStream(sampleRate:UInt, sampleSize:UInt, channels:UInt):AudioStream;
+	public static extern inline function InitAudioStream(sampleRate:UInt, sampleSize:UInt, channels:UInt):AudioStream
+	{
+		return untyped __cpp__("cpp::Struct<AudioStream>(InitAudioStream({0}, {1}, {1}))", sampleRate, sampleSize, channels);
+	}
 
 	/** Update audio stream buffers with data **/
-	@:native("UpdateAudioStream")
-	public static extern function UpdateAudioStream(stream:AudioStream, data:ConstVoidStar, samplesCount:Int):Void;
+	public static extern inline function UpdateAudioStream(stream:AudioStream, data:ConstVoidStar, samplesCount:Int):Void
+	{
+		untyped __cpp__("UpdateAudioStream({0}.value, {1}, {2})", stream, data, samplesCount);
+	}
 
 	/** Close audio stream and free memory **/
-	@:native("CloseAudioStream")
-	public static extern function CloseAudioStream(stream:AudioStream):Void;
+	public static extern inline function CloseAudioStream(stream:AudioStream):Void
+	{
+		untyped __cpp__("CloseAudioStream({0}.value)", stream);
+	}
 
 	/** Check if any audio stream buffers requires refill **/
-	@:native("IsAudioBufferProcessed")
-	public static extern function IsAudioBufferProcessed(stream:AudioStream):Bool;
+	public static extern inline function IsAudioBufferProcessed(stream:AudioStream):Bool
+	{
+		return untyped __cpp__("IsAudioBufferProcessed({0}.value)", stream);
+	}
 
 	/** Play audio stream **/
-	@:native("PlayAudioStream")
-	public static extern function PlayAudioStream(stream:AudioStream):Void;
+	public static extern inline function PlayAudioStream(stream:AudioStream):Void
+	{
+		untyped __cpp__("PlayAudioStream({0}.value)", stream);
+	}
 
 	/** Pause audio stream **/
-	@:native("PauseAudioStream")
-	public static extern function PauseAudioStream(stream:AudioStream):Void;
+	public static extern inline function PauseAudioStream(stream:AudioStream):Void
+	{
+		untyped __cpp__("PauseAudioStream({0}.value)", stream);
+	}
 
 	/** Resume audio stream **/
-	@:native("ResumeAudioStream")
-	public static extern function ResumeAudioStream(stream:AudioStream):Void;
+	public static extern inline function ResumeAudioStream(stream:AudioStream):Void
+	{
+		untyped __cpp__("ResumeAudioStream({0}.value)", stream);
+	}
 
 	/** Check if audio stream is playing **/
-	@:native("IsAudioStreamPlaying")
-	public static extern function IsAudioStreamPlaying(stream:AudioStream):Bool;
+	public static extern inline function IsAudioStreamPlaying(stream:AudioStream):Bool
+	{
+		return untyped __cpp__("IsAudioStreamPlaying({0}.value)", stream);
+	}
 
 	/** Stop audio stream **/
-	@:native("StopAudioStream")
-	public static extern function StopAudioStream(stream:AudioStream):Void;
+	public static extern inline function StopAudioStream(stream:AudioStream):Void
+	{
+		untyped __cpp__("StopAudioStream({0}.value)", stream);
+	}
 
 	/** Set volume for audio stream (1.0 is max level) **/
-	@:native("SetAudioStreamVolume")
-	public static extern function SetAudioStreamVolume(stream:AudioStream, volume:Float):Void;
+	public static extern inline function SetAudioStreamVolume(stream:AudioStream, volume:Float):Void
+	{
+		untyped __cpp__("SetAudioStreamVolume({0}.value, float({1}))", stream, volume);
+	}
 
 	/** Set pitch for audio stream (1.0 is base level) **/
-	@:native("SetAudioStreamPitch")
-	public static extern function SetAudioStreamPitch(stream:AudioStream, pitch:Float):Void;
+	public static extern inline function SetAudioStreamPitch(stream:AudioStream, pitch:Float):Void
+	{
+		untyped __cpp__("SetAudioStreamPitch({0}.value, float({1}))", stream, pitch);
+	}
 }

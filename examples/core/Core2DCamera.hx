@@ -27,7 +27,7 @@ class Core2DCamera
 
 		InitWindow(screenWidth, screenHeight, "raylib [core] example - 2d camera");
 
-		var player = { x: 400, y: 280, width: 40, height: 40 };
+		var player = new Rectangle(400, 280, 40, 40);
 		var buildings = [];
 		var buildColors = [];
 
@@ -37,24 +37,24 @@ class Core2DCamera
 		{
 			var height = GetRandomValue(100, 800);
 
-			buildings[i] = {
-				width: GetRandomValue(50, 200),
-				height: height,
-				y: screenHeight - 130 - height,
-				x: -6000 + spacing
-			};
+			buildings[i] = new Rectangle(
+				-6000 + spacing,
+				screenHeight - 130 - height,
+				GetRandomValue(50, 200),
+				height
+			);
 
 			spacing += buildings[i].width;
 
-			buildColors[i] = { r: GetRandomValue(200, 240), g: GetRandomValue(200, 240), b: GetRandomValue(200, 250), a: 255 };
+			buildColors[i] = new Color(GetRandomValue(200, 240), GetRandomValue(200, 240), GetRandomValue(200, 250), 255);
 		}
 
-		var camera = {
-			target: { x: player.x + 20, y: player.y + 20 },
-			offset: { x: 0, y: 0 },
-			rotation: 0.0,
-			zoom: 1.0
-		};
+		var camera = new Camera2D(
+			new Vector2(0, 0),
+			new Vector2(player.x + 20, player.y + 20),
+			0.0,
+			1.0
+		);
 
 		SetTargetFPS(60);
 		//--------------------------------------------------------------------------------------
@@ -76,11 +76,11 @@ class Core2DCamera
 			}
 
 			// Camera target follows player
-			camera.target = { x: player.x + 20, y: player.y + 20 };
+			camera.target = new Vector2(player.x + 20, player.y + 20);
 
 			// Camera rotation controls
-			if (IsKeyDown(KEY_A)) camera.rotation--;
-			else if (IsKeyDown(KEY_S)) camera.rotation++;
+			if (IsKeyDown(KEY_A)) camera.rotation -= 1;
+			else if (IsKeyDown(KEY_S)) camera.rotation += 1;
 
 			// Limit camera rotation to 80 degrees (-40 to 40)
 			if (camera.rotation > 40) camera.rotation = 40;
