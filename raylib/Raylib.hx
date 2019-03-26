@@ -1,5 +1,6 @@
 package raylib;
 
+import cpp.RawPointer;
 import cpp.Char;
 import cpp.ConstCharStar;
 import cpp.Function;
@@ -821,6 +822,51 @@ private extern class _MaterialMap
 	public var value:Float;
 }
 
+@:generic
+private class NativeArray<T>
+{
+	public var pointer:T;
+	public var size:Int;
+
+	@:allow(raylib)
+	inline function new(pointer:T, size:Int)
+	{
+		this.pointer = pointer;
+		this.size = size;
+	}
+}
+
+abstract NativeMaterialMapArray (NativeArray<cpp.Pointer<_MaterialMap>>)
+{
+	@:allow(raylib)
+	inline function new(pointer:cpp.Pointer<_MaterialMap>, size:Int)
+	{
+		this = new NativeArray<cpp.Pointer<_MaterialMap>>(pointer, size);
+	}
+
+	@:arrayAccess
+	inline function get(index:Int):Star<_MaterialMap>
+	{
+		if (index < 0 || index >= this.size)
+		{
+			throw 'index out of bound: $index';
+		}
+
+		return untyped __cpp__("({0} + {1})", this.pointer, index);
+	}
+
+	@:arrayAccess
+	inline function set(index:Int, value:Star<_MaterialMap>):Star<_MaterialMap>
+	{
+		if (index < 0 || index >= this.size)
+		{
+			throw 'index out of bound: $index';
+		}
+
+		return untyped __cpp__("&(({0})[{1}] = *{2})", this.pointer, index, value);
+	}
+}
+
 /** Material type (generic) **/
 abstract Material (MaterialStruct)
 {
@@ -829,7 +875,9 @@ abstract Material (MaterialStruct)
 	inline function get_shader() return untyped __cpp__("cpp::Struct<Shader>({0}.value.shader)", this);
 	inline function set_shader(v:Shader) return untyped __cpp__("cpp::Struct<Shader>({0}.value.shader = {1}.value)", this, v);
 
-	// TODO maps
+	/** Material maps **/
+	public var maps(get, never):NativeMaterialMapArray;
+	inline function get_maps() return new NativeMaterialMapArray(untyped __cpp__("cpp::Pointer<MaterialMap>({0}.value.maps)", this), Raylib.MAX_MATERIAL_MAPS);
 
 	// TODO params
 }
@@ -848,7 +896,7 @@ private extern class _Material
 {
 	public var shader:_Shader;
 
-	/** Material maps **/
+
 	public var maps:Star<_MaterialMap>;
 
 	/** Material generic parameters (if required) **/
@@ -1284,6 +1332,8 @@ extern enum abstract ConfigFlag (UInt)
 	/** Set to try enabling V-Sync on GPU **/
 	@:native("FLAG_VSYNC_HINT")
 	var FLAG_VSYNC_HINT;
+
+	@:op(A | B) static function or(lhs:ConfigFlag, rhs:ConfigFlag):ConfigFlag;
 }
 
 /** Trace log type **/
@@ -2275,6 +2325,8 @@ extern enum abstract GestureType (UInt)
 
 	@:native("GESTURE_PINCH_OUT")
 	var GESTURE_PINCH_OUT;
+
+	@:op(A | B) static function or(lhs:GestureType, rhs:GestureType):GestureType;
 }
 
 /** Camera system modes **/
