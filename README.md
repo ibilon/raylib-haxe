@@ -3,6 +3,8 @@
 [![License](https://img.shields.io/badge/license-ZLIB-blue.svg)](http://opensource.org/licenses/ZLIB)
 [![Build Status](https://travis-ci.org/ibilon/raylib-haxe.svg?branch=master)](https://travis-ci.org/ibilon/raylib-haxe)
 
+**The externs are not complete and are currently not working, hxcpp's temp vars don't match the stack access of c.**
+
 Haxe externs for the [raylib library](https://github.com/raysan5/raylib), version 2.4.
 
 This requires a C++ compiler, cmake and make to build raylib during your first build.
